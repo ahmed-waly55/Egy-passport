@@ -1,0 +1,15 @@
+.custom-btn {
+  border: none;
+  transition: all 0.3s ease;
+  direction: rtl;
+  cursor: pointer;
+}
+
+.custom-btn:hover:not(:disabled) {
+  filter: brightness(90%);
+}
+
+.custom-btn:disabled {
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
+  opacity: 0.7;
+}
