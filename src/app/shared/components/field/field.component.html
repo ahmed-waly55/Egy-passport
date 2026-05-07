@@ -1,1 +1,47 @@
-<p>field works!</p>
+<!-- custom-input.component.html -->
+
+<div class="custom-input-group">
+
+  <!-- Label -->
+   @if(label){
+ <label  class="input-label">
+    {{ label }}
+  </label>
+   }
+
+
+  <div class="input-wrapper">
+
+    <!-- Right Icon -->
+     @if(icon){
+<i
+  class="input-icon-right"
+  [ngClass]="['fa-regular', icon]"
+></i>
+     }
+
+
+
+    <!-- Input -->
+    <input
+      [type]="showPassword ? 'text' : type"
+      class="form-control custom-input"
+      [placeholder]="placeholder"
+      [value]="value"
+      (input)="onInput($event)"
+    />
+
+    <!-- Password Toggle -->
+      @if(type === 'password'){
+            <i
+      class="toggle-password fa-regular"
+      [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
+      (click)="togglePassword()"
+    ></i>
+      }
+
+
+
+  </div>
+
+</div>

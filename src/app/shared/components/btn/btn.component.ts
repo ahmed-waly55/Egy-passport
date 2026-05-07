@@ -9,9 +9,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './btn.component.css'
 })
 export class BtnComponent {
- @Input() label: string = 'تسجيل الدخول'; // default label in Arabic
+ @Input({required: true}) label: string = 'تسجيل الدخول'; // default label in Arabic
   @Input() customColor: string = '#b3000e'; // default color (a shade of red)
-  @Input() iconClass: string = 'bi bi-arrow-left'; // default icon (Bootstrap Icons)
+  @Input() iconClass: string = 'fa-solid fa-arrow-left-long'; // default icon (Bootstrap Icons)
 
   @Input() width: string = '100%';  // default to full width
   @Input() route: string = '';  // optional route for navigation
