@@ -1,0 +1,130 @@
+<div class="auth-page container-fluid p-0">
+  <div class="row min-vh-100 g-0">
+
+    <!-- Left Side (Text & Instructions) -->
+    <div
+      class="col-lg-6 d-flex align-items-center text-side"
+    >
+      <div class="content-wrapper">
+
+        <div class="brand mb-5">
+          <h2>Egy E-Passport</h2>
+          <p>Smart Digital Travel Identity</p>
+        </div>
+
+        <div class="hero-content">
+          <h1>
+            هويتك الرقمية..<br />
+            سفرك أسهل وأأمن
+          </h1>
+
+          <p class="description">
+            منصة الهوية الرقمية الذكية لجواز السفر الإلكتروني
+            لحماية هويتك وتسهيل سفرك في كل مكان
+          </p>
+        </div>
+
+        <div class="features row text-center mt-5">
+
+          <div class="col-4">
+            <div class="feature-icon">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h6>أمان عالي</h6>
+            <small>
+              حماية متقدمة لهويتك الرقمية
+            </small>
+          </div>
+
+          <div class="col-4">
+            <div class="feature-icon">
+              <i class="fa-regular fa-clock"></i>
+            </div>
+            <h6>سرعة وكفاءة</h6>
+            <small>
+              إجراءات أسرع وتجربة أفضل
+            </small>
+          </div>
+
+          <div class="col-4">
+            <div class="feature-icon">
+              <i class="fa-solid fa-globe"></i>
+            </div>
+            <h6>تواصل عالمي</h6>
+            <small>
+              هوية ذكية معتمدة عالمياً
+            </small>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side (Form) -->
+    <div
+      class="col-lg-6 d-flex align-items-center justify-content-center form-side"
+    >
+      <div class="login-card">
+
+        <div class="text-center mb-4">
+          <div class="icon-circle">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+
+          <h2>تسجيل الدخول</h2>
+          <p>مرحباً بك مجدداً</p>
+        </div>
+
+        <form [formGroup]="loginForm">
+
+          <app-field
+            label="البريد الإلكتروني أو رقم الهاتف"
+            placeholder="أدخل البريد الإلكتروني أو رقم الهاتف"
+            [control]="emailOrPhone"
+            [icon]="'fa-user'"
+          />
+
+          <app-field
+            label="كلمة المرور"
+            placeholder="أدخل كلمة المرور"
+            [control]="password"
+            [icon]="'fa-lock'"
+            type="password"
+          />
+
+          <div
+            class="d-flex justify-content-between align-items-center my-3"
+          >
+            <a class="forgot-password">
+              نسيت كلمة المرور؟
+            </a>
+
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="remember"
+              />
+
+              <label
+                class="form-check-label"
+                for="remember"
+              >
+                تذكرني
+              </label>
+            </div>
+          </div>
+
+          <app-btn
+            label="تسجيل الدخول"
+            width="100%"
+            customColor="#B3000E"
+            [iconClass]="'fa-solid fa-arrow-left-long'"
+          />
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
