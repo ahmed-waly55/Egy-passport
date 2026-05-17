@@ -79,7 +79,7 @@
 
 </div>
 
-        <form [formGroup]="loginForm">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
           <app-field dir="rtl"
             label="البريد الإلكتروني أو رقم الهاتف"
@@ -110,6 +110,7 @@
             width="100%"
             customColor="#B3000E"
             [iconClass]="'fa-solid fa-arrow-left-long'"
+            [isDisabled]="loginForm.invalid"
           />
 
         </form>
@@ -143,7 +144,7 @@
       </div>
 
       <div class="signup mt-4 text-center">
-          <a class="text-decoration-none text-danger fw-bold m-4" href="/auth/signup">انشاء حساب جديد </a>
+          <a class="text-decoration-none text-danger fw-bold m-4" routerLink="/signup">انشاء حساب جديد </a>
         <p class="mb-0 d-inline-block">ليس لديك حساب؟</p>
 
       </div>

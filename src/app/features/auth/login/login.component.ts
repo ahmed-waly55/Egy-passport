@@ -3,10 +3,11 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { BtnComponent } from "../../../shared/components/btn/btn.component";
 import { FieldComponent } from "../../../shared/components/field/field.component";
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [BtnComponent, FieldComponent,ReactiveFormsModule,CommonModule],
+  imports: [BtnComponent, FieldComponent,ReactiveFormsModule,CommonModule,RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
