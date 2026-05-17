@@ -1,0 +1,46 @@
+<div class="input-group">
+
+  <!-- LABEL -->
+  @if(label){
+    <label class="input-label p-1">
+      {{ label }}
+    </label>
+  }
+
+  <!-- INPUT WRAPPER -->
+  <div class="input-wrapper">
+
+    @if(icon){
+      <i class="input-icon fa-regular" [ngClass]="icon"></i>
+    }
+
+    <input
+      class="input-field"
+      [type]="showPassword ? 'text' : type"
+      [placeholder]="placeholder"
+      [formControl]="control"
+      [ngClass]="{
+        'invalid': isInvalid,
+        'valid': isValid
+      }"
+    />
+
+    @if(type === 'password'){
+      <i
+        class="toggle-icon fa-regular"
+        [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
+        (click)="togglePassword()"
+      ></i>
+    }
+
+  </div>
+
+  <!-- ERROR -->
+  @if(errorMessage){
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>{{ errorMessage }}</span>
+    </div>
+  }
+
+</div>

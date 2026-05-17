@@ -1,0 +1,15 @@
+<button
+  class="btn d-flex align-items-center justify-content-center shadow-sm custom-btn"
+  [routerLink]="!isDisabled ? route : null"
+  [disabled]="isDisabled"
+  [style.width]="width"
+  [ngStyle]="{
+    'background-color': isDisabled ? '#cccccc' : customColor,
+    'color': 'white',
+    'border-radius': '15px',
+    'padding': '12px'
+  }">
+
+  <span class="mx-2">{{ label }}</span>
+  <i [class]="iconClass"  style="font-size: 1.2rem; padding-right: 10px;"></i>
+</button>
