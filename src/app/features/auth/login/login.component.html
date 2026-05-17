@@ -61,15 +61,23 @@
     <div class="col-lg-6 form-side">
 
       <div class="login-card">
+<div class="d-flex align-items-center justify-content-center gap-3 mb-4">
 
-        <div class="text-center mb-4">
-          <div class="icon-circle">
-            <i class="fa-solid fa-lock"></i>
-          </div>
+  <!-- Icon -->
+  <div
+    class="rounded-circle bg-white shadow-sm d-flex align-items-center justify-content-center border"
+    style="width: 70px; height: 70px;"
+  >
+    <i class="fa-solid fa-lock text-danger fs-4"></i>
+  </div>
 
-          <h2>تسجيل الدخول</h2>
-          <p>مرحباً بك مجدداً</p>
-        </div>
+  <!-- Text -->
+  <div class="text-end">
+    <h2 class="fw-bold mb-1">تسجيل الدخول</h2>
+    <p class="text-muted mb-0 text-center">مرحباً بك مجدداً</p>
+  </div>
+
+</div>
 
         <form [formGroup]="loginForm">
 
@@ -84,16 +92,16 @@
             label="كلمة المرور"
             placeholder="أدخل كلمة المرور"
             [control]="password"
-            [icon]="'fa-lock'"
+            [icon]="'fa-solid fa-lock'"
             type="password"
           />
 
           <div class="d-flex justify-content-between align-items-center my-3">
-            <a class="forgot-password">نسيت كلمة المرور؟</a>
+            <a class="forgot-password text-danger text-decoration-none">نسيت كلمة المرور؟</a>
 
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="remember" />
               <label class="form-check-label" for="remember">تذكرني</label>
+              <input class="form-check-input" type="checkbox" id="remember" />
             </div>
           </div>
 
@@ -105,6 +113,40 @@
           />
 
         </form>
+        <div class="divider">
+          <span>أو تابع باستخدام</span>
+        </div>
+
+      <div class="social-login row g-3">
+
+  <div class="col-4">
+    <button class="social-btn w-100">
+      <i class="fa-brands fa-google google-icon"></i>
+      <span>Google</span>
+    </button>
+  </div>
+
+  <div class="col-4">
+    <button class="social-btn w-100">
+      <i class="fa-brands fa-apple apple-icon"></i>
+      <span>Apple</span>
+    </button>
+  </div>
+
+  <div class="col-4">
+    <button class="social-btn w-100">
+      <i class="fa-solid fa-fingerprint fingerprint-icon"></i>
+      <span>البصمة</span>
+    </button>
+  </div>
+
+      </div>
+
+      <div class="signup mt-4 text-center">
+          <a class="text-decoration-none text-danger fw-bold m-4" href="/auth/signup">انشاء حساب جديد </a>
+        <p class="mb-0 d-inline-block">ليس لديك حساب؟</p>
+
+      </div>
 
       </div>
 

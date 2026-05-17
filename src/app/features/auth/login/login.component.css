@@ -143,7 +143,6 @@
   }
 }
 
-/* 🎯 أهم Fix لمشكلة 1145px */
 @media (max-width: 1200px) {
   .text-side {
     padding: 35px;
@@ -178,4 +177,68 @@
 .description {
   word-break: break-word;
   overflow-wrap: break-word;
+}
+
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  color: #666;
+  font-size: 14px;
+  margin: 20px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ddd;
+}
+
+.divider span {
+  padding: 0 15px;
+  white-space: nowrap;
+}
+
+
+.social-login {
+  margin-top: 20px;
+}
+
+.social-btn {
+  height: 60px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+  border-color: #d0d0d0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.social-btn i {
+  font-size: 20px;
+}
+
+.google-icon {
+  color: #db4437;
+}
+
+.apple-icon {
+  color: #000;
+}
+
+.fingerprint-icon {
+  color: #c62828;
 }
