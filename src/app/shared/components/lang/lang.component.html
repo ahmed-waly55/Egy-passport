@@ -1,0 +1,52 @@
+<div
+  class="position-fixed d-inline-block text-start mx-5"
+  [ngClass]="currentLang().dir === 'rtl' ? 'pe-5 end-0' : 'ps-5 start-0'"
+>
+
+  <button
+    (click)="toggleDropdown()"
+    class="d-flex align-items-center gap-2 px-3 py-1 bg-white border border-light-subtle rounded-pill shadow-sm text-secondary-emphasis fw-medium text-decoration-none"
+    style="font-size: 13px; cursor: pointer; transition: all 0.2s ease-in-out;"
+    onmouseover="this.style.backgroundColor='#f8f9fa'"
+    onmouseout="this.style.backgroundColor='#ffffff'"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.3" stroke="currentColor" style="width: 16px; height: 16px;" class="text-secondary">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a14.966 14.966 0 0 1-3.5-9 14.966 14.966 0 0 1 3.5-9m0 18a14.966 14.966 0 0 0 3.5-9 14.966 14.966 0 0 0-3.5-9m-9 9h18" />
+    </svg>
+
+    <span>{{ currentLang().name }}</span>
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
+      style="width: 10px; height: 10px; transition: transform 0.2s;"
+      [style.transform]="isOpen() ? 'rotate(180deg)' : 'rotate(0deg)'"
+      class="text-muted"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+  </button>
+
+  @if (isOpen()) {
+    <div
+      class="position-absolute mt-2 bg-white border border-light-subtle shadow-lg z-3"
+      [ngClass]="currentLang().dir === 'rtl' ? 'end-0' : 'start-0'"
+      style="width: 120px; border-radius: 12px; overflow: hidden;"
+    >
+      <div class="py-1">
+        @for (lang of languages; track lang.code) {
+          <button
+            (click)="$event.stopPropagation(); selectLanguage(lang)"
+            [attr.dir]="lang.dir"
+            class="dropdown-item w-full px-3 py-2 text-secondary-emphasis bg-transparent border-0 text-start"
+            [class.text-danger]="currentLang().code === lang.code"
+            [class.fw-bold]="currentLang().code === lang.code"
+            style="font-size: 13px; cursor: pointer;"
+          >
+            {{ lang.name }}
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+</div>
