@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <div class="col-lg-6 form-side position-relative">
+    <div class="col-lg-6 col-sm-12 col-md-12 form-side position-relative">
 
       <app-lang
         class="position-absolute top-0 m-4"
@@ -50,9 +50,9 @@
         style="z-index: 1050;"
       ></app-lang>
 
-      <div class="login-card my-5" style="max-width: 650px;">
+      <div class="login-card my-5" style="max-width: 850px;">
 
-        <mat-stepper [linear]="true" #stepper dir="rtl" class="custom-stepper">
+        <mat-stepper [ngStyle]="{backgroundColor: '#fefefe'}" [linear]="true" #stepper dir="rtl" class="custom-stepper">
 
           <mat-step [stepControl]="signupForm">
             <ng-template matStepLabel>إنشاء الحساب</ng-template>
@@ -112,12 +112,12 @@
                     [icon]="'fa-solid fa-lock'"
                     type="password"
                   />
-                  <div class="d-flex align-items-center gap-2 mt-1 px-1">
+                  <!-- <div class="d-flex align-items-center gap-2 mt-1 px-1">
                     <span class="text-muted" style="font-size: 11px;">قوة كلمة المرور: ضعيفة</span>
                     <div class="flex-grow-1 bg-light rounded" style="height: 4px;">
-                      <div class="bg-danger rounded" style="width: 25%; height: 100%;"></div>
+                      <div class="bg-danger rounded" style="width: 50%; height: 100%;"></div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
 
                 <div class="col-12">
