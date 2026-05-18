@@ -4,6 +4,12 @@ import { BtnComponent } from "../../../shared/components/btn/btn.component";
 import { FieldComponent } from "../../../shared/components/field/field.component";
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { LangComponent } from "../../../shared/components/lang/lang.component";
+
+@Component({
+  selector: 'app-login',
+  imports: [BtnComponent, FieldComponent, ReactiveFormsModule, CommonModule, RouterLink, LangComponent],
+
 
 @Component({
   selector: 'app-login',
@@ -12,6 +18,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
+
   loginForm = new FormGroup({
     emailOrPhone: new FormControl('', [
       Validators.required,
@@ -41,3 +49,9 @@ export class LoginComponent {
     console.log(this.loginForm.value);
   }
 }
+
+
+
+
+
+=======

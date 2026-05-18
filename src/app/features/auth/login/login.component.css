@@ -242,3 +242,11 @@
 .fingerprint-icon {
   color: #c62828;
 }
+
+.form-check-input:checked {
+  background-color: red;
+  border-color: red;
+}
+
+
+
