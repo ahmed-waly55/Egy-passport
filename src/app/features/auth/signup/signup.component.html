@@ -1,38 +1,173 @@
-<p>signup works!</p>
+<div class="auth-page container-fluid p-0">
+  <div class="row min-vh-100 g-0">
 
+    <div class="col-lg-6 text-side">
+      <div class="content-wrapper">
 
+        <div class="brand mb-5">
+          <div class="logo">
+            <h2>Egy</h2>
+            <h2>E-Passport</h2>
+          </div>
+          <p>Smart Digital Travel Identity</p>
+        </div>
 
- <form [formGroup]="SignUpForms">
+        <div class="hero-content">
+          <h1 class="text-center fw-bold lh-base fs-1 fs-lg-2 fs-xl-1">
+            هويتك الرقمية..<br />
+            سفرك أسهل وأأمن
+          </h1>
 
-          <app-field dir="rtl"
-            label="البريد الإلكتروني أو رقم الهاتف"
-            placeholder="أدخل البريد الإلكتروني أو رقم الهاتف"
-            [control]="emailOrPhone"
-            [icon]="'fa-user'"
-          />
+          <p class="description text-center mt-4">
+            منصة الهوية الرقمية الذكية لجواز السفر الإلكتروني
+            لحماية هويتك وتسهيل سفرك في كل مكان بأعلى معايير الأمان والخصوصية
+          </p>
+        </div>
 
-          <app-field dir="rtl"
-            label="كلمة المرور"
-            placeholder="أدخل كلمة المرور"
-            [control]="password"
-            [icon]="'fa-solid fa-lock'"
-            type="password"
-          />
-
-          <div class="d-flex justify-content-between align-items-center my-3">
-            <a class="forgot-password text-danger text-decoration-none">نسيت كلمة المرور؟</a>
-
-            <div class="form-check">
-              <label class="form-check-label" for="remember">تذكرني</label>
-              <input class="form-check-input" type="checkbox" id="remember" />
+        <div class="features row text-center mt-5">
+          <div class="col-4">
+            <div class="feature-icon">
+              <i class="fa-solid fa-shield-halved"></i>
             </div>
+            <h6>آمن وموثوق</h6>
+            <small>تشفير وحماية على أعلى مستوى</small>
+          </div>
+
+          <div class="col-4">
+            <div class="feature-icon">
+              <i class="fa-regular fa-clock"></i>
+            </div>
+            <h6>سريع وسهل</h6>
+            <small>إجراءات رقمية في دقائق</small>
+          </div>
+
+          <div class="col-4">
+            <div class="feature-icon">
+              <i class="fa-solid fa-globe"></i>
+            </div>
+            <h6>متاح في أي وقت</h6>
+            <small>من أي مكان وفي أي وقت</small>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-lg-6 form-side position-relative">
+
+      <app-lang
+        class="position-absolute top-0 m-4"
+        [ngClass]="activeLang.dir === 'rtl' ? 'end-0' : 'start-0'"
+        style="z-index: 1050;"
+      ></app-lang>
+
+      <div class="login-card my-5" style="max-width: 650px;">
+
+        <div class="text-center mb-4">
+          <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center border mb-3" style="width: 75px; height: 75px;">
+            <i class="fa-solid fa-user-plus text-secondary fs-3"></i>
+          </div>
+          <h2 class="fw-bold mb-1 text-dark">إنشاء حساب جديد</h2>
+          <p class="text-muted mb-0 small">انضم إلى منصة جواز السفر الإلكتروني</p>
+        </div>
+
+        <form dir="rtl" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+          <div class="row g-3">
+
+            <div class="col-md-6">
+              <app-field
+                label="الاسم الكامل"
+                placeholder="أدخل اسمك الكامل"
+                [control]="signupForm.controls.fullName"
+                [icon]="'fa-regular fa-user'"
+              />
+            </div>
+
+            <div class="col-md-6">
+              <app-field
+                label="الرقم القومي"
+                placeholder="14 رقم"
+                [control]="signupForm.controls.nationalId"
+                [icon]="'fa-regular fa-id-card'"
+              />
+            </div>
+
+            <div class="col-md-6">
+              <app-field
+                label="البريد الإلكتروني"
+                placeholder="example@domain.com"
+                [control]="signupForm.controls.email"
+                [icon]="'fa-regular fa-envelope'"
+              />
+            </div>
+
+            <div class="col-md-6">
+              <app-field
+                label="رقم الهاتف المحمول"
+                placeholder="10xxxxxxxx"
+                [control]="signupForm.controls.phone"
+                [icon]="'fa-solid fa-phone'"
+              />
+            </div>
+
+            <div class="col-12">
+              <app-field
+                label="كلمة المرور"
+                placeholder="أدخل كلمة المرور"
+                [control]="signupForm.controls.password"
+                [icon]="'fa-solid fa-lock'"
+                type="password"
+              />
+              <div class="d-flex align-items-center gap-2 mt-1 px-1">
+                <span class="text-muted" style="font-size: 11px;">قوة كلمة المرور: ضعيفة</span>
+                <div class="flex-grow-1 bg-light rounded" style="height: 4px;">
+                  <div class="bg-danger rounded" style="width: 25%; height: 100%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <app-field
+                label="تأكيد كلمة المرور"
+                placeholder="أعد إدخال كلمة المرور"
+                [control]="signupForm.controls.confirmPassword"
+                [icon]="'fa-solid fa-lock'"
+                type="password"
+              />
+            </div>
+
+          </div>
+
+          <div class="form-check d-flex align-items-center justify-content-start gap-2 my-4">
+            <input class="form-check-input m-0" type="checkbox" id="terms" formControlName="agreeToTerms" />
+            <label class="form-check-label small user-select-none" for="terms">
+              أوافق على <a class="text-danger text-decoration-none fw-semibold" style="cursor: pointer;">الشروط والأحكام وسياسة الخصوصية</a>
+            </label>
           </div>
 
           <app-btn
-            label="تسجيل الدخول"
+            label="إنشاء حساب"
             width="100%"
             customColor="#B3000E"
-            [iconClass]="'fa-solid fa-arrow-left-long'"
+            [iconClass]="'fa-solid fa-user-plus'"
+            [isDisabled]="signupForm.invalid"
           />
 
         </form>
+
+        <div class="mt-4 text-center d-flex justify-content-center gap-1 small">
+          <a class="text-decoration-none text-danger fw-bold" routerLink="/login">تسجيل الدخول</a>
+          <p class="mb-0 text-muted">لديك حساب بالفعل؟</p>
+        </div>
+
+        <div class="text-center text-muted mt-4 pt-2 border-top border-light small d-flex align-items-center justify-content-center gap-2">
+          <i class="fa-solid fa-lock fs-6 text-secondary"></i>
+          <span>جميع بياناتك محمية بتقنيات التشفير المتقدمة</span>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
