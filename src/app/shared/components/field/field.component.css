@@ -6,11 +6,10 @@
 .input-label {
   display: block;
   margin-bottom: 6px;
-
+  /* text-align: end !important; */
   font-size: 13px;
   font-weight: 600;
   color: #333;
-
   letter-spacing: 0.2px;
 }
 
@@ -34,6 +33,7 @@
   background: #fff;
   box-sizing: border-box;
 }
+
 
 /* focus */
 .input-field:focus {

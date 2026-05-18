@@ -2,7 +2,7 @@
 
   <!-- LABEL -->
   @if(label){
-    <label class="input-label p-1">
+    <label  class="input-label p-1 ">
       {{ label }}
     </label>
   }
@@ -15,7 +15,7 @@
     }
 
     <input
-      class="input-field"
+      class="input-field text-end"
       [type]="showPassword ? 'text' : type"
       [placeholder]="placeholder"
       [formControl]="control"
