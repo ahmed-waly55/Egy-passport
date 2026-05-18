@@ -1,3 +1,10 @@
+# install Angular material
+
+```
+ng add @angular/material
+
+```
+
 ## Project Structure
 
 ```
