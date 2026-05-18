@@ -1,47 +1,46 @@
-<!-- custom-input.component.html -->
+<div class="input-group">
 
-<div class="custom-input-group">
+  <!-- LABEL -->
+  @if(label){
+    <label class="input-label p-1">
+      {{ label }}
+    </label>
+  }
 
-  <!-- Label -->
-   @if(label){
- <label  class="input-label">
-    {{ label }}
-  </label>
-   }
-
-
+  <!-- INPUT WRAPPER -->
   <div class="input-wrapper">
 
-    <!-- Right Icon -->
-     @if(icon){
-<i
-  class="input-icon-right"
-  [ngClass]="['fa-regular', icon]"
-></i>
-     }
+    @if(icon){
+      <i class="input-icon fa-regular" [ngClass]="icon"></i>
+    }
 
-
-
-    <!-- Input -->
     <input
+      class="input-field"
       [type]="showPassword ? 'text' : type"
-      class="form-control custom-input"
       [placeholder]="placeholder"
-      [value]="value"
-      (input)="onInput($event)"
+      [formControl]="control"
+      [ngClass]="{
+        'invalid': isInvalid,
+        'valid': isValid
+      }"
     />
 
-    <!-- Password Toggle -->
-      @if(type === 'password'){
-            <i
-      class="toggle-password fa-regular"
-      [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
-      (click)="togglePassword()"
-    ></i>
-      }
-
-
+    @if(type === 'password'){
+      <i
+        class="toggle-icon fa-regular"
+        [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
+        (click)="togglePassword()"
+      ></i>
+    }
 
   </div>
+
+  <!-- ERROR -->
+  @if(errorMessage){
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>{{ errorMessage }}</span>
+    </div>
+  }
 
 </div>

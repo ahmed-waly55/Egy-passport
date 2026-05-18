@@ -9,10 +9,16 @@ import { LangComponent } from "../../../shared/components/lang/lang.component";
 @Component({
   selector: 'app-login',
   imports: [BtnComponent, FieldComponent, ReactiveFormsModule, CommonModule, RouterLink, LangComponent],
+
+
+@Component({
+  selector: 'app-login',
+  imports: [BtnComponent, FieldComponent,ReactiveFormsModule,CommonModule,RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
 
   loginForm = new FormGroup({
     emailOrPhone: new FormControl('', [
@@ -48,3 +54,4 @@ export class LoginComponent {
 
 
 
+=======

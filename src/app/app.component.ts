@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { LoginComponent } from "./features/auth/login/login.component";
 import { RouterOutlet } from '@angular/router';
-import { BtnComponent } from './shared/components/btn/btn.component';
-import { FieldComponent } from "./shared/components/field/field.component";
 
 @Component({
   selector: 'app-root',
-  imports: [BtnComponent, FieldComponent],
+  imports: [ RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'Egy-passport';
+
 }
