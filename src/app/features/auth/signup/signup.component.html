@@ -3,7 +3,6 @@
 
     <div class="col-lg-6 text-side">
       <div class="content-wrapper">
-
         <div class="brand mb-5">
           <div class="logo">
             <h2>Egy</h2>
@@ -17,7 +16,6 @@
             هويتك الرقمية..<br />
             سفرك أسهل وأأمن
           </h1>
-
           <p class="description text-center mt-4">
             منصة الهوية الرقمية الذكية لجواز السفر الإلكتروني
             لحماية هويتك وتسهيل سفرك في كل مكان بأعلى معايير الأمان والخصوصية
@@ -26,30 +24,21 @@
 
         <div class="features row text-center mt-5">
           <div class="col-4">
-            <div class="feature-icon">
-              <i class="fa-solid fa-shield-halved"></i>
-            </div>
+            <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
             <h6>آمن وموثوق</h6>
             <small>تشفير وحماية على أعلى مستوى</small>
           </div>
-
           <div class="col-4">
-            <div class="feature-icon">
-              <i class="fa-regular fa-clock"></i>
-            </div>
+            <div class="feature-icon"><i class="fa-regular fa-clock"></i></div>
             <h6>سريع وسهل</h6>
             <small>إجراءات رقمية في دقائق</small>
           </div>
-
           <div class="col-4">
-            <div class="feature-icon">
-              <i class="fa-solid fa-globe"></i>
-            </div>
+            <div class="feature-icon"><i class="fa-solid fa-globe"></i></div>
             <h6>متاح في أي وقت</h6>
             <small>من أي مكان وفي أي وقت</small>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -63,111 +52,198 @@
 
       <div class="login-card my-5" style="max-width: 650px;">
 
-        <div class="text-center mb-4">
-          <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center border mb-3" style="width: 75px; height: 75px;">
-            <i class="fa-solid fa-user-plus text-secondary fs-3"></i>
-          </div>
-          <h2 class="fw-bold mb-1 text-dark">إنشاء حساب جديد</h2>
-          <p class="text-muted mb-0 small">انضم إلى منصة جواز السفر الإلكتروني</p>
-        </div>
+        <mat-stepper [linear]="true" #stepper dir="rtl" class="custom-stepper">
 
-        <form dir="rtl" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+          <mat-step [stepControl]="signupForm">
+            <ng-template matStepLabel>إنشاء الحساب</ng-template>
 
-          <div class="row g-3">
-
-            <div class="col-md-6">
-              <app-field
-                label="الاسم الكامل"
-                placeholder="أدخل اسمك الكامل"
-                [control]="signupForm.controls.fullName"
-                [icon]="'fa-regular fa-user'"
-              />
-            </div>
-
-            <div class="col-md-6">
-              <app-field
-                label="الرقم القومي"
-                placeholder="14 رقم"
-                [control]="signupForm.controls.nationalId"
-                [icon]="'fa-regular fa-id-card'"
-              />
-            </div>
-
-            <div class="col-md-6">
-              <app-field
-                label="البريد الإلكتروني"
-                placeholder="example@domain.com"
-                [control]="signupForm.controls.email"
-                [icon]="'fa-regular fa-envelope'"
-              />
-            </div>
-
-            <div class="col-md-6">
-              <app-field
-                label="رقم الهاتف المحمول"
-                placeholder="10xxxxxxxx"
-                [control]="signupForm.controls.phone"
-                [icon]="'fa-solid fa-phone'"
-              />
-            </div>
-
-            <div class="col-12">
-              <app-field
-                label="كلمة المرور"
-                placeholder="أدخل كلمة المرور"
-                [control]="signupForm.controls.password"
-                [icon]="'fa-solid fa-lock'"
-                type="password"
-              />
-              <div class="d-flex align-items-center gap-2 mt-1 px-1">
-                <span class="text-muted" style="font-size: 11px;">قوة كلمة المرور: ضعيفة</span>
-                <div class="flex-grow-1 bg-light rounded" style="height: 4px;">
-                  <div class="bg-danger rounded" style="width: 25%; height: 100%;"></div>
-                </div>
+            <div class="text-center mb-4">
+              <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center border mb-3" style="width: 75px; height: 75px;">
+                <i class="fa-solid fa-user-plus text-secondary fs-3"></i>
               </div>
+              <h2 class="fw-bold mb-1 text-dark">إنشاء حساب جديد</h2>
+              <p class="text-muted mb-0 small">انضم إلى منصة جواز السفر الإلكتروني</p>
             </div>
 
-            <div class="col-12">
-              <app-field
-                label="تأكيد كلمة المرور"
-                placeholder="أعد إدخال كلمة المرور"
-                [control]="signupForm.controls.confirmPassword"
-                [icon]="'fa-solid fa-lock'"
-                type="password"
-              />
+            <form dir="rtl" [formGroup]="signupForm" class="py-2">
+              <div class="row g-3">
+
+                <div class="col-md-6">
+                  <app-field
+                    label="الاسم الكامل"
+                    placeholder="أدخل اسمك الكامل"
+                    [control]="signupForm.controls.fullName"
+                    [icon]="'fa-regular fa-user'"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <app-field
+                    label="الرقم القومي"
+                    placeholder="14 رقم"
+                    [control]="signupForm.controls.nationalId"
+                    [icon]="'fa-regular fa-id-card'"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <app-field
+                    label="البريد الإلكتروني"
+                    placeholder="example@domain.com"
+                    [control]="signupForm.controls.email"
+                    [icon]="'fa-regular fa-envelope'"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <app-field
+                    label="رقم الهاتف المحمول"
+                    placeholder="10xxxxxxxx"
+                    [control]="signupForm.controls.phone"
+                    [icon]="'fa-solid fa-phone'"
+                  />
+                </div>
+
+                <div class="col-12">
+                  <app-field
+                    label="كلمة المرور"
+                    placeholder="أدخل كلمة المرور"
+                    [control]="signupForm.controls.password"
+                    [icon]="'fa-solid fa-lock'"
+                    type="password"
+                  />
+                  <div class="d-flex align-items-center gap-2 mt-1 px-1">
+                    <span class="text-muted" style="font-size: 11px;">قوة كلمة المرور: ضعيفة</span>
+                    <div class="flex-grow-1 bg-light rounded" style="height: 4px;">
+                      <div class="bg-danger rounded" style="width: 25%; height: 100%;"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <app-field
+                    label="تأكيد كلمة المرور"
+                    placeholder="أعد إدخال كلمة المرور"
+                    [control]="signupForm.controls.confirmPassword"
+                    [icon]="'fa-solid fa-lock'"
+                    type="password"
+                  />
+                </div>
+
+              </div>
+
+              <div class="form-check d-flex align-items-center justify-content-start gap-2 my-4">
+                <input class="form-check-input m-0" type="checkbox" id="terms" formControlName="agreeToTerms" />
+                <label class="form-check-label small user-select-none" for="terms">
+                  أوافق على <a class="text-danger text-decoration-none fw-semibold" style="cursor: pointer;">الشروط والأحكام وسياسة الخصوصية</a>
+                </label>
+              </div>
+
+              <button mat-raised-button class="w-100 py-3 custom-btn" [disabled]="signupForm.invalid" matStepperNext>
+                <i class="fa-solid fa-user-plus me-2"></i> إنشاء حساب
+              </button>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="personalForm">
+            <ng-template matStepLabel>البيانات الشخصية</ng-template>
+            <form [formGroup]="personalForm" class="py-3">
+              <div class="text-center mb-4">
+                <h3 class="fw-bold text-dark">استكمال البيانات الشخصية</h3>
+                <p class="text-muted small">يرجى تحديد تفاصيل العنوان الحالي</p>
+              </div>
+
+              <div class="col-md-12">
+                <app-field label="محل الإقامة الحالي" placeholder="المحافظة، المركز، اسم الشارع" [control]="personalForm.controls.address" [icon]="'fa-solid fa-location-dot'" />
+              </div>
+
+              <div class="d-flex gap-2 mt-4">
+                <button type="button" mat-button matStepperPrevious>السابق</button>
+                <button type="button" mat-raised-button class="flex-grow-1 custom-btn" [disabled]="personalForm.invalid" matStepperNext>
+                  التالي: رفع المستندات <i class="fa-solid fa-arrow-left ms-2"></i>
+                </button>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="documentsForm">
+            <ng-template matStepLabel>رفع المستندات</ng-template>
+            <form [formGroup]="documentsForm" class="py-3">
+              <div class="text-center mb-4">
+                <h3 class="fw-bold text-dark">رفع المستندات الرسمية</h3>
+                <p class="text-muted small">يرجى رفع صورة واضحة من بطاقة الرقم القومي</p>
+              </div>
+
+              <div class="border border-dashed rounded text-center p-5 mb-4 bg-light" style="border-style: dashed !important;">
+                <i class="fa-solid fa-cloud-arrow-up fs-1 text-secondary mb-3"></i>
+                <h6>اسحب وأفلت صورة بطاقة الرقم القومي هنا</h6>
+                <input type="checkbox" formControlName="docUploaded" id="docCheck" class="d-none">
+                <button type="button" class="btn btn-outline-danger btn-sm mt-2" (click)="simulateUpload()">محاكاة رفع الملف</button>
+              </div>
+
+              <div class="d-flex gap-2">
+                <button type="button" mat-button matStepperPrevious>السابق</button>
+                <button type="button" mat-raised-button class="flex-grow-1 custom-btn" [disabled]="documentsForm.invalid" matStepperNext (click)="startTimer()">
+                  التالي: التحقق <i class="fa-solid fa-arrow-left ms-2"></i>
+                </button>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>التحقق</ng-template>
+            <div class="verification-container text-center py-4">
+              <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center border mb-3 position-relative" style="width: 85px; height: 85px;">
+                <i class="fa-solid fa-mobile-screen-button text-dark fs-1"></i>
+                <i class="fa-solid fa-circle-check text-success position-absolute bottom-0 end-0 fs-4 m-1"></i>
+              </div>
+
+              <h3 class="fw-bold text-dark mb-1">التحقق من رقم الهاتف</h3>
+              <p class="text-muted small px-4">تم إرسال رمز تحقق مكون من 6 أرقام إلى رقم الهاتف المسجل</p>
+
+              <div class="bg-light rounded border py-2 px-3 d-inline-flex align-items-center gap-2 my-3">
+                <i class="fa-solid fa-mobile-screen text-muted"></i>
+                <span class="text-secondary dir-ltr">{{ signupForm.value.phone || '010****678' }}</span>
+                <span class="text-muted small">تم إرسال الرمز إلى</span>
+              </div>
+
+              <div class="d-flex justify-content-center gap-2 my-4 dir-ltr">
+                <input type="text" class="form-control text-center fw-bold fs-4" style="width: 50px; height: 55px;" maxLength="1" />
+                <input type="text" class="form-control text-center fw-bold fs-4" style="width: 50px; height: 55px;" maxLength="1" />
+                <input type="text" class="form-control text-center fw-bold fs-4" style="width: 50px; height: 55px;" maxLength="1" />
+                <input type="text" class="form-control text-center fw-bold fs-4" style="width: 50px; height: 55px;" maxLength="1" />
+                <input type="text" class="form-control text-center fw-bold fs-4" style="width: 50px; height: 55px;" maxLength="1" />
+                <input type="text" class="form-control text-center fw-bold fs-4" style="width: 50px; height: 55px;" maxLength="1" />
+              </div>
+
+              <div class="badge bg-light text-success border py-2 px-3 rounded-pill mb-3">
+                <i class="fa-regular fa-circle-check me-1"></i> الرمز صالح لمدة 5 دقائق
+              </div>
+
+              <div class="text-muted small mb-4">
+                ينتهي الرمز خلال: <span class="text-danger fw-bold ms-1"><i class="fa-regular fa-clock me-1"></i> {{ timerText }}</span>
+              </div>
+
+              <div class="d-flex justify-content-center gap-3 mb-4 w-100 px-3">
+                <button type="button" class="btn btn-outline-secondary flex-grow-1 py-2 btn-sm" matStepperPrevious><i class="fa-regular fa-pen-to-square me-1"></i> تعديل رقم الهاتف</button>
+                <button type="button" class="btn btn-outline-danger flex-grow-1 py-2 btn-sm" [disabled]="timer > 0"><i class="fa-solid fa-rotate-right me-1"></i> إعادة إرسال الرمز</button>
+              </div>
+
+              <button type="button" mat-raised-button class="w-100 py-3 custom-btn fs-5" (click)="onSubmitAll()">
+                تحقق وتأكيد التسجيل <i class="fa-solid fa-arrow-left ms-2"></i>
+              </button>
             </div>
+          </mat-step>
 
-          </div>
-
-          <div class="form-check d-flex align-items-center justify-content-start gap-2 my-4">
-            <input class="form-check-input m-0" type="checkbox" id="terms" formControlName="agreeToTerms" />
-            <label class="form-check-label small user-select-none" for="terms">
-              أوافق على <a class="text-danger text-decoration-none fw-semibold" style="cursor: pointer;">الشروط والأحكام وسياسة الخصوصية</a>
-            </label>
-          </div>
-
-          <app-btn
-            label="إنشاء حساب"
-            width="100%"
-            customColor="#B3000E"
-            [iconClass]="'fa-solid fa-user-plus'"
-            [isDisabled]="signupForm.invalid"
-          />
-
-        </form>
+        </mat-stepper>
 
         <div class="mt-4 text-center d-flex justify-content-center gap-1 small">
           <a class="text-decoration-none text-danger fw-bold" routerLink="/login">تسجيل الدخول</a>
           <p class="mb-0 text-muted">لديك حساب بالفعل؟</p>
         </div>
 
-        <div class="text-center text-muted mt-4 pt-2 border-top border-light small d-flex align-items-center justify-content-center gap-2">
-          <i class="fa-solid fa-lock fs-6 text-secondary"></i>
-          <span>جميع بياناتك محمية بتقنيات التشفير المتقدمة</span>
-        </div>
-
       </div>
-
     </div>
+
   </div>
 </div>

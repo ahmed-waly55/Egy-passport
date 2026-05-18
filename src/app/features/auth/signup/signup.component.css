@@ -250,3 +250,36 @@
 
 
 
+::ng-deep .custom-stepper .mat-step-header .mat-step-icon-state-done,
+::ng-deep .custom-stepper .mat-step-header .mat-step-icon-state-edit {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+::ng-deep .custom-stepper .mat-step-header .mat-step-icon-selected {
+  background-color: #B3000E !important;
+  color: white !important;
+}
+
+::ng-deep .custom-stepper .mat-stepper-horizontal-line {
+  border-top-color: #e0e0e0 !important;
+}
+
+
+
+.custom-btn:disabled {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  cursor: not-allowed;
+}
+
+.custom-btn:not(:disabled) {
+  background-color: #B3000E !important;
+  color: white !important;
+  transition: background-color 0.3s ease;
+}
+
+
+button{
+  border-radius: 25px;
+}
