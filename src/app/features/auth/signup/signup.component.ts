@@ -31,6 +31,13 @@ import { MatButtonModule } from '@angular/material/button';
 export class SignupComponent implements OnDestroy {
   private _formBuilder = inject(FormBuilder);
 
+
+
+
+
+
+
+
   activeLang = { code: 'ar', name: 'العربية', dir: 'rtl' };
 
   timer: number = 272;
