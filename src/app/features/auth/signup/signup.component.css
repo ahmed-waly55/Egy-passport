@@ -283,3 +283,16 @@
 button{
   border-radius: 25px;
 }
+
+
+
+
+
+.mat-horizontal-stepper-wrapper{
+  padding: 20px;
+}
+
+mat-stepper.custom-stepper.mat-stepper-horizontal.mat-stepper-label-position-end.mat-stepper-animations-enabled {
+    border-radius: 25px;
+    padding: 20px;
+}

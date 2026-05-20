@@ -57,8 +57,14 @@ export class SignupComponent implements OnDestroy {
 
   // step 2 => address field only for now, can be expanded later to include more personal info if needed
   personalForm = new FormGroup({
-    address: new FormControl('', [Validators.required])
+    address: new FormControl('', [Validators.required]),
+    birthDate:new FormControl('', [Validators.required]),
+    governorate: new FormControl('', [Validators.required]),
+    nationality: new FormControl('', [Validators.required]),
+    gender: new FormControl('', [Validators.required])
   });
+
+
 
 // step 3 => document upload status, can be expanded later to include actual file uploads if needed
   documentsForm = this._formBuilder.group({

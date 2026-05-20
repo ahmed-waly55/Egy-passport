@@ -50,7 +50,7 @@
         style="z-index: 1050;"
       ></app-lang>
 
-      <div class="login-card my-5" style="max-width: 850px;">
+      <div class="login-card my-5 p-0" style="max-width: 850px;">
 
         <mat-stepper [ngStyle]="{backgroundColor: '#fefefe'}" [linear]="true" #stepper dir="rtl" class="custom-stepper">
 
@@ -153,9 +153,89 @@
                 <p class="text-muted small">يرجى تحديد تفاصيل العنوان الحالي</p>
               </div>
 
-              <div class="col-md-12">
-                <app-field label="محل الإقامة الحالي" placeholder="المحافظة، المركز، اسم الشارع" [control]="personalForm.controls.address" [icon]="'fa-solid fa-location-dot'" />
-              </div>
+           <div class="row g-3">
+
+  <!-- الجنسية -->
+  <div class="col-md-6">
+    <app-field
+      label="الجنسية"
+      placeholder="مثال: مصري"
+      [control]="personalForm.controls.nationality"
+      [icon]="'fa-solid fa-flag'"
+    />
+  </div>
+
+  <!-- تاريخ الميلاد -->
+  <div class="col-md-6">
+    <label class="form-label fw-medium">
+      تاريخ الميلاد
+    </label>
+
+    <div class="input-group">
+      <span class="input-group-text">
+        <i class="fa-solid fa-calendar-days"></i>
+      </span>
+
+      <input
+        type="date"
+        class="form-control"
+        formControlName="birthDate"
+      />
+    </div>
+  </div>
+
+  <!-- النوع -->
+  <div class="col-md-6">
+    <label class="form-label fw-medium">
+      النوع
+    </label>
+
+    <div class="input-group">
+      <span class="input-group-text">
+        <i class="fa-solid fa-venus-mars"></i>
+      </span>
+
+      <select
+
+        class="form-select"
+        formControlName="gender">
+
+        <option value="">
+          اختر النوع
+        </option>
+
+        <option value="male">
+          ذكر
+        </option>
+
+        <option value="female">
+          أنثى
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- المحافظة -->
+  <div class="col-md-6">
+    <app-field
+      label="المحافظة"
+      placeholder="اختر المحافظة"
+      [control]="personalForm.controls.governorate"
+      [icon]="'fa-solid fa-map-location-dot'"
+    />
+  </div>
+
+  <!-- العنوان -->
+  <div class="col-12">
+    <app-field
+      label="العنوان الحالي"
+      placeholder="المحافظة، المركز، اسم الشارع"
+      [control]="personalForm.controls.address"
+      [icon]="'fa-solid fa-location-dot'"
+    />
+  </div>
+
+</div>
 
               <div class="d-flex gap-2 mt-4">
                 <button type="button" mat-button matStepperPrevious>السابق</button>
@@ -237,8 +317,8 @@
 
         </mat-stepper>
 
-        <div class="mt-4 text-center d-flex justify-content-center gap-1 small">
-          <a class="text-decoration-none text-danger fw-bold" routerLink="/login">تسجيل الدخول</a>
+        <div class="mt-4 text-center d-flex justify-content-center p-4 gap-1 small">
+          <a class="text-decoration-none text-danger fw-bold " routerLink="/login">تسجيل الدخول</a>
           <p class="mb-0 text-muted">لديك حساب بالفعل؟</p>
         </div>
 
