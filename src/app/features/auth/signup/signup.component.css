@@ -317,3 +317,15 @@ mat-stepper.custom-stepper.mat-stepper-horizontal.mat-stepper-label-position-end
     border-radius: 25px;
     padding: 20px;
 }
+
+
+.birhtdate-field {
+    height: 50px;
+    margin-top: 10px;
+
+}
+.gender-field {
+    height: 50px;
+
+}
+

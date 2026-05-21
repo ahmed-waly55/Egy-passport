@@ -2,7 +2,6 @@ import { Component, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormBuilder, FormsModule } from '@angular/forms';
 import { FieldComponent } from '../../../shared/components/field/field.component';
-import { BtnComponent } from "../../../shared/components/btn/btn.component";
 import { LangComponent } from "../../../shared/components/lang/lang.component";
 import { RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
@@ -32,12 +31,71 @@ export class SignupComponent implements OnDestroy {
   private _formBuilder = inject(FormBuilder);
 
 
+selectedFile: File | null = null;
+selectedFilePreview: string | null = null;
+selectedFiles: {
+  file: File;
+  preview: string | null;
+}[] = [];
 
 
+onFilesSelected(event: Event): void {
 
+  const input = event.target as HTMLInputElement;
 
+  if (!input.files?.length) return;
 
+  Array.from(input.files).forEach(file => {
 
+    const allowedTypes = [
+      'image/png',
+      'image/jpeg',
+      'image/jpg',
+      'application/pdf'
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+      return;
+    }
+
+    const fileData = {
+      file,
+      preview: null as string | null
+    };
+
+    // Image preview
+    if (file.type.startsWith('image/')) {
+
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        fileData.preview = reader.result as string;
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    this.selectedFiles.push(fileData);
+  });
+
+  // validate form
+  this.documentsForm.patchValue({
+    docUploaded: this.selectedFiles.length > 0
+  });
+
+  this.documentsForm.controls.docUploaded.updateValueAndValidity();
+}
+
+removeFile(index: number): void {
+
+  this.selectedFiles.splice(index, 1);
+
+  this.documentsForm.patchValue({
+    docUploaded: this.selectedFiles.length > 0
+  });
+
+  this.documentsForm.controls.docUploaded.updateValueAndValidity();
+}
   activeLang = { code: 'ar', name: 'العربية', dir: 'rtl' };
 
   timer: number = 272;
@@ -78,6 +136,15 @@ export class SignupComponent implements OnDestroy {
     docUploaded: [false, Validators.requiredTrue]
   });
 
+
+otpForm = new FormGroup({
+  otp: new FormControl('', [
+    Validators.required,
+    Validators.minLength(6),
+    Validators.maxLength(6)
+  ])
+});
+
   simulateUpload() {
     this.documentsForm.controls.docUploaded.setValue(true);
   }
@@ -97,11 +164,14 @@ export class SignupComponent implements OnDestroy {
   }
 
   onSubmitAll() {
-    const finalPayload = {
-      accountAndDetails: this.signupForm.value,
-      additionalPersonalInfo: this.personalForm.value,
-      documentStatus: this.documentsForm.value
-    };
+   const finalPayload = {
+  accountAndDetails: this.signupForm.value,
+  additionalPersonalInfo: this.personalForm.value,
+  documents: this.selectedFiles.map(item => item.file),
+  otpVerification: this.otpForm.value
+};
+
+console.log(finalPayload);
     console.log('إرسال كامل ملف التسجيل الموحد للمنصة:', finalPayload);
   }
 
