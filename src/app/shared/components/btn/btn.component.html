@@ -1,6 +1,7 @@
 <button
+  type="submit"
   class="btn d-flex align-items-center justify-content-center shadow-sm custom-btn"
-  [routerLink]="!isDisabled ? route : null"
+  [routerLink]="!isDisabled && route ? route : null"
   [disabled]="isDisabled"
   [style.width]="width"
   [ngStyle]="{
@@ -11,5 +12,9 @@
   }">
 
   <span class="mx-2">{{ label }}</span>
-  <i [class]="iconClass"  style="font-size: 1.2rem; padding-right: 10px;"></i>
+  <i
+    [class]="iconClass"
+    style="font-size: 1.2rem; padding-right: 10px;">
+  </i>
+
 </button>
