@@ -2,48 +2,12 @@
   <div class="row min-vh-100 g-0">
 
     <div class="col-lg-6 text-side">
-      <!-- <div class="content-wrapper">
-        <div class="brand mb-5">
-          <div class="logo">
-            <h2>Egy</h2>
-            <h2>E-Passport</h2>
-          </div>
-          <p>Smart Digital Travel Identity</p>
-        </div>
 
-        <div class="hero-content">
-          <h1 class="text-center fw-bold lh-base fs-1 fs-lg-2 fs-xl-1">
-            هويتك الرقمية..<br />
-            سفرك أسهل وأأمن
-          </h1>
-          <p class="description text-center mt-4">
-            منصة الهوية الرقمية الذكية لجواز السفر الإلكتروني
-            لحماية هويتك وتسهيل سفرك في كل مكان بأعلى معايير الأمان والخصوصية
-          </p>
-        </div>
-
-        <div class="features row text-center mt-5">
-          <div class="col-4">
-            <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
-            <h6>آمن وموثوق</h6>
-            <small>تشفير وحماية على أعلى مستوى</small>
-          </div>
-          <div class="col-4">
-            <div class="feature-icon"><i class="fa-regular fa-clock"></i></div>
-            <h6>سريع وسهل</h6>
-            <small>إجراءات رقمية في دقائق</small>
-          </div>
-          <div class="col-4">
-            <div class="feature-icon"><i class="fa-solid fa-globe"></i></div>
-            <h6>متاح في أي وقت</h6>
-            <small>من أي مكان وفي أي وقت</small>
-          </div>
-        </div>
-      </div> -->
     </div>
 
     <div class="col-lg-6 col-sm-12 col-md-12 form-side position-relative">
 
+       <!-- Language Switcher -->
       <app-lang
         class="position-absolute top-0 m-4"
         [ngClass]="activeLang.dir === 'rtl' ? 'end-0' : 'start-0'"
@@ -53,6 +17,8 @@
       <div class="login-card my-5 p-0" style="max-width: 850px;">
 
         <mat-stepper [ngStyle]="{backgroundColor: '#fefefe'}" [linear]="true" #stepper dir="rtl" class="custom-stepper">
+
+          <!-- personal information step 1 -->
 
           <mat-step [stepControl]="signupForm">
             <ng-template matStepLabel>إنشاء الحساب</ng-template>
@@ -145,6 +111,7 @@
             </form>
           </mat-step>
 
+            <!-- personal information step 2 -->
           <mat-step [stepControl]="personalForm">
             <ng-template matStepLabel>البيانات الشخصية</ng-template>
             <form [formGroup]="personalForm" class="py-3">
@@ -155,42 +122,42 @@
 
            <div class="row g-3">
 
-  <!-- الجنسية -->
-  <div class="col-md-6">
-    <app-field
-      label="الجنسية"
-      placeholder="مثال: مصري"
-      [control]="personalForm.controls.nationality"
-      [icon]="'fa-solid fa-flag'"
-    />
-  </div>
+            <!-- nationality -->
+          <div class="col-md-6">
+            <app-field
+              label="الجنسية"
+              placeholder="مثال: مصري"
+             [control]="personalForm.controls.nationality"
+             [icon]="'fa-solid fa-flag'"
+           />
+         </div>
 
-  <!-- تاريخ الميلاد -->
-  <div class="col-md-6">
-    <label class="form-label fw-medium">
+         <!-- birth of date  -->
+         <div class="col-md-6">
+        <span class="form-label fw-medium mx-2">
       تاريخ الميلاد
-    </label>
+    </span>
 
-    <div class="input-group">
+    <div class="input-group birhtdate-field">
       <span class="input-group-text">
         <i class="fa-solid fa-calendar-days"></i>
       </span>
 
       <input
         type="date"
-        class="form-control"
+        class="form-control "
         formControlName="birthDate"
       />
     </div>
   </div>
 
-  <!-- النوع -->
+  <!-- gender -->
   <div class="col-md-6">
     <label class="form-label fw-medium">
       النوع
     </label>
 
-    <div class="input-group">
+    <div class="input-group gender-field">
       <span class="input-group-text">
         <i class="fa-solid fa-venus-mars"></i>
       </span>
@@ -215,7 +182,7 @@
     </div>
   </div>
 
-  <!-- المحافظة -->
+  <!-- governorate -->
   <div class="col-md-6">
     <app-field
       label="المحافظة"
@@ -246,29 +213,152 @@
             </form>
           </mat-step>
 
+
+
+          <!-- step 3 upload documents -->
+
           <mat-step [stepControl]="documentsForm">
-            <ng-template matStepLabel>رفع المستندات</ng-template>
-            <form [formGroup]="documentsForm" class="py-3">
-              <div class="text-center mb-4">
-                <h3 class="fw-bold text-dark">رفع المستندات الرسمية</h3>
-                <p class="text-muted small">يرجى رفع صورة واضحة من بطاقة الرقم القومي</p>
-              </div>
+  <ng-template matStepLabel>
+    رفع المستندات
+  </ng-template>
 
-              <div class="border border-dashed rounded text-center p-5 mb-4 bg-light" style="border-style: dashed !important;">
-                <i class="fa-solid fa-cloud-arrow-up fs-1 text-secondary mb-3"></i>
-                <h6>اسحب وأفلت صورة بطاقة الرقم القومي هنا</h6>
-                <input type="checkbox" formControlName="docUploaded" id="docCheck" class="d-none">
-                <button type="button" class="btn btn-outline-danger btn-sm mt-2" (click)="simulateUpload()">محاكاة رفع الملف</button>
-              </div>
+  <form [formGroup]="documentsForm" class="py-3">
 
-              <div class="d-flex gap-2">
-                <button type="button" mat-button matStepperPrevious>السابق</button>
-                <button type="button" mat-raised-button class="flex-grow-1 custom-btn" [disabled]="documentsForm.invalid" matStepperNext (click)="startTimer()">
-                  التالي: التحقق <i class="fa-solid fa-arrow-left ms-2"></i>
+    <div class="text-center mb-4">
+      <h3 class="fw-bold text-dark">
+        رفع المستندات الرسمية
+      </h3>
+
+      <p class="text-muted small">
+        يمكنك رفع أكثر من مستند
+      </p>
+    </div>
+
+    <!-- Upload Area -->
+    <div
+      class="border rounded text-center p-5 mb-4 bg-light"
+      style="border-style: dashed !important; cursor: pointer;"
+      (click)="fileInput.click()"
+    >
+
+      <i class="fa-solid fa-cloud-arrow-up fs-1 text-secondary mb-3"></i>
+
+      <h6>
+        اضغط لرفع الملفات
+      </h6>
+
+      <small class="text-muted">
+        PNG, JPG, JPEG, PDF
+      </small>
+
+      <input
+        #fileInput
+        type="file"
+        multiple
+        hidden
+        accept=".png,.jpg,.jpeg,.pdf"
+        (change)="onFilesSelected($event)"
+      />
+    </div>
+
+    <!-- Preview Files -->
+    @if(selectedFiles.length > 0){
+
+      <div class="row g-3 mb-4">
+
+        @for(file of selectedFiles; track $index){
+
+          <div class="col-md-4">
+
+            <div class="card shadow-sm border-0 rounded-4 overflow-hidden h-100">
+
+              <!-- Image Preview -->
+              @if(file.preview){
+
+                <img
+                  [src]="file.preview"
+                  class="card-img-top"
+                  style="height: 220px; object-fit: cover;"
+                />
+
+              } @else {
+
+                <div
+                  class="d-flex flex-column justify-content-center align-items-center p-5 bg-light"
+                  style="height: 220px;"
+                >
+                  <i class="fa-solid fa-file-pdf fs-1 text-danger"></i>
+                  <small class="mt-2">
+                    PDF File
+                  </small>
+                </div>
+              }
+
+              <div class="card-body text-center">
+
+                <small class="text-muted d-block text-truncate">
+                  {{ file.file.name }}
+                </small>
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger mt-2"
+                  (click)="removeFile($index)"
+                >
+                  حذف الملف
                 </button>
+
               </div>
-            </form>
-          </mat-step>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+    }
+
+    <!-- Validation -->
+    @if(
+      documentsForm.controls.docUploaded.touched &&
+      documentsForm.controls.docUploaded.invalid
+    ){
+
+      <small class="text-danger d-block text-center mb-3">
+        يجب رفع ملف واحد على الأقل
+      </small>
+    }
+
+    <div class="d-flex gap-2">
+
+      <button
+        type="button"
+        mat-button
+        matStepperPrevious
+      >
+        السابق
+      </button>
+
+      <button
+        type="button"
+        mat-raised-button
+        class="flex-grow-1 custom-btn"
+        [disabled]="documentsForm.invalid"
+        matStepperNext
+        (click)="startTimer()"
+      >
+        التالي: التحقق
+        <i class="fa-solid fa-arrow-left ms-2"></i>
+      </button>
+
+    </div>
+
+  </form>
+</mat-step>
+
+
+
 
           <mat-step>
             <ng-template matStepLabel>التحقق</ng-template>
@@ -287,15 +377,13 @@
                 <span class="text-muted small">تم إرسال الرمز إلى</span>
               </div>
 
-              <div class="d-flex justify-content-center gap-2 my-4 dir-ltr">
-                <!-- <input type="text" class="form-control text-center fw-bold fs-4" style="width: 50px; height: 55px;" maxLength="1" />
-                <input type="text" class="form-control text-center fw-bold fs-4" style="width: 50px; height: 55px;" maxLength="1" />
-                <input type="text" class="form-control text-center fw-bold fs-4" style="width: 50px; height: 55px;" maxLength="1" />
-                <input type="text" class="form-control text-center fw-bold fs-4" style="width: 50px; height: 55px;" maxLength="1" />
-                <input type="text" class="form-control text-center fw-bold fs-4" style="width: 50px; height: 55px;" maxLength="1" />
-                <input type="text" class="form-control text-center fw-bold fs-4" style="width: 50px; height: 55px;" maxLength="1" /> -->
+              <div class="d-flex justify-content-center flex-column gap-2 my-4 dir-ltr">
 
 
+                <p class="mb-0 fw-bold ">أدخل رمز التحقق (OTP)</p>
+                <form [formGroup]="otpForm">
+                  <input type="text" class="form-control text-center fw-bold fs-4 mx-auto"  placeholder="من فضلك أدخل الرمز"  style="width: 250px; height: 55px;" maxLength="6" formControlName="otp" />
+                </form>
               </div>
 
               <div class="badge bg-light text-success border py-2 px-3 rounded-pill mb-3">
