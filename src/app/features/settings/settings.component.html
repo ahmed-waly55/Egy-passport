@@ -1,0 +1,98 @@
+<div class="app-wrapper settings-page" dir="rtl">
+
+
+  <!-- ══════════════ MAIN AREA ══════════════ -->
+  <div class="main-area">
+
+
+
+    <!-- Settings Content -->
+    <main class="page-main">
+
+      <div class="page-head">
+        <h1 class="pg-title">الإعدادات</h1>
+        <p class="pg-sub">إدارة تفضيلاتك وحسابك والأمان</p>
+      </div>
+
+      <div class="settings-body">
+
+        <section *ngFor="let group of settingGroups" class="settings-section">
+          <h2 class="section-title">{{ group.title }}</h2>
+
+          <!-- Desktop: Card Grid (hidden on mobile) -->
+          <div class="settings-grid" [ngClass]="group.id + '-layout'">
+            <div
+              *ngFor="let item of group.items"
+              class="s-card"
+              role="button"
+              tabindex="0"
+              (click)="onSettingClick(item)"
+              (keydown.enter)="onSettingClick(item)"
+              (keydown.space)="onSettingClick(item)">
+
+              <!-- ACCOUNT: column layout — icon top, title + arrow inline, desc below -->
+              <ng-container *ngIf="group.id === 'account'">
+                <div class="sc-icon" [ngClass]="item.iconBgColor">
+                  <i [class]="item.iconClass"></i>
+                </div>
+                <div class="sc-text">
+                  <div class="sc-title-row">
+                    <h3 class="sc-label">{{ item.label }}</h3>
+                    <i class="bi bi-chevron-left sc-arrow"></i>
+                  </div>
+                  <p class="sc-desc">{{ item.description }}</p>
+                </div>
+              </ng-container>
+
+              <!-- OTHER sections: row layout — icon right (RTL), text, arrow far left -->
+              <ng-container *ngIf="group.id !== 'account'">
+                <div class="sc-icon" [ngClass]="item.iconBgColor">
+                  <i [class]="item.iconClass"></i>
+                </div>
+                <div class="sc-text">
+                  <h3 class="sc-label">{{ item.label }}</h3>
+                  <p class="sc-desc">{{ item.description }}</p>
+                </div>
+                <i class="bi bi-chevron-left sc-arrow"></i>
+              </ng-container>
+            </div>
+          </div>
+
+          <!-- Mobile: List Rows (hidden on desktop) -->
+          <ul class="settings-list">
+            <li
+              *ngFor="let item of group.items"
+              class="sl-row"
+              (click)="onSettingClick(item)">
+              <!-- RIGHT in RTL: icon -->
+              <div class="sl-icon" [ngClass]="item.iconBgColor">
+                <i [class]="item.iconClass"></i>
+              </div>
+              <!-- CENTER: label -->
+              <span class="sl-label">{{ item.label }}</span>
+              <!-- LEFT in RTL: arrow -->
+              <i class="bi bi-chevron-left sl-arrow"></i>
+            </li>
+          </ul>
+        </section>
+
+      </div>
+
+      <footer class="settings-footer">
+        <p class="footer-ver">الإصدار 2.1.0</p>
+        <p class="footer-copy">جميع الحقوق محفوظة &copy; 2024</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- ══════════════ MOBILE BOTTOM NAV ══════════════ -->
+  <nav class="bottom-nav" dir="ltr">
+    <a class="bn-item" href="#"><i class="bi bi-house-door-fill"></i><span>الرئيسية</span></a>
+    <a class="bn-item" href="#"><i class="bi bi-file-earmark-text-fill"></i><span>طلباتي</span></a>
+    <a class="bn-item" href="#"><i class="bi bi-folder-fill"></i><span>المستندات</span></a>
+    <a class="bn-item" href="#"><i class="bi bi-bell-fill"></i><span>الإشعارات</span></a>
+    <a class="bn-item bn-active" href="#"><i class="bi bi-person-circle"></i><span>الملف الشخصي</span></a>
+  </nav>
+
+</div>

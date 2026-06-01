@@ -1,9 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
-body{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Global styles — loaded last, overrides Bootstrap & Angular Material */
+
+body { margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+/* ═══════════════════════════════════════════
+   SETTINGS PAGE GLOBAL OVERRIDES
+   These run AFTER Bootstrap so they win the
+   cascade for .settings-page-scoped elements
+   ═══════════════════════════════════════════ */
+
+/* Font — prevents Bootstrap/Material Roboto from leaking in */
+.settings-page,
+.settings-page * {
+  font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Bootstrap 5 resets h1-h6 with large font-sizes and font-weight:500.
+   These override our .sc-label (h3) and .section-title (h2) inside
+   the component when _ngcontent attrs are temporarily absent (SSR hydration). */
+.settings-page h1,
+.settings-page h2,
+.settings-page h3,
+.settings-page h4,
+.settings-page h5,
+.settings-page h6 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+/* Bootstrap .row adds negative margins that can break flex layouts */
+.settings-page .settings-body,
+.settings-page .settings-grid,
+.settings-page .s-card {
+  margin-left: unset;
+  margin-right: unset;
+}
+
+/* Prevent Material/Bootstrap button styles bleeding onto div[role=button] */
+.settings-page [role="button"] {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}

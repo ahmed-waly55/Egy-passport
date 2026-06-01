@@ -1,0 +1,100 @@
+<div class="app-wrapper" dir="rtl">
+
+  <!-- ══════════════ MAIN AREA ══════════════ -->
+  <div class="main-area">
+
+
+
+    <!-- Page Content -->
+    <main class="page-main">
+
+      <div class="page-head">
+        <h1 class="pg-title">الإشعارات</h1>
+        <p class="pg-sub">تابع كل ما يهمك من تنبيهات وتحديثات</p>
+      </div>
+
+      <!-- Filter Tabs Row -->
+      <div class="tabs-row">
+        <div class="tabs-scroll">
+          <button
+            *ngFor="let tab of tabs"
+            type="button"
+            class="tab-btn"
+            [class.tab-active]="activeTab() === tab.id"
+            (click)="setActiveTab(tab.id)">
+            <i [class]="tab.icon"></i>
+            {{ tab.label }}
+            <span class="tab-num" *ngIf="tab.id === 'unread' && unreadCount() > 0">{{ unreadCount() }}</span>
+          </button>
+        </div>
+        <button
+          *ngIf="unreadCount() > 0"
+          type="button"
+          class="read-all-btn"
+          (click)="markAllAsRead()">
+          تحديد الكل كمقروء
+        </button>
+      </div>
+
+      <!-- Notifications List -->
+      <ul class="notif-list">
+
+        <li
+          *ngFor="let n of filteredNotifications()"
+          class="notif-item"
+          [class.is-new]="n.status === 'new'"
+          (click)="markAsRead(n)">
+
+          <!-- Icon wrapper — right in RTL · ::after draws the separator -->
+          <div class="n-icon-wrap">
+            <div class="n-icon" [ngClass]="getTypeConfig(n.type).bgColorClass">
+              <i [class]="getTypeConfig(n.type).iconClass"
+                 [ngClass]="getTypeConfig(n.type).textColorClass"></i>
+            </div>
+          </div>
+
+          <!-- Body — grows to fill center -->
+          <div class="n-body">
+            <h3 class="n-title">{{ n.title }}</h3>
+            <p class="n-desc">{{ n.description }}</p>
+            <a *ngIf="n.actionLabel" class="n-action" (click)="$event.stopPropagation()">
+              {{ n.actionLabel }}
+            </a>
+          </div>
+
+          <!-- Meta — last child → LEFT in RTL -->
+          <div class="n-meta">
+            <span class="n-time">{{ getRelativeTime(n.timestamp) }}</span>
+            <span class="n-badge" [class.badge-new]="n.status === 'new'" [class.badge-read]="n.status === 'read'">
+              <span class="n-dot"></span>
+              {{ n.status === 'new' ? 'جديد' : 'مقروءة' }}
+            </span>
+          </div>
+        </li>
+
+        <!-- Empty State -->
+        <li class="notif-empty" *ngIf="filteredNotifications().length === 0">
+          <i class="bi bi-bell-slash-fill"></i>
+          <p>لا توجد إشعارات في هذا القسم</p>
+        </li>
+
+      </ul>
+    </main>
+  </div>
+
+  <!-- ══════════════ MOBILE BOTTOM NAV ══════════════ -->
+  <nav class="bottom-nav" dir="ltr">
+    <a class="bn-item" href="#"><i class="bi bi-house-door-fill"></i><span>الرئيسية</span></a>
+    <a class="bn-item" href="#"><i class="bi bi-person-badge-fill"></i><span>الهوية الرقمية</span></a>
+    <a class="bn-item" href="#"><i class="bi bi-file-earmark-text-fill"></i><span>طلباتي</span></a>
+    <a class="bn-item bn-active" href="#">
+      <span class="bn-icon-wrap">
+        <i class="bi bi-bell-fill"></i>
+        <span class="bn-badge" *ngIf="unreadCount() > 0">{{ unreadCount() }}</span>
+      </span>
+      <span>الإشعارات</span>
+    </a>
+    <a class="bn-item" href="#"><i class="bi bi-person-circle"></i><span>الملف الشخصي</span></a>
+  </nav>
+
+</div>

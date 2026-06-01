@@ -1,0 +1,407 @@
+/* ═══════════════════════════════════════════
+   All rules scoped under .settings-page
+   (2-class specificity beats Bootstrap headings)
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; padding: 0; margin: 0; }
+
+/* ─── Root ─── */
+.settings-page {
+  display: flex;
+  min-height: 100vh;
+  background: #F8F9FB;
+  font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+  direction: rtl;
+}
+
+.settings-page .main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ─── Page content ─── */
+.settings-page .page-main {
+  padding: 28px 32px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.settings-page .page-head {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.settings-page .pg-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+
+.settings-page .pg-sub {
+  font-size: 14px;
+  color: #868e96;
+}
+
+/* ─── Settings body ─── */
+.settings-page .settings-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.settings-page .settings-section { display: block; }
+
+.settings-page .section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+  text-align: right;
+  line-height: 1.4;
+}
+
+/* ══════════════════════════════════════════════
+   CARD BASE — shared default for all sections
+   position: relative needed for ::after separators
+   ══════════════════════════════════════════════ */
+.settings-page .s-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.18s;
+  background: #fff;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+.settings-page .s-card:hover      { background: #fafbfc; }
+.settings-page .s-card:focus-visible {
+  outline: 2px solid #c0302b;
+  outline-offset: -2px;
+}
+
+.settings-page .sc-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.settings-page .sc-text {
+  flex: 1;
+  text-align: right;
+  min-width: 0;
+}
+
+.settings-page .sc-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 3px;
+  line-height: 1.35;
+}
+
+.settings-page .sc-desc {
+  font-size: 11.5px;
+  color: #868e96;
+  line-height: 1.5;
+}
+
+.settings-page .sc-arrow {
+  font-size: 13px;
+  color: #ced4da;
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════
+   SECTION 1 — ACCOUNT
+   Flex row container, 4 column-style cards
+   Arrow is inline with the title (not absolute)
+   Separator: ::after, top 50% + translateY, 75% height
+   ══════════════════════════════════════════════ */
+.settings-page .account-layout {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  border: 1px solid #E9ECEF;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.settings-page .account-layout .s-card {
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 12px;
+  gap: 10px;
+}
+
+/* sc-text is a centered flex column */
+.settings-page .account-layout .sc-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: none;
+  gap: 5px;
+}
+
+/* Title + arrow sit inline in a flex row */
+.settings-page .account-layout .sc-title-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  justify-content: center;
+}
+
+.settings-page .account-layout .sc-label { font-size: 13px; margin-bottom: 0; }
+.settings-page .account-layout .sc-desc  { font-size: 11px; }
+.settings-page .account-layout .sc-arrow { font-size: 11px; }
+
+/* Vertical separator — centered, 75% height — via ::after */
+.settings-page .account-layout .s-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 75%;
+  background: #E5E7EB;
+}
+.settings-page .account-layout .s-card:last-child::after { display: none; }
+
+/* ══════════════════════════════════════════════
+   SECTION 2 — SECURITY
+   2×2 CSS grid, row-style cards
+   Vertical separator via ::after on odd items (col 1 in RTL)
+   ══════════════════════════════════════════════ */
+.settings-page .security-layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background: #fff;
+  border: 1px solid #E9ECEF;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Separator on col-1 items (odd); hidden on col-2 items (even) */
+.settings-page .security-layout .s-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 75%;
+  background: #E5E7EB;
+}
+.settings-page .security-layout .s-card:nth-child(even)::after { display: none; }
+
+/* Row separator between row 1 and row 2 */
+.settings-page .security-layout .s-card:nth-child(-n+2) {
+  border-bottom: 1px solid #E9ECEF;
+}
+
+/* ══════════════════════════════════════════════
+   SECTION 3 — PREFERENCES
+   Single flex row, 4 cards side by side
+   Vertical separator via ::after on all except last
+   ══════════════════════════════════════════════ */
+.settings-page .preferences-layout {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  border: 1px solid #E9ECEF;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.settings-page .preferences-layout .s-card { flex: 1; }
+
+.settings-page .preferences-layout .s-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 75%;
+  background: #E5E7EB;
+}
+.settings-page .preferences-layout .s-card:last-child::after { display: none; }
+
+/* ══════════════════════════════════════════════
+   SECTION 4 — SUPPORT
+   3-column CSS grid (3 items row 1, rest row 2)
+   Vertical separator via ::after — hidden on every 3rd and last
+   ══════════════════════════════════════════════ */
+.settings-page .support-layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: #fff;
+  border: 1px solid #E9ECEF;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.settings-page .support-layout .s-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 75%;
+  background: #E5E7EB;
+}
+/* Last in each 3-col row and last overall get no separator */
+.settings-page .support-layout .s-card:nth-child(3n)::after { display: none; }
+.settings-page .support-layout .s-card:last-child::after    { display: none; }
+
+/* Row separator between row 1 and row 2 */
+.settings-page .support-layout .s-card:nth-child(-n+3) {
+  border-bottom: 1px solid #E9ECEF;
+}
+
+/* ─── Mobile list (hidden on desktop) ─── */
+.settings-page .settings-list { display: none; list-style: none; }
+
+/* ─── Bottom nav ─── */
+.settings-page .bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #fff;
+  border-top: 1px solid #eaecef;
+  z-index: 200;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.07);
+  direction: ltr;
+}
+
+.settings-page .bn-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 2px;
+  font-size: 10px;
+  color: #868e96;
+  text-decoration: none;
+  padding: 5px 0;
+  transition: color 0.15s;
+}
+
+.settings-page .bn-item i { font-size: 19px; }
+.settings-page .bn-active  { color: #c0302b; }
+
+/* ─── Footer ─── */
+.settings-page .settings-footer {
+  text-align: center;
+  padding: 20px 0 8px;
+  border-top: 1px solid #f0f2f5;
+  margin-top: 10px;
+}
+
+.settings-page .footer-ver  { font-size: 12px; color: #adb5bd; }
+.settings-page .footer-copy { font-size: 11px; color: #ced4da; margin-top: 2px; }
+
+/* ═══════════════════════════════════════════
+   ICON COLOR TOKENS
+   ═══════════════════════════════════════════ */
+.settings-page .si-blue   { background: #dce8ff; color: #2655c4; }
+.settings-page .si-green  { background: #d1f0e2; color: #1a7a4a; }
+.settings-page .si-purple { background: #ede9f8; color: #6d28d9; }
+.settings-page .si-red    { background: #fde0e0; color: #b91c1c; }
+.settings-page .si-orange { background: #fff0da; color: #b45309; }
+.settings-page .si-dark   { background: #e9ecef; color: #343a40; }
+.settings-page .si-teal   { background: #d4f1f8; color: #0e6888; }
+.settings-page .si-yellow { background: #fff4d9; color: #92600a; }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — mobile ≤ 768px
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .settings-page .page-main {
+    padding: 16px 14px;
+    padding-bottom: 74px;
+  }
+
+  .settings-page .pg-title { font-size: 21px; }
+
+  /* Hide all desktop grid variants */
+  .settings-page .settings-grid { display: none !important; }
+
+  /* Show mobile list */
+  .settings-page .settings-list {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eaecef;
+    overflow: hidden;
+  }
+
+  .settings-page .sl-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #f4f6f9;
+    transition: background 0.15s;
+  }
+
+  .settings-page .sl-row:last-child { border-bottom: none; }
+  .settings-page .sl-row:hover      { background: #fafbfc; }
+
+  .settings-page .sl-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .settings-page .sl-label {
+    flex: 1;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #1a1a2e;
+  }
+
+  .settings-page .sl-arrow { font-size: 13px; color: #ced4da; }
+
+  .settings-page .section-title { font-size: 14.5px; }
+  .settings-page .settings-section { margin-bottom: 4px; }
+  .settings-page .bottom-nav { display: flex; }
+}
