@@ -11,7 +11,7 @@ import {
 
 @Component({
   selector: 'app-notifications',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.css',
 })
