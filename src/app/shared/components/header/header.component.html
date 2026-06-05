@@ -1,0 +1,59 @@
+
+<header class="app-header" role="banner" [attr.dir]="lang === 'ar' ? 'rtl' : 'ltr'">
+
+  <button class="btn-icon" (click)="toggleSidebar.emit()" aria-label="toggle sidebar">
+    <i class="bi bi-list"></i>
+  </button>
+
+  <a href="#" class="logo-wrap">
+    <img src="assets/egyptemblem.svg" alt="Egypt Emblem" class="emblem"/>
+    <div class="logo-text">
+      <h1><span class="red">Egy</span> E-Passport</h1>
+      <p>{{ lang === 'ar' ? 'الهوية الرقمية للسفر' : 'Digital Travel Identity' }}</p>
+    </div>
+  </a>
+
+  <span class="h-spacer"></span>
+
+  <div class="notif-wrap">
+    <button class="btn-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+      <span class="notif-badge" *ngIf="notifCount > 0">{{ notifCount }}</span>
+    </button>
+  </div>
+
+  <div class="lang-wrap">
+    <button class="lang-btn" (click)="toggleLang()">
+      <i class="bi bi-globe2"></i>
+      {{ lang === 'ar' ? 'العربية' : 'English' }}
+      <i class="bi bi-chevron-down" style="font-size:.6rem"></i>
+    </button>
+    <div class="lang-menu" *ngIf="langOpen()">
+      <div class="lang-opt" [class.active]="lang==='ar'" (click)="selectLang('ar')"> العربية</div>
+      <div class="lang-opt" [class.active]="lang==='en'" (click)="selectLang('en')"> English</div>
+    </div>
+  </div>
+
+  <div class="avatar-wrap" (click)="toggleUserMenu()">
+    <img [src]="user.avatar" class="avatar" [alt]="user.name[lang]"/>
+    <div class="avatar-info">
+      <div class="av-name">{{ user.name[lang] }}</div>
+      <div class="av-role">{{ user.role[lang] }}</div>
+    </div>
+    <i class="bi bi-chevron-down" style="font-size:.65rem"></i>
+  </div>
+
+  <div class="user-dd" *ngIf="userMenuOpen()"
+       [class.dd-ltr]="lang==='en'"
+       [class.dd-rtl]="lang==='ar'">
+    <div class="dd-item"><i class="bi bi-person me-2"></i>{{ lang === 'ar' ? 'الملف الشخصي' : 'Profile' }}</div>
+    <div class="dd-item"><i class="bi bi-gear me-2"></i>{{ lang === 'ar' ? 'الإعدادات' : 'Settings' }}</div>
+    <hr class="dd-divider"/>
+    <div class="dd-item danger"><i class="bi bi-box-arrow-left me-2"></i>{{ lang === 'ar' ? 'تسجيل الخروج' : 'Sign Out' }}</div>
+  </div>
+
+</header>

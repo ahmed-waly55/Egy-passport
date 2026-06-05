@@ -1,0 +1,14 @@
+
+<div class="upload-zone" [class.drag-over]="isDragging()"
+     (dragover)="onDragOver($event)"
+     (dragleave)="onDragLeave()"
+     (drop)="onDrop($event)"
+     (click)="fileInput.click()"
+     role="button" tabindex="0"
+     (keydown.enter)="fileInput.click()">
+  <i class="bi bi-cloud-arrow-up upload-icon"></i>
+  <div class="uz-text">{{ t.text }}</div>
+  <div class="uz-hint">{{ t.hint }}</div>
+</div>
+<input #fileInput type="file" accept="image/*,.pdf"
+       style="display:none" (change)="onFileChange($event)"/>

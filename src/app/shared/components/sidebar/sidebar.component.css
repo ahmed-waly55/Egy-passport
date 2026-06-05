@@ -1,0 +1,100 @@
+
+.sidebar {
+  position: fixed;
+  top: var(--header-h);
+  bottom: 0;
+  width: 230px;
+  background: #fff;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  padding: .75rem 0;
+  overflow-y: auto;
+  transition: transform .3s ease;
+      padding-bottom: 0px;
+}
+
+/* RTL — sidebar fixed to the RIGHT */
+.sidebar.rtl {
+  right: 0;
+  left: auto;
+  border-left: 1px solid var(--border);
+}
+
+/* LTR — sidebar fixed to the LEFT */
+.sidebar.ltr {
+  left: 0;
+  right: auto;
+  border-right: 1px solid var(--border);
+}
+
+/* Desktop collapsed: slide off screen */
+.sidebar.rtl.collapsed { transform: translateX(100%); }
+.sidebar.ltr.collapsed { transform: translateX(-100%); }
+
+/* Mobile: hidden by default, shown when mobile-open */
+@media (max-width: 991px) {
+  .sidebar.rtl             { transform: translateX(100%); }
+  .sidebar.ltr             { transform: translateX(-100%); }
+  .sidebar.rtl.mobile-open { transform: translateX(0); }
+  .sidebar.ltr.mobile-open { transform: translateX(0); }
+}
+
+.nav-section {
+  padding: .25rem .75rem;
+  font-size: .68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  margin-top: .6rem;
+}
+
+
+ .nav-link {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .6rem 1.25rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: .88rem;
+  font-weight: 500;
+  transition: .15s;
+  margin: .05rem 0;
+}
+
+
+.sidebar.rtl .nav-link { border-left: 3px solid transparent; border-right: none; }
+.sidebar.ltr .nav-link { border-right: 3px solid transparent;  border-left: none; }
+
+.sidebar.rtl .nav-link.active { border-left-color: var(--eg-red); }
+.sidebar.ltr .nav-link.active { border-right-color:  var(--eg-red); }
+
+.nav-link:hover  { color: var(--eg-red); background: var(--eg-red-light); }
+.nav-link.active { color: var(--eg-red); background: var(--eg-red-light); font-weight: 700; }
+.nav-link i      { font-size: 1.1rem; min-width: 20px; text-align: center; } 
+
+.nav-badge {
+  background: var(--eg-red);
+  color: #fff;
+  border-radius: 10px;
+  font-size: .65rem;
+  padding: .1rem .4rem;
+  margin-inline-start: auto;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+}
+.sidebar-footer img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+.sidebar-footer p {
+  font-size: .62rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: .3rem 0;
+}	

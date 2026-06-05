@@ -1,0 +1,114 @@
+
+<article class="doc-card"
+  [class.rejected]="isRejected && !uploadDone()"
+  [attr.aria-label]="title">
+
+  <!-- Header -->
+  <div class="card-top" [class.rej-top]="isRejected && !uploadDone()">
+    <div class="top-left">
+      <span class="arrow">▾</span>
+      <div class="dd-wrap" (clickOutside)="ddOpen.set(false)">
+        <button class="three-dot" (click)="toggleDd()">⋮</button>
+        <div class="dd-menu" *ngIf="ddOpen()">
+          <div class="dd-item" (click)="view.emit(doc);ddOpen.set(false)">
+            <i class="bi bi-eye"></i> {{ lbl.view }}
+          </div>
+          <div class="dd-item" *ngIf="!isRejected" (click)="download.emit(doc);ddOpen.set(false)">
+            <i class="bi bi-download"></i> {{ lbl.dl }}
+          </div>
+          <hr class="dd-divider"/>
+          <div class="dd-item danger" (click)="delete.emit(doc);ddOpen.set(false)">
+            <i class="bi bi-trash3"></i> {{ lbl.del }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="top-right">
+      <div class="doc-title">{{ title }}</div>
+      <span class="status-badge" [ngClass]="badgeClass">
+        <i class="bi" [ngClass]="badgeIcon"></i> {{ statusLabel }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Reject reason -->
+  @if (isRejected && !uploadDone()) {
+    <div class="rej-box">
+      <div class="rej-title"><i class="bi bi-exclamation-triangle-fill"></i> {{ lbl.rejTitle }}</div>
+      <div class="rej-text">{{ reason }}</div>
+    </div>
+  }
+
+  <!-- Image -->
+  <div class="card-img" [class.rej-img]="isRejected && !uploadDone()">
+    @if (uploadDone() && previewUrl()) {
+      <div class="upload-preview">
+        <img [src]="previewUrl()" [alt]="title"/>
+        <button class="remove-btn" (click)="removeUpload()">✕</button>
+      </div>
+    } @else if (uploadDone() && !previewUrl()) {
+      <div class="pdf-preview">
+        <i class="bi bi-file-earmark-pdf"></i>
+        <span>{{ uploadedFile()?.name }}</span>
+        <button class="remove-btn-inline" (click)="removeUpload()">✕</button>
+      </div>
+    } @else if (doc.img) {
+      <img [src]="doc.img" [alt]="title" loading="lazy"/>
+    } @else {
+      <div class="placeholder" [class.rej-ph]="isRejected">
+        <i class="bi bi-file-earmark-text"></i>
+      </div>
+    }
+  </div>
+
+  <!-- Progress -->
+  @if (isUploading()) {
+    <div class="upload-progress">
+      <div class="upload-bar" [style.width.%]="uploadProgress()"></div>
+    </div>
+  }
+
+  <!-- Upload zone -->
+  @if (isRejected && !uploadDone() && !isUploading()) {
+    <app-upload-zone [lang]="lang" (fileSelected)="onFileSelected($event)"/>
+  }
+
+  <!-- File name & success -->
+  @if (uploadDone()) {
+    <div class="file-name">{{ uploadedFile()?.name }}</div>
+    <div class="upload-success"><i class="bi bi-check-circle-fill"></i> {{ lbl.ok }}</div>
+  }
+
+  <!-- Meta -->
+  @if (!isRejected) {
+    <div class="card-meta">
+      @if (doc.uploaded) {
+        <span><i class="bi bi-calendar-event"></i> {{ doc.uploaded }}</span>
+        <span><i class="bi bi-calendar-x"></i>    {{ doc.expiry }}</span>
+      } @else {
+        <span class="no-file">{{ lbl.noFile }}</span>
+      }
+    </div>
+  }
+
+  <!-- Actions -->
+  <div class="card-actions">
+    @if (isRejected) {
+      @if (uploadDone()) {
+        <button class="btn-a btn-del" (click)="removeUpload()"><i class="bi bi-trash3"></i></button>
+        <button class="btn-a btn-view" (click)="viewFile()"><i class="bi bi-eye"></i> {{ lbl.view }}</button>
+      } @else {
+        <button class="btn-a btn-up"><i class="bi bi-cloud-upload"></i> {{ lbl.reup }}</button>
+        <button class="btn-a btn-del" (click)="delete.emit(doc)"><i class="bi bi-x-lg"></i></button>
+        <button class="btn-a btn-view" (click)="view.emit(doc)"><i class="bi bi-eye"></i> {{ lbl.view }}</button>
+      }
+    } @else if (doc.uploaded) {
+      <button class="btn-a btn-del"  (click)="delete.emit(doc)"><i class="bi bi-trash3"></i></button>
+      <button class="btn-a btn-dl"   (click)="download.emit(doc)"><i class="bi bi-download"></i> {{ lbl.dl }}</button>
+      <button class="btn-a btn-view" (click)="view.emit(doc)"><i class="bi bi-eye"></i> {{ lbl.view }}</button>
+    } @else {
+      <button class="btn-a btn-up"><i class="bi bi-cloud-upload"></i> {{ lbl.up }}</button>
+    }
+  </div>
+
+</article>
