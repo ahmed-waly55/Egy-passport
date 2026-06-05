@@ -74,7 +74,7 @@ export class LoginComponent {
       },
       error: (err) => {
         console.error('Login error occurred:', err);
-        this._toastr.error('Invalid credentials. Please try again.', 'Authentication Failed');
+        this._toastr.error(`${err.error?.message || 'An error occurred during login.'}`, 'Authentication Failed');
       }
     });
   }
