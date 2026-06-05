@@ -23,7 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
-  ],
+
+],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
