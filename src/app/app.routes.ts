@@ -7,5 +7,23 @@ export const routes: Routes = [
   { path: 'signup',          loadComponent: () => import('./features/auth/signup/signup.component').then(m => m.SignupComponent),                 title: 'Signup' },
   { path: 'notifications',   loadComponent: () => import('./features/notifications/notifications.component').then(m => m.NotificationsComponent), title: 'الإشعارات' },
   { path: 'settings',        loadComponent: () => import('./features/settings/settings.component').then(m => m.SettingsComponent),                title: 'الإعدادات' },
+  {
+    path: '',
+    // Shell: renders header + sidebar + <router-outlet>
+    loadComponent: () =>
+      import('./layouts/main-layout/main-layout.component')
+        .then(m => m.MainLayoutComponent),
+    children: [
+      {
+        path: 'documents',
+        loadComponent: () =>
+          import('./pages/documents/documents.component')
+            .then(m => m.DocumentsComponent),
+        title: 'Documents | Egy E-Passport',
+      },
+ 
+    ],
+  },
+
   { path: '**',              redirectTo: 'login', pathMatch: 'full' },
 ];
