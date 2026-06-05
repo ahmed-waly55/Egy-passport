@@ -1,0 +1,39 @@
+
+.upload-zone {
+  margin: .3rem .75rem .65rem;
+  padding: .9rem;
+  border: 2px dashed #d1d5db;
+  border-radius: 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+  cursor: pointer;
+  transition: .2s;
+  text-align: center;
+}
+.upload-zone:hover,
+.upload-zone.drag-over {
+  border-color: var(--eg-red);
+  background: #fff5f5;
+}
+.upload-zone:hover .upload-icon,
+.upload-zone.drag-over .upload-icon { color: var(--eg-red); }
+
+.upload-icon {
+  font-size: 1.8rem;
+  color: #9ca3af;
+  margin-bottom: .3rem;
+}
+.uz-text {
+  font-size: .75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.uz-hint {
+  font-size: .68rem;
+  color: #9ca3af;
+  margin-top: .15rem;
+}
+

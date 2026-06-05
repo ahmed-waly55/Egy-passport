@@ -1,0 +1,25 @@
+
+
+
+<div class="app-shell">
+
+  <app-header (toggleSidebar)="toggleSidebar()"></app-header>
+
+  <!-- Overlay: mobile only -->
+  <div class="sidebar-overlay"
+       [class.show]="sidebarOpen() && isMobile()"
+       (click)="closeOverlay()">
+  </div>
+
+  <!-- Sidebar -->
+  <app-sidebar [isOpen]="sidebarOpen()" [isMobile]="isMobile()"></app-sidebar>
+
+  <!-- Main content: NO [attr.dir] on app-shell, put it here -->
+  <main class="main-content"
+        [attr.dir]="dir"
+        [style.margin-right]="lang === 'ar' && sidebarOpen() && !isMobile() ? '230px' : '0px'"
+        [style.margin-left]=" lang === 'en' && sidebarOpen() && !isMobile() ? '230px' : '0px'">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

@@ -1,0 +1,41 @@
+<nav class="sidebar"
+     [class.rtl]="lang === 'ar'"
+     [class.ltr]="lang === 'en'"
+     [class.collapsed]="!isOpen && !isMobile"
+     [class.mobile-open]="isOpen && isMobile"
+     [attr.dir]="lang === 'ar' ? 'rtl' : 'ltr'"
+     role="navigation">
+
+  <span class="nav-section">{{ lang === 'ar' ? 'القائمة' : 'MENU' }}</span>
+
+  @for (item of navItems; track item.key) {
+    <a class="nav-link"
+       [routerLink]="'/' + item.key"
+       routerLinkActive="active"
+       [routerLinkActiveOptions]="{ exact: item.key === 'dashboard' }">
+      <i class="bi {{ item.icon }}"></i>
+      <span>{{ item.label[lang] }}</span>
+      @if (item.badge) {
+        <span class="nav-badge">{{ item.badge }}</span>
+      }
+    </a>
+  }
+
+  <span class="nav-section" style="margin-top:1rem">
+    {{ lang === 'ar' ? 'الحساب' : 'ACCOUNT' }}
+  </span>
+
+  @for (item of accountItems; track item.key) {
+    <a class="nav-link"
+       [routerLink]="'/' + item.key"
+       routerLinkActive="active">
+      <i class="bi {{ item.icon }}"></i>
+      <span>{{ item.label[lang] }}</span>
+    </a>
+  }
+
+  <div class="sidebar-footer">
+    <img [src]="footerImage" alt="Egypt"/>
+  </div>
+
+</nav>

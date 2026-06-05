@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/dist/css/bootstrap.rtl.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 body{
   margin: 0;
   padding: 0;
@@ -7,3 +9,100 @@ body{
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Import Bootstrap + Icons */
+
+
+/* CSS Variables */
+:root {
+  --eg-red:       #C41E3A;
+  --eg-red-dark:  #9e1830;
+  --eg-red-light: #fdf0f2;
+  --sidebar-w:    230px;
+  --header-h:     64px;
+  --text-main:    #1a1a2e;
+  --text-muted:   #6b7280;
+  --border:       #e5e7eb;
+  --bg:           #f4f6fb;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+}
+
+/* Shared badge styles (used across components) */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .72rem;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: .2rem .65rem;
+}
+.badge-verified { background: #dcfce7; color: #166534; }
+.badge-review   { background: #fef9c3; color: #854d0e; }
+.badge-optional { background: #e0f2fe; color: #075985; }
+.badge-rejected { background: #fee2e2; color: #991b1b; }
+.badge-expired  { background: #fee2e2; color: #991b1b; }
+
+/* Shared button styles */
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .75rem;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: .32rem .75rem;
+  border: 1px solid;
+  cursor: pointer;
+  transition: .2s;
+  background: #fff;
+}
+.btn-view     { border-color: var(--eg-red); color: var(--eg-red); }
+.btn-view:hover { background: var(--eg-red); color: #fff; }
+.btn-download { border-color: #2563eb; color: #2563eb; }
+.btn-download:hover { background: #2563eb; color: #fff; }
+.btn-delete   { border-color: #dc2626; color: #dc2626; }
+.btn-delete:hover { background: #dc2626; color: #fff; }
+.btn-upload   { background: var(--eg-red); border-color: var(--eg-red); color: #fff; }
+.btn-upload:hover { background: var(--eg-red-dark); }
+
+/* Dropdown shared */
+.dropdown-menu-custom {
+  position: absolute;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  min-width: 140px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.1);
+  z-index: 999;
+  overflow: hidden;
+}
+.dropdown-item-custom {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .5rem 1rem;
+  font-size: .84rem;
+  cursor: pointer;
+  transition: .15s;
+  color: #333;
+}
+.dropdown-item-custom:hover    { background: var(--bg); color: var(--eg-red); }
+.dropdown-item-custom.danger   { color: #dc2626; }
+.dropdown-item-custom.danger:hover { background: #fee2e2; }
+.dropdown-divider-custom {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: .2rem 0;
+}

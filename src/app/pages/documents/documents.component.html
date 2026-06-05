@@ -1,0 +1,75 @@
+
+<div class="page-title">{{ lang === 'ar' ? 'المستندات' : 'Documents' }}</div>
+<p class="page-sub">{{ lang === 'ar' ? 'جميع المستندات التي قمت برفعها' : 'All your submitted documents' }}</p>
+
+<div class="security-banner">
+  <div>
+    <div class="title">
+      <i class="bi bi-shield-fill-check"></i>
+      {{ lang === 'ar' ? 'جميع مستنداتك محمية وآمنة' : 'All documents are protected & secure' }}
+    </div>
+    <div class="sub">
+      {{ lang === 'ar'
+        ? 'يتم تشفير وحفظ جميع المستندات وفقاً لأعلى معايير الأمان'
+        : 'Encrypted and stored to the highest security standards' }}
+    </div>
+  </div>
+</div>
+
+<div class="section-header">
+  <h2 class="section-title">{{ lang === 'ar' ? 'المستندات المطلوبة' : 'Required Documents' }}</h2>
+  <div class="controls">
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input type="search"
+        [(ngModel)]="searchQuery"
+        [placeholder]="lang === 'ar' ? 'البحث عن مستند...' : 'Search document...'"/>
+    </div>
+    <select class="filter-select" [(ngModel)]="statusFilter">
+      <option value="">{{ lang === 'ar' ? 'كل الحالات' : 'All Statuses' }}</option>
+      <option value="verified">{{ lang === 'ar' ? 'تم التحقق'    : 'Verified'     }}</option>
+      <option value="review">  {{ lang === 'ar' ? 'قيد المراجعة' : 'Under Review' }}</option>
+      <option value="optional">{{ lang === 'ar' ? 'اختياري'      : 'Optional'     }}</option>
+      <option value="rejected">{{ lang === 'ar' ? 'تم الرفض'     : 'Rejected'     }}</option>
+    </select>
+    <button class="btn-add">
+      <i class="bi bi-plus-lg"></i>
+      {{ lang === 'ar' ? 'رفع مستند' : 'Upload' }}
+    </button>
+  </div>
+</div>
+
+<div class="container-fluid px-0">
+  <div class="row g-3">
+    @for (doc of filtered; track doc.id) {
+      <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+        <app-document-card
+          [doc]="doc"
+          (view)="onView($event)"
+          (download)="onDownload($event)"
+          (delete)="onDelete($event)"
+          (uploaded)="onUploaded($event)">
+        </app-document-card>
+      </div>
+    }
+    @empty {
+      <div class="col-12 text-center text-muted py-5">
+        {{ lang === 'ar' ? 'لا توجد مستندات مطابقة للبحث' : 'No documents match your search' }}
+      </div>
+    }
+  </div>
+</div>
+
+<div class="notes-box">
+  <div>
+  <div class="note-title">
+    <i class="bi bi-info-circle-fill"></i>
+    {{ lang === 'ar' ? 'ملاحظات مهمة' : 'Important Notes' }}
+  </div>
+  <div class="note-text">
+    {{ lang === 'ar'
+      ? 'يرجى التأكد من أن جميع المستندات واضحة وسارية المفعول قبل الاعتماد النهائي.'
+      : 'Please ensure all documents are clear and valid before final submission.' }}
+  </div>
+  </div>
+</div>
