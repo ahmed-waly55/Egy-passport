@@ -62,10 +62,12 @@ export class LoginComponent {
     const password = this.loginForm.value.password ?? '';
 
     this._authService.login(emailOrMobile, password).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log('Login successful:', response);
         this._toastr.success('Welcome back! Login successful.', 'Success');
-
+        localStorage.setItem('userId', response.data.userId);
+        localStorage.setItem('token', response.data.accessToken);
+        // console.log('Login response:', response.data.userId);
         // 💡 Save the token here if provided by the backend:
         // localStorage.setItem('token', response.token);
 
