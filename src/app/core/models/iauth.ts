@@ -13,3 +13,6 @@ export interface ISignup {
   termsAccepted: boolean
 
 }
+export interface IForgotPassword {
+  emailOrMobile: string
+}

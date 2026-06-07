@@ -5,6 +5,8 @@ import { BtnComponent } from '../../../shared/components/btn/btn.component';
 import { FieldComponent } from '../../../shared/components/field/field.component';
 import { CommonModule } from '@angular/common';
 import { LangComponent } from "../../../shared/components/lang/lang.component";
+import { AuthService } from '../../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-forget-password',
@@ -17,7 +19,7 @@ export class ForgetPasswordComponent {
 
   step: number = 1;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private _authService: AuthService , private _toastr: ToastrService) {}
 
   emailForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email])
@@ -45,10 +47,19 @@ export class ForgetPasswordComponent {
       this.emailForm.markAllAsTouched();
       return;
     }
-
+    this._authService.forgotPassword(this.emailForm.value.email ?? '').subscribe({
+      next: (response:any) => {
+        console.log('OTP sent successfully:', response.data.message);
+        this._toastr.success('OTP has been sent to your email.', 'Success');
+        this.step = 2;
+      },
+      error: (err:any) => {
+        this._toastr.error(`${err.error.messageAr || 'An error occurred while sending OTP.'}`, 'OTP Sending Failed');
+        console.error('Error sending OTP:', err.error.message);
+      }
+    });
     console.log('Sending OTP to:', this.emailForm.value.email);
 
-    this.step = 2;
   }
 
   verifyOtp() {
