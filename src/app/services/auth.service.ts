@@ -16,7 +16,7 @@ export class AuthService {
     return this._http.post<ILogin>(`${environment.baseApiUrl}/api/auth/login`, { emailOrMobile, password });
   }
 
-  register(userData: ISignup): Observable<ISignup> {
+  register(userData: any): Observable<ISignup> {
     // Implement registration logic here, e.g., send user data to the backend API
     return this._http.post<ISignup>(`${environment.baseApiUrl}/api/auth/register`, userData);
   }

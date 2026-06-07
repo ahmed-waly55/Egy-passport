@@ -12,7 +12,6 @@ import { ToastrService } from 'ngx-toastr';
 
 import { BtnComponent } from '../../../shared/components/btn/btn.component';
 import { FieldComponent } from '../../../shared/components/field/field.component';
-import { LangComponent } from '../../../shared/components/lang/lang.component';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -23,7 +22,7 @@ import { AuthService } from '../../../services/auth.service';
     ReactiveFormsModule,
     CommonModule,
     RouterLink,
-    LangComponent
+
   ],
   templateUrl: './forget-password.component.html',
   styleUrl: './forget-password.component.css'

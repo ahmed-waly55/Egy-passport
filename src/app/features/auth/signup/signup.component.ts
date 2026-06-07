@@ -8,6 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../../services/auth.service';
+import { ISignup } from '../../../core/models/iauth';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -30,7 +33,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class SignupComponent implements OnDestroy {
   private _formBuilder = inject(FormBuilder);
-
+  constructor(private _authService: AuthService , private _toastr: ToastrService) {}
 
 selectedFile: File | null = null;
 selectedFilePreview: string | null = null;
@@ -172,8 +175,20 @@ otpForm = new FormGroup({
   otpVerification: this.otpForm.value
 };
 
+this._authService.register(finalPayload).subscribe({
+  next: (response: ISignup) => {
+    this._toastr.success('تم التسجيل بنجاح.', 'نجاح');
+    // console.log('Registration successful:', response);
+    // Optionally, you can navigate to a different page or show a success message here
+
+  },
+  error: (error) => {
+    this._toastr.error('حدث خطأ أثناء التسجيل.', 'فشل');
+    // console.error('Registration error:', error);
+  }
+});
 console.log(finalPayload);
-    console.log('إرسال كامل ملف التسجيل الموحد للمنصة:', finalPayload);
+    // console.log('إرسال كامل ملف التسجيل الموحد للمنصة:', finalPayload);
   }
 
   ngOnDestroy() {

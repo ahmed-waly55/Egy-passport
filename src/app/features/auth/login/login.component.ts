@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { BtnComponent } from "../../../shared/components/btn/btn.component";
 import { FieldComponent } from "../../../shared/components/field/field.component";
-import { LangComponent } from "../../../shared/components/lang/lang.component";
 import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -17,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
     ReactiveFormsModule,
     CommonModule,
     RouterLink,
-    LangComponent
+
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
