@@ -74,9 +74,9 @@ export class LoginComponent {
         // Redirect to the dashboard/documents route
         this._router.navigate(['/documents']);
       },
-      error: (err) => {
+      error: (err:any) => {
         console.error('Login error occurred:', err);
-        this._toastr.error(`${err.error?.message || 'An error occurred during login.'}`, 'Authentication Failed');
+        this._toastr.error(`${err.error.messageAr || 'An error occurred during login.'}`, 'Authentication Failed');
       }
     });
   }
