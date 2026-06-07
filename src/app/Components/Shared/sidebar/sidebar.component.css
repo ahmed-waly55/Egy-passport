@@ -1,0 +1,34 @@
+.side-bar {
+  background-color: white;
+  height: 100vh;
+  width: 250px;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 200;
+}
+
+.side-bar .image {
+  max-height: 15%;
+  flex-shrink: 0;
+  /* ← don't compress the logo */
+}
+
+.side-bar .image img {
+  width: 200px;
+}
+
+
+.img-footer {
+   min-height: 0;/* ← KEY: lets flex child shrink below content size */
+  /* overflow: hidden;  */
+}
+
+.img-footer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+

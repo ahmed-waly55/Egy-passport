@@ -1,0 +1,192 @@
+/* ─── Card Shell ─── */
+.profile-card {
+  position: relative;
+  background: linear-gradient(135deg, var(--egy-navy) 0%, var(--egy-dark-card) 50%, #1e3260 100%);
+  border-radius: var(--egy-radius);
+  padding: 32px 36px;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: var(--egy-shadow);
+  font-family: var(--font-ar);
+}
+
+/* ─── Decorative Circles ─── */
+.bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.bg-circle-1 {
+  width: 260px;
+  height: 260px;
+  top: -100px;
+  right: -80px;
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
+}
+
+.bg-circle-2 {
+  width: 180px;
+  height: 180px;
+  bottom: -70px;
+  left: 40px;
+  background: radial-gradient(circle, rgba(204, 31, 45, 0.08) 0%, transparent 70%);
+}
+
+.card-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Avatar ─── */
+.avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatar-img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--egy-gold);
+  box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.2);
+  display: block;
+}
+
+.camera-btn {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  width: 28px;
+  height: 28px;
+  background: var(--egy-gold);
+  color: var(--egy-dark-card);
+  border: 2px solid var(--egy-dark-card);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background var(--transition-duration), transform var(--transition-duration);
+  padding: 0;
+}
+
+.camera-btn:hover {
+  background: var(--egy-red);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* ─── Profile Info ─── */
+.profile-name {
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 1.2;
+  font-family: var(--font-ar);
+}
+
+.verified-badge {
+  color: var(--egy-green);
+  font-size: 1.15rem;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.profile-title {
+  color: var(--egy-gold);
+  font-size: 0.875rem;
+  margin: 0;
+  opacity: 0.85;
+}
+
+.profile-title i {
+  color: var(--egy-gold);
+}
+
+/* ─── Meta Chips ─── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  white-space: nowrap;
+  font-family: var(--font-ar);
+  transition: background var(--transition-duration);
+}
+
+.chip:hover {
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.chip i {
+  color: var(--egy-gold);
+  font-size: 0.78rem;
+}
+
+.chip-passport {
+  border-color: rgba(201, 168, 76, 0.35);
+  color: #e8d5a3;
+}
+
+/* ─── Edit Button ─── */
+.edit-section {
+  flex-shrink: 0;
+}
+
+.edit-btn {
+  background: rgba(201, 168, 76, 0.1);
+  color: var(--egy-gold);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  border-radius: var(--egy-radius);
+  padding: 10px 22px;
+  font-size: 0.875rem;
+  font-family: var(--font-ar);
+  white-space: nowrap;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition:
+    background var(--transition-duration),
+    color var(--transition-duration),
+    border-color var(--transition-duration),
+    transform var(--transition-duration);
+}
+
+.edit-btn:hover {
+  background: var(--egy-gold);
+  color: var(--egy-dark-card);
+  border-color: var(--egy-gold);
+  transform: translateY(-1px);
+  font-weight: 600;
+}
+
+.edit-btn:active {
+  transform: translateY(0);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 576px) {
+  .profile-card {
+    padding: 24px 20px;
+  }
+
+  .profile-name {
+    font-size: 1.25rem;
+  }
+
+  .edit-section {
+    width: 100%;
+  }
+
+  .edit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

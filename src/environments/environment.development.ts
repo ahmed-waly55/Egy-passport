@@ -1,3 +1,4 @@
 export const environment = {
-    baseApiUrl: 'https://egypassport.runasp.net',
+  production: false,
+  baseUrl: 'https://egypassport.runasp.net',
 };

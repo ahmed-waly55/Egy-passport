@@ -1,0 +1,18 @@
+<div class="side-bar d-flex flex-column">
+  <div class="image w-100 text-center">
+    <img class="img-fluid" src="images/logo_no_text.png" alt="logo-img" />
+  </div>
+
+  <ul class="nav-links me-3">
+    <ng-container *ngFor="let navItem of navItems">
+      <li class="mt-3">
+        <i class="{{ navItem.icon }}"></i>
+        <a class="mx-2" routerLink="{{ navItem.route }}">{{ navItem.label }}</a>
+      </li>
+    </ng-container>
+  </ul>
+
+  <div class="img-footer w-100 mt-auto">
+    <img class="img-fluid" src="images/egypt_image.png" alt="egypt-img" />
+  </div>
+</div>

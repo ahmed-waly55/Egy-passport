@@ -1,0 +1,159 @@
+/* ─── Card Shell ─── */
+.pi-card {
+  background: #fff;
+  border-radius: var(--egy-radius);
+  box-shadow: var(--egy-shadow);
+  font-family: var(--font-ar);
+  overflow: hidden;
+}
+
+/* ─── Section Title ─── */
+.section-title {
+  font-family: var(--font-ar);
+  font-weight: 700;
+  color: var(--egy-navy);
+  font-size: 1rem;
+  border-right: 3px solid var(--egy-gold);
+  padding-right: 10px;
+}
+
+.section-title i {
+  color: var(--egy-gold);
+}
+
+/* ─── Info Rows ─── */
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background var(--transition-duration);
+}
+
+.info-row:hover {
+  background: var(--egy-surface);
+}
+
+.info-icon {
+  width: 32px;
+  height: 32px;
+  background: rgba(201, 168, 76, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--egy-gold);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.info-label {
+  font-size: 0.82rem;
+  color: var(--egy-muted);
+  min-width: 160px;
+  flex-shrink: 0;
+}
+
+.info-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--egy-text);
+  font-family: var(--font-ar);
+}
+
+.ltr-value {
+  direction: ltr;
+  text-align: right;
+}
+
+/* ─── Divider for large screens ─── */
+@media (min-width: 992px) {
+  .border-end-lg {
+    border-left: 1px solid #e9ecef !important;
+  }
+}
+
+/* ─── Edit Button ─── */
+.edit-btn {
+  background: var(--egy-surface);
+  color: var(--egy-navy);
+  border: 1px solid #dee2e6;
+  border-radius: var(--egy-radius);
+  font-family: var(--font-ar);
+  font-size: 0.875rem;
+  padding: 10px;
+  transition: background var(--transition-duration), color var(--transition-duration);
+}
+
+.edit-btn:hover {
+  background: var(--egy-navy);
+  color: var(--egy-gold);
+  border-color: var(--egy-navy);
+}
+
+.edit-btn i {
+  color: var(--egy-gold);
+}
+
+/* ─── Verification ─── */
+.text-verified {
+  color: var(--egy-green);
+}
+
+.verified-label {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--egy-green);
+  font-family: var(--font-ar);
+}
+
+.details-btn {
+  background: rgba(40, 167, 69, 0.08);
+  color: var(--egy-green);
+  border: 1px solid rgba(40, 167, 69, 0.3);
+  border-radius: var(--egy-radius);
+  font-family: var(--font-ar);
+  font-size: 0.875rem;
+  padding: 9px;
+  transition: background var(--transition-duration), color var(--transition-duration);
+}
+
+.details-btn:hover {
+  background: var(--egy-green);
+  color: #fff;
+}
+
+/* ─── Settings List ─── */
+.settings-list {
+  font-family: var(--font-ar);
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 4px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.875rem;
+  color: var(--egy-text);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background var(--transition-duration);
+}
+
+.settings-item:hover {
+  background: var(--egy-surface);
+  padding-inline: 8px;
+}
+
+.setting-icon {
+  color: var(--egy-navy);
+  width: 18px;
+  text-align: center;
+}
+
+.chevron {
+  color: var(--egy-muted);
+  font-size: 0.7rem;
+}

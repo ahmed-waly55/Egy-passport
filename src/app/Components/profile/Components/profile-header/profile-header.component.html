@@ -1,0 +1,74 @@
+<div class="profile-card" dir="rtl">
+  <div class="bg-circle bg-circle-1"></div>
+  <div class="bg-circle bg-circle-2"></div>
+
+  <!-- Loading skeleton -->
+  <div *ngIf="loading" class="card-inner d-flex align-items-center gap-4">
+    <div class="skeleton-avatar"></div>
+    <div class="d-flex flex-column gap-2">
+      <div class="skeleton-line w-200"></div>
+      <div class="skeleton-line w-120"></div>
+    </div>
+  </div>
+
+  <!-- Loaded content -->
+  <div
+    *ngIf="!loading"
+    class="card-inner d-flex align-items-center gap-4 flex-wrap"
+  >
+    <!-- ── Avatar ── -->
+    <div class="avatar-wrapper">
+      <img
+        [src]="profile?.profilePhotoUrl || 'images/user.png'"
+        alt="avatar"
+        class="avatar-img"
+      />
+      <button class="camera-btn" title="تغيير الصورة">
+        <i class="fa-solid fa-camera"></i>
+      </button>
+    </div>
+
+    <!-- ── Name & Meta ── -->
+    <div class="profile-info flex-grow-1">
+      <!-- Name row -->
+      <div class="name-row d-flex align-items-center gap-2 mb-1">
+        <h2 class="profile-name mb-0">{{ me?.fullName || "—" }}</h2>
+        <span class="verified-badge" *ngIf="me?.isVerified" title="موثق">
+          <i class="fa-solid fa-circle-check"></i>
+        </span>
+      </div>
+
+      <!-- Title -->
+      <p class="profile-title mb-3">
+        <i class="fa-solid fa-id-badge me-1"></i>
+        المواطن المصري
+      </p>
+
+      <!-- Meta chips -->
+      <div class="meta-chips d-flex flex-wrap gap-2">
+        <span class="chip" *ngIf="me?.dateOfBirth">
+          <i class="fa-regular fa-calendar me-1"></i>
+          <p class="me-2 mb-0">{{ me?.dateOfBirth }} تاريخ الميلاد</p>
+        </span>
+
+        <span class="chip" *ngIf="profile?.nationality">
+          <i class="fa-solid fa-flag me-1"></i>
+          <p class="me-2 mb-0">الجنسية {{ profile?.nationality }}</p>
+        </span>
+
+        <span class="chip chip-passport" *ngIf="profile?.nationalId">
+          <i class="fa-solid fa-passport me-1"></i>
+          <p class="me-2 mb-0">الرقم القومي {{ profile?.nationalId }}</p>
+        </span>
+      </div>
+    </div>
+
+    <!-- ── Edit Button ── -->
+    <!-- <div class="edit-section">
+      <button class="edit-btn">
+        <i class="fa-solid fa-pen-to-square me-2"></i>
+        تعديل البيانات
+      </button>
+    </div> -->
+  </div>
+</div>

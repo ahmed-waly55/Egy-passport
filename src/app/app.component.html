@@ -1,1 +1,5 @@
+<div *ngIf="menuState" class="overlay" (click)="receive(false)"></div>
+<app-sidebar *ngIf="menuState"></app-sidebar>
+<app-topbar (toggleMenue)="receive($event)"></app-topbar>
+<app-profile></app-profile>
 <router-outlet></router-outlet>
