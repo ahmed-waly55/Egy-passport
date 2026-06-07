@@ -16,3 +16,10 @@ export interface ISignup {
 export interface IForgotPassword {
   emailOrMobile: string
 }
+
+export interface IResetPassword {
+  mobileNumber: string,
+  code: string,
+  newPassword: string,
+  confirmPassword: string
+}

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { IForgotPassword, ILogin, ISignup } from '../core/models/iauth';
+import { IForgotPassword, ILogin, IResetPassword, ISignup } from '../core/models/iauth';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +24,9 @@ export class AuthService {
   forgotPassword(emailOrMobile: string): Observable<IForgotPassword> {
     // Implement forgot password logic here, e.g., send email or mobile number to the backend API
     return this._http.post<IForgotPassword>(`${environment.baseApiUrl}/api/auth/forgot-password`, { emailOrMobile });
+  }
+
+  resetPassword(resetData: any): Observable<IResetPassword> {
+    return this._http.post<IResetPassword>(`${environment.baseApiUrl}/api/auth/reset-password`, {resetData});
   }
 }
