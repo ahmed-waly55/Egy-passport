@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DocumentService } from '../../../services/document.service';
+import { NotificationStoreService } from '../../../features/notifications/notification-store.service';
 
 @Component({
   selector: 'app-header',
@@ -16,15 +17,16 @@ import { DocumentService } from '../../../services/document.service';
 export class HeaderComponent {
   @Output() toggleSidebar = new EventEmitter<void>();
 
-  readonly svc        = inject(DocumentService);
-  private readonly el = inject(ElementRef);
+  readonly svc             = inject(DocumentService);
+  private readonly el      = inject(ElementRef);
+  private readonly notifStore = inject(NotificationStoreService);
 
   langOpen     = signal(false);
   userMenuOpen = signal(false);
 
   get lang()       { return this.svc.lang(); }
   get user()       { return this.svc.user; }
-  get notifCount() { return this.svc.navItems.find(n => n.key === 'notifications')?.badge ?? 0; }
+  get notifCount() { return this.notifStore.unreadCount(); }
 
   toggleLang()     { this.langOpen.update(v => !v); this.userMenuOpen.set(false); }
   toggleUserMenu() { this.userMenuOpen.update(v => !v); this.langOpen.set(false); }

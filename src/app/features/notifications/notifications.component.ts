@@ -13,6 +13,7 @@ import { EMPTY, Subject } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 
 import { NotificationService } from './notification.service';
+import { NotificationStoreService } from './notification-store.service';
 import {
   ApiNotification,
   Notification,
@@ -33,7 +34,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotificationsComponent {
-  private readonly service   = inject(NotificationService);
+  private readonly service    = inject(NotificationService);
+  private readonly store      = inject(NotificationStoreService);
   private readonly destroyRef = inject(DestroyRef);
 
   /* ── State ── */
@@ -104,9 +106,17 @@ export class NotificationsComponent {
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe(response => {
-        this.notifications.set(this.mapNotifications(response.data));
+        const mapped = this.mapNotifications(response.data);
+        this.notifications.set(mapped);
         this.totalCount.set(response.totalCount);
         this.loading.set(false);
+
+        // Sync badge count from fresh API data
+        if (response.totalUnreadCount !== undefined) {
+          this.store.setCount(response.totalUnreadCount);
+        } else {
+          this.store.setCount(mapped.filter(n => n.status === 'new').length);
+        }
       });
 
     this.loadPage$.next();
@@ -132,23 +142,31 @@ export class NotificationsComponent {
         n.id === notification.id ? { ...n, status: 'read' as NotificationStatus } : n
       )
     );
+    this.store.decrement(); // optimistic badge update
 
     this.service
       .markAsRead(String(notification.id))
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({ error: () => this.notifications.set(prev) });
+      .subscribe({
+        error: () => {
+          this.notifications.set(prev); // revert local state
+          this.store.loadCount();       // revert badge by re-fetching
+        },
+      });
   }
 
   markAllAsRead(): void {
-    const prev = [...this.notifications()];
-    this.notifications.update(list =>
-      list.map(n => ({ ...n, status: 'read' as NotificationStatus }))
-    );
-
     this.service
       .markAllAsRead()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({ error: () => this.notifications.set(prev) });
+      .subscribe({
+        next: () => {
+          this.notifications.update(list =>
+            list.map(n => ({ ...n, status: 'read' as NotificationStatus }))
+          );
+          this.store.clearAll(); // set badge to 0 after confirmed success
+        },
+      });
   }
 
   onPageChange(event: PageEvent): void {
