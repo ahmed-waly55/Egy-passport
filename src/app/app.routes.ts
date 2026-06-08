@@ -5,8 +5,8 @@ export const routes: Routes = [
   { path: 'login',           loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent),                    title: 'Login' },
   { path: 'forgot-password', loadComponent: () => import('./features/auth/forget-password/forget-password.component').then(m => m.ForgetPasswordComponent) },
   { path: 'signup',          loadComponent: () => import('./features/auth/signup/signup.component').then(m => m.SignupComponent),                 title: 'Signup' },
-  { path: 'notifications',   loadComponent: () => import('./features/notifications/notifications.component').then(m => m.NotificationsComponent), title: 'الإشعارات' },
-  { path: 'settings',        loadComponent: () => import('./features/settings/settings.component').then(m => m.SettingsComponent),                title: 'الإعدادات' },
+
+  
   {
     path: '',
     // Shell: renders header + sidebar + <router-outlet>
@@ -21,7 +21,21 @@ export const routes: Routes = [
             .then(m => m.DocumentsComponent),
         title: 'Documents | Egy E-Passport',
       },
+            {
+        path: 'notifications',
+        loadComponent: () =>
+          import('./features/notifications/notifications.component')
+            .then(m => m.NotificationsComponent),
+        title: 'Notifications | Egy E-Passport',
+      },
  
+                  {
+        path: 'settings',
+        loadComponent: () =>
+          import('./features/settings/settings.component')
+            .then(m => m.SettingsComponent),
+        title: 'Settings | Egy E-Passport',
+      },
     ],
   },
 
