@@ -1,0 +1,181 @@
+<div class="pi-card" dir="rtl">
+  <div class="row g-0">
+    <div class="col-12 col-lg-7 border-end-lg">
+      <div class="p-4">
+        <!-- Section Title -->
+        <h6 class="section-title mb-4">
+          <i class="fa-solid fa-circle-user me-2"></i>
+          المعلومات الشخصية
+        </h6>
+
+        <!-- Loading -->
+        <div *ngIf="loading" class="text-center py-4">
+          <div class="spinner-border spinner-border-sm" role="status"></div>
+        </div>
+
+        <!-- Info Rows -->
+        <div class="row gy-1" *ngIf="!loading">
+          <div class="col-12">
+            <div class="info-row">
+              <span class="info-icon"><i class="fa-solid fa-user"></i></span>
+              <span class="info-label">الاسم بالكامل</span>
+              <span class="info-value">{{ me?.fullName || "—" }}</span>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="info-row">
+              <span class="info-icon"
+                ><i class="fa-regular fa-calendar"></i
+              ></span>
+              <span class="info-label">تاريخ الميلاد</span>
+              <span class="info-value">{{ me?.dateOfBirth || "—" }}</span>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="info-row">
+              <span class="info-icon"><i class="fa-solid fa-flag"></i></span>
+              <span class="info-label">الجنسية</span>
+              <span class="info-value">{{ profile?.nationality || "—" }}</span>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="info-row">
+              <span class="info-icon"><i class="fa-solid fa-id-card"></i></span>
+              <span class="info-label">الرقم القومي</span>
+              <span class="info-value ltr-value">{{
+                profile?.nationalId || "—"
+              }}</span>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="info-row">
+              <span class="info-icon"><i class="fa-solid fa-phone"></i></span>
+              <span class="info-label">رقم الهاتف</span>
+              <span class="info-value ltr-value">{{
+                me?.mobileNumber || "—"
+              }}</span>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="info-row">
+              <span class="info-icon"
+                ><i class="fa-solid fa-envelope"></i
+              ></span>
+              <span class="info-label">البريد الإلكتروني</span>
+              <span class="info-value ltr-value">{{ me?.email || "—" }}</span>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="info-row">
+              <span class="info-icon"
+                ><i class="fa-solid fa-location-dot"></i
+              ></span>
+              <span class="info-label">العنوان</span>
+              <span class="info-value">{{ profile?.address || "—" }}</span>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="info-row">
+              <span class="info-icon"
+                ><i class="fa-solid fa-map-marker-alt"></i
+              ></span>
+              <span class="info-label">المحافظة</span>
+              <span class="info-value">{{ profile?.governorate || "—" }}</span>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="info-row">
+              <span class="info-icon"><i class="fa-solid fa-flag"></i></span>
+              <span class="info-label">مكان الميلاد</span>
+              <span class="info-value">{{ profile?.placeOfBirth || "—" }}</span>
+            </div>
+          </div>
+        </div>
+        <!-- /row -->
+
+        <!-- Edit Button -->
+        <div class="mt-4">
+          <button class="btn edit-btn w-100">
+            <i class="fa-solid fa-pen-to-square me-2"></i>
+            تعديل البيانات
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ LEFT COLUMN — Verification + Account Settings ═══ -->
+    <div class="col-12 col-lg-5">
+      <!-- Verification Card -->
+      <div class="p-4 border-bottom">
+        <h6 class="section-title mb-3">
+          <i class="fa-solid fa-shield-halved me-2"></i>
+          مستوى التحقق
+        </h6>
+
+        <!-- Verified -->
+        <div
+          *ngIf="me?.isVerified"
+          class="d-flex align-items-center gap-2 mb-2"
+        >
+          <i class="fa-solid fa-circle-check fs-5 text-verified"></i>
+          <span class="verified-label">موثق</span>
+        </div>
+
+        <!-- Not verified -->
+        <div
+          *ngIf="me?.isVerified === false && !loading"
+          class="d-flex align-items-center gap-2 mb-2"
+        >
+          <i class="fa-solid fa-circle-xmark fs-5 text-danger"></i>
+          <span class="text-danger fw-bold">غير موثق</span>
+        </div>
+
+        <!-- Dynamic description -->
+        <p class="text-muted small mb-3">
+          {{
+            me?.isVerified
+              ? "تم التحقق من هويتك بنجاح. جميع بياناتك موثقة ويمكنك الاستفادة من جميع الخدمات الرقمية."
+              : "لم يتم التحقق من هويتك بعد. يرجى إكمال بيانات ملفك الشخصي."
+          }}
+        </p>
+        <!-- Account Settings — static, no backend needed -->
+        <div class="p-4">
+          <h6 class="section-title mb-3">
+            <i class="fa-solid fa-gear me-2"></i>
+            إعدادات الحساب
+          </h6>
+
+          <ul class="list-unstyled mb-0 settings-list">
+            <li class="settings-item">
+              <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-lock setting-icon"></i>
+                <a routerLink="/changePassword">تغيير كلمة المرور</a>
+              </div>
+              <i class="fa-solid fa-chevron-left chevron"></i>
+            </li>
+
+            <li class="settings-item border-0">
+              <div class="d-flex align-items-center gap-2">
+                <i
+                  class="fa-solid fa-right-from-bracket setting-icon text-danger"
+                ></i>
+                <span (click)="logout()" class="text-danger"
+                  >تسجيل الخروج من جميع الأجهزة</span
+                >
+              </div>
+              <i class="fa-solid fa-chevron-left chevron"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

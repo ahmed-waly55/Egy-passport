@@ -1,11 +1,16 @@
-
-import { Component, inject, signal, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  Component,
+  inject,
+  signal,
+  HostListener,
+  PLATFORM_ID,
+} from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { HeaderComponent }  from '../../shared/components/header/header.component';
+import { HeaderComponent } from '../../shared/components/header/header.component';
 import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
-import { DocumentService }  from '../../services/document.service';
+import { DocumentService } from '../../services/document.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -15,37 +20,50 @@ import { DocumentService }  from '../../services/document.service';
   styleUrls: ['./main-layout.component.css'],
 })
 export class MainLayoutComponent {
-  private readonly svc    = inject(DocumentService);
+  private readonly svc = inject(DocumentService);
   private readonly router = inject(Router);
+  private readonly platformId = inject(PLATFORM_ID);
 
-  // Single source of truth for sidebar state
-  readonly sidebarOpen = signal(window.innerWidth >= 992);
-  readonly isMobile    = signal(window.innerWidth < 992);
+  readonly sidebarOpen = signal(false);
+  readonly isMobile = signal(false);
 
-  get lang() { return this.svc.lang(); }
-  get dir()  { return this.lang === 'ar' ? 'rtl' : 'ltr'; }
+  get lang() {
+    return this.svc.lang();
+  }
+
+  get dir() {
+    return this.lang === 'ar' ? 'rtl' : 'ltr';
+  }
 
   constructor() {
-    console.trace('MainLayout loaded'+this);
-    this.router.events.pipe(
-      filter(e => e instanceof NavigationEnd)
-    ).subscribe(() => {
-      // Close on mobile after navigation
-      if (this.isMobile()) this.sidebarOpen.set(false);
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      const mobile = window.innerWidth < 992;
+
+      this.isMobile.set(mobile);
+      this.sidebarOpen.set(!mobile);
+    }
+
+    this.router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe(() => {
+        if (this.isMobile()) {
+          this.sidebarOpen.set(false);
+        }
+      });
   }
 
   @HostListener('window:resize')
   onResize() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const mobile = window.innerWidth < 992;
+
     this.isMobile.set(mobile);
-    // On desktop always open, on mobile always closed unless toggled
     this.sidebarOpen.set(!mobile);
   }
 
-  //  Single toggle — flips between true/false
   toggleSidebar() {
-    this.sidebarOpen.update(v => !v);
+    this.sidebarOpen.update((v) => !v);
   }
 
   closeOverlay() {
