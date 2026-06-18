@@ -5,7 +5,7 @@ import { MeResponse, ProfileResponse } from '../../../services/me.service';
 @Component({
   selector: 'app-profile-header',
   standalone: true,
-  imports: [CommonModule, DatePipe],
+  imports: [CommonModule],
   templateUrl: './profile-header.component.html',
   styleUrl: './profile-header.component.css',
 })
