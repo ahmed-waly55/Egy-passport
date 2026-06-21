@@ -68,12 +68,19 @@ export const routes: Routes = [
         title: 'Profile | Egy E-Passport',
       },
       {
-        path: 'changePassword',
+        path: 'profile/changePassword',
         loadComponent: () =>
           import('./features/profile/change-password/change-password.component').then(
             (m) => m.ChangePasswordComponent,
           ),
         title: 'Profile | Egy E-Passport',
+      },
+      {
+        path: 'profile/edit',
+        loadComponent: () =>
+          import('./features/profile/edit-profile/edit-profile.component').then(
+            (c) => c.EditProfileComponent,
+          ),
       },
     ],
   },

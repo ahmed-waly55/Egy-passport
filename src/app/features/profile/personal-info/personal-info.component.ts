@@ -3,7 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { MeResponse, ProfileResponse } from '../../../services/me.service';
 import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { Route, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-personal-info',

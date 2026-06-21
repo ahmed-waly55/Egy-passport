@@ -7,13 +7,19 @@ export interface MeResponse {
   fullName: string;
   email: string;
   mobileNumber: string;
-  dateOfBirth: string;
-  isVerified: boolean;
+
+  isEmailVerified: boolean;
+  isMobileVerified: boolean;
+
   createdAt: string;
+  role: string;
+  isActive: boolean;
 }
 
 export interface ProfileResponse {
   nationalId: string;
+  dateOfBirth: string;
+  gender: string;
   governorate: string;
   address: string;
   nationality: string;
@@ -29,7 +35,14 @@ export interface ApiResponse<T> {
   data: T | null;
   errors: any | null;
 }
-
+export interface UpdateProfileRequest {
+  nationalId: string;
+  governorate: string;
+  address: string;
+  nationality: string;
+  placeOfBirth: string;
+  profilePhotoUrl: string;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -37,9 +50,7 @@ export class MeService {
   constructor(private _http: HttpClient) {}
 
   getMe() {
-    return this._http.get<ApiResponse<MeResponse>>(
-      `${environment.baseApiUrl}/api/me`,
-    );
+    return this._http.get<any>(`${environment.baseApiUrl}/api/me`);
   }
 
   getProfile() {
@@ -48,10 +59,7 @@ export class MeService {
     );
   }
 
-  updateProfile(body: any) {
-    return this._http.put<ApiResponse<any>>(
-      `${environment.baseApiUrl}/api/me/profile`,
-      body,
-    );
+  updateProfile(data: UpdateProfileRequest) {
+    return this._http.put(`${environment.baseApiUrl}/api/me/profile`, data);
   }
 }

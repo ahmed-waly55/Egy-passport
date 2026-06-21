@@ -157,6 +157,10 @@
   color: var(--egy-muted);
   font-size: 0.7rem;
 }
+.verification-pending {
+  color: #f59e0b;
+  font-weight: 700;
+}
 @media (max-width: 576px) {
   .info-row {
     flex-wrap: wrap;
