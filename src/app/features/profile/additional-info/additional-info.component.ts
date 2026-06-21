@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { MeResponse } from '../../../services/me.service';
+import { MeResponse, ProfileResponse } from '../../../services/me.service';
 
 @Component({
   selector: 'app-additional-info',
@@ -11,5 +11,6 @@ import { MeResponse } from '../../../services/me.service';
 })
 export class AdditionalInfoComponent {
   @Input() me: MeResponse | null = null;
+  @Input() profile: ProfileResponse | null = null;
   @Input() loading = true;
 }

@@ -1,71 +1,117 @@
-<div class="ai-card" dir="rtl">
-  <div class="px-4 pt-4 pb-2">
-    <h6 class="section-title">
-      <i class="fa-solid fa-circle-info me-2"></i>
-      معلومات إضافية
-    </h6>
-  </div>
+<div class="my-5 px-4 pb-4" *ngIf="!loading">
+  <div class="row gy-3 gx-4">
+    <!-- تاريخ التسجيل -->
+    <div class="col-12 col-md-6">
+      <div class="info-item">
+        <div class="info-icon-wrap">
+          <i class="fa-regular fa-calendar-check"></i>
+        </div>
 
-  <!-- Loading -->
-  <div *ngIf="loading" class="text-center py-4">
-    <div class="spinner-border spinner-border-sm" role="status"></div>
-  </div>
+        <div class="info-content">
+          <span class="info-label">تاريخ التسجيل</span>
 
-  <div class="px-4 pb-4" *ngIf="!loading">
-    <div class="row gy-3 gx-4">
-      <!-- جهة العمل — not in API, static -->
-      <div class="col-12 col-md-6">
-        <div class="info-item">
-          <div class="info-icon-wrap">
-            <i class="fa-solid fa-building"></i>
-          </div>
-          <div class="info-content">
-            <span class="info-label">جهة العمل</span>
-            <span class="info-value">—</span>
-          </div>
+          <span class="info-value">
+            {{ me?.createdAt ? (me?.createdAt | date: "d MMMM yyyy") : "—" }}
+          </span>
         </div>
       </div>
+    </div>
 
-      <!-- تاريخ التسجيل — from API -->
-      <div class="col-12 col-md-6">
-        <div class="info-item">
-          <div class="info-icon-wrap">
-            <i class="fa-regular fa-calendar-check"></i>
-          </div>
-          <div class="info-content">
-            <span class="info-label">تاريخ التسجيل</span>
-            <span class="info-value">
-              {{ me?.createdAt | date: "d MMMM yyyy" }} || "—"
-            </span>
-          </div>
+    <!-- الدور -->
+    <div class="col-12 col-md-6">
+      <div class="info-item">
+        <div class="info-icon-wrap">
+          <i class="fa-solid fa-user-tag"></i>
+        </div>
+
+        <div class="info-content">
+          <span class="info-label">الدور</span>
+
+          <span class="info-value">
+            {{ me?.role || "—" }}
+          </span>
         </div>
       </div>
+    </div>
 
-      <!-- فصيلتم — not in API, static -->
-      <div class="col-12 col-md-6">
-        <div class="info-item">
-          <div class="info-icon-wrap">
-            <i class="fa-solid fa-user-group"></i>
-          </div>
-          <div class="info-content">
-            <span class="info-label">فصيلتم</span>
-            <span class="info-value">
-              <span class="badge-count">0+</span>
-            </span>
-          </div>
+    <!-- حالة الحساب -->
+    <div class="col-12 col-md-6">
+      <div class="info-item">
+        <div class="info-icon-wrap">
+          <i class="fa-solid fa-user-check"></i>
+        </div>
+
+        <div class="info-content">
+          <span class="info-label">حالة الحساب</span>
+
+          <span class="info-value">
+            {{ me?.isActive ? "نشط" : "غير نشط" }}
+          </span>
         </div>
       </div>
+    </div>
+    <!-- حالة طلب الهوية -->
+    <div class="col-12 col-md-6">
+      <div class="info-item">
+        <div class="info-icon-wrap">
+          <i class="fa-solid fa-file-shield"></i>
+        </div>
 
-      <!-- المهنة — not in API, static -->
-      <div class="col-12 col-md-6">
-        <div class="info-item">
-          <div class="info-icon-wrap">
-            <i class="fa-solid fa-briefcase"></i>
-          </div>
-          <div class="info-content">
-            <span class="info-label">المهنة</span>
-            <span class="info-value">—</span>
-          </div>
+        <div class="info-content">
+          <span class="info-label">حالة الطلب</span>
+
+          <span class="info-value"> قيد المراجعة </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- توثيق البريد -->
+    <div class="col-12 col-md-6">
+      <div class="info-item">
+        <div class="info-icon-wrap">
+          <i class="fa-solid fa-envelope-circle-check"></i>
+        </div>
+
+        <div class="info-content">
+          <span class="info-label">توثيق البريد</span>
+
+          <span class="info-value">
+            {{ me?.isEmailVerified ? "موثق" : "بانتظار التحقق" }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- توثيق الهاتف -->
+    <div class="col-12 col-md-6">
+      <div class="info-item">
+        <div class="info-icon-wrap">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+        </div>
+
+        <div class="info-content">
+          <span class="info-label">توثيق الهاتف</span>
+
+          <span class="info-value">
+            {{ me?.isMobileVerified ? "موثق" : "بانتظار التحقق" }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- مكان الميلاد -->
+    <div class="col-12 col-md-6">
+      <div class="info-item">
+        <div class="info-icon-wrap">
+          <i class="fa-solid fa-map-location-dot"></i>
+        </div>
+
+        <div class="info-content">
+          <span class="info-label">مكان الميلاد</span>
+
+          <span class="info-value">
+            {{ profile?.placeOfBirth || "—" }}
+          </span>
         </div>
       </div>
     </div>
