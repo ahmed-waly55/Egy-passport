@@ -2,12 +2,14 @@ import { Component, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormBuilder, FormsModule } from '@angular/forms';
 import { FieldComponent } from '../../../shared/components/field/field.component';
-import { LangComponent } from "../../../shared/components/lang/lang.component";
 import { RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../../services/auth.service';
+import { ISignup } from '../../../core/models/iauth';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -17,19 +19,19 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     FormsModule,
     FieldComponent,
-    LangComponent,
     RouterLink,
     MatButtonModule,
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
-  ],
+
+],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
 export class SignupComponent implements OnDestroy {
   private _formBuilder = inject(FormBuilder);
-
+  constructor(private _authService: AuthService , private _toastr: ToastrService) {}
 
 selectedFile: File | null = null;
 selectedFilePreview: string | null = null;
@@ -107,10 +109,10 @@ removeFile(index: number): void {
     fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
     nationalId: new FormControl('', [Validators.required, Validators.pattern(/^([1-9]{1})([0-9]{13})$/)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl('', [Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)]),
+    mobileNumber: new FormControl('', [Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl('', [Validators.required]),
-    agreeToTerms: new FormControl(false, [Validators.requiredTrue])
+    termsAccepted: new FormControl(true, [Validators.requiredTrue])
   }, {
     validators: (group) => {
       const pass = group.get('password')?.value;
@@ -171,8 +173,20 @@ otpForm = new FormGroup({
   otpVerification: this.otpForm.value
 };
 
+this._authService.register(finalPayload.accountAndDetails).subscribe({
+  next: (response: ISignup) => {
+    this._toastr.success('تم التسجيل بنجاح.', 'نجاح');
+    // console.log('Registration successful:', response);
+    // Optionally, you can navigate to a different page or show a success message here
+
+  },
+  error: (error) => {
+    this._toastr.error('حدث خطأ أثناء التسجيل.', 'فشل');
+    // console.error('Registration error:', error);
+  }
+});
 console.log(finalPayload);
-    console.log('إرسال كامل ملف التسجيل الموحد للمنصة:', finalPayload);
+    // console.log('إرسال كامل ملف التسجيل الموحد للمنصة:', finalPayload);
   }
 
   ngOnDestroy() {

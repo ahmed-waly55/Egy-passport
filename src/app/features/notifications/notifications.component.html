@@ -3,17 +3,44 @@
   <!-- ══════════════ MAIN AREA ══════════════ -->
   <div class="main-area">
 
-
-
     <!-- Page Content -->
     <main class="page-main">
 
+      <!-- Page Head -->
       <div class="page-head">
         <h1 class="pg-title">الإشعارات</h1>
         <p class="pg-sub">تابع كل ما يهمك من تنبيهات وتحديثات</p>
       </div>
 
-      <!-- Filter Tabs Row -->
+      <!-- ── Action Bar ── -->
+      <div class="action-bar">
+        <!-- RIGHT in RTL: badge + refresh -->
+        <div class="action-start">
+          <span class="unread-badge" *ngIf="unreadCount() > 0">
+            <i class="bi bi-record-fill"></i>
+            {{ unreadCount() }} غير مقروءة
+          </span>
+          <button
+            class="refresh-btn"
+            type="button"
+            (click)="refresh()"
+            [disabled]="loading()"
+            title="تحديث الإشعارات"
+            aria-label="تحديث الإشعارات">
+            <i class="bi bi-arrow-clockwise" [class.spinning]="loading()"></i>
+          </button>
+        </div>
+        <!-- LEFT in RTL: mark all -->
+        <button
+          *ngIf="unreadCount() > 0 && !loading()"
+          type="button"
+          class="read-all-btn"
+          (click)="markAllAsRead()">
+          تحديد الكل كمقروء
+        </button>
+      </div>
+
+      <!-- ── Filter Tabs ── -->
       <div class="tabs-row">
         <div class="tabs-scroll">
           <button
@@ -24,28 +51,64 @@
             (click)="setActiveTab(tab.id)">
             <i [class]="tab.icon"></i>
             {{ tab.label }}
-            <span class="tab-num" *ngIf="tab.id === 'unread' && unreadCount() > 0">{{ unreadCount() }}</span>
+            <span class="tab-num" *ngIf="tab.id === 'unread' && unreadCount() > 0">
+              {{ unreadCount() }}
+            </span>
           </button>
         </div>
-        <button
-          *ngIf="unreadCount() > 0"
-          type="button"
-          class="read-all-btn"
-          (click)="markAllAsRead()">
-          تحديد الكل كمقروء
+      </div>
+
+      <!-- ── Error Banner ── -->
+      <div class="error-banner" *ngIf="error() && !loading()" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <span>{{ error() }}</span>
+        <button type="button" class="retry-btn" (click)="refresh()">
+          <i class="bi bi-arrow-clockwise"></i>
+          إعادة المحاولة
         </button>
       </div>
 
-      <!-- Notifications List -->
-      <ul class="notif-list">
+      <!-- ── Skeleton Loaders ── -->
+      <ul class="notif-list" *ngIf="loading()" aria-label="جاري التحميل">
+        <li class="notif-item skeleton-item" *ngFor="let _ of skeletonItems">
+          <div class="n-icon-wrap">
+            <div class="skel skel-icon"></div>
+          </div>
+          <div class="n-body">
+            <div class="skel skel-title"></div>
+            <div class="skel skel-desc"></div>
+            <div class="skel skel-desc skel-desc-sm"></div>
+          </div>
+          <div class="n-meta">
+            <div class="skel skel-time"></div>
+            <div class="skel skel-badge"></div>
+          </div>
+        </li>
+      </ul>
+
+      <!-- ── Empty State ── -->
+      <div
+        class="notif-empty"
+        *ngIf="!loading() && !error() && filteredNotifications().length === 0">
+        <i class="bi bi-bell-slash-fill"></i>
+        <h3 class="empty-title">لا توجد إشعارات</h3>
+        <p class="empty-desc">أنت على اطلاع بكل شيء!</p>
+      </div>
+
+      <!-- ── Notifications List ── -->
+      <ul
+        class="notif-list"
+        *ngIf="!loading() && filteredNotifications().length > 0"
+        role="list">
 
         <li
-          *ngFor="let n of filteredNotifications()"
+          *ngFor="let n of filteredNotifications(); trackBy: trackById"
           class="notif-item"
           [class.is-new]="n.status === 'new'"
+          role="listitem"
           (click)="markAsRead(n)">
 
-          <!-- Icon wrapper — right in RTL · ::after draws the separator -->
+          <!-- Icon wrapper — ::after draws the separator -->
           <div class="n-icon-wrap">
             <div class="n-icon" [ngClass]="getTypeConfig(n.type).bgColorClass">
               <i [class]="getTypeConfig(n.type).iconClass"
@@ -53,7 +116,7 @@
             </div>
           </div>
 
-          <!-- Body — grows to fill center -->
+          <!-- Body -->
           <div class="n-body">
             <h3 class="n-title">{{ n.title }}</h3>
             <p class="n-desc">{{ n.description }}</p>
@@ -62,23 +125,43 @@
             </a>
           </div>
 
-          <!-- Meta — last child → LEFT in RTL -->
+          <!-- Meta -->
           <div class="n-meta">
             <span class="n-time">{{ getRelativeTime(n.timestamp) }}</span>
-            <span class="n-badge" [class.badge-new]="n.status === 'new'" [class.badge-read]="n.status === 'read'">
+            <span
+              class="n-badge"
+              [class.badge-new]="n.status === 'new'"
+              [class.badge-read]="n.status === 'read'">
               <span class="n-dot"></span>
               {{ n.status === 'new' ? 'جديد' : 'مقروءة' }}
             </span>
+            <button
+              *ngIf="n.status === 'new'"
+              type="button"
+              class="n-mark-read"
+              title="تحديد كمقروء"
+              aria-label="تحديد كمقروء"
+              (click)="$event.stopPropagation(); markAsRead(n)">
+              <i class="bi bi-check2-all"></i>
+            </button>
           </div>
         </li>
 
-        <!-- Empty State -->
-        <li class="notif-empty" *ngIf="filteredNotifications().length === 0">
-          <i class="bi bi-bell-slash-fill"></i>
-          <p>لا توجد إشعارات في هذا القسم</p>
-        </li>
-
       </ul>
+
+      <!-- ── Paginator ── -->
+      <div class="paginator-wrap" *ngIf="!loading() && totalCount() > pageSize()">
+        <mat-paginator
+          [length]="totalCount()"
+          [pageSize]="pageSize()"
+          [pageIndex]="pageNumber() - 1"
+          [pageSizeOptions]="[10, 20, 50]"
+          showFirstLastButtons
+          (page)="onPageChange($event)"
+          aria-label="تصفح الإشعارات">
+        </mat-paginator>
+      </div>
+
     </main>
   </div>
 

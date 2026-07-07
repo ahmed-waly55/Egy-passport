@@ -1,0 +1,145 @@
+<div class="edit-profile-card">
+  <h3 class="mb-4">تعديل البيانات الشخصية</h3>
+
+  <form [formGroup]="profileForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label>الرقم القومي</label>
+
+        <input
+          type="text"
+          class="form-control"
+          formControlName="nationalId"
+          [class.is-invalid]="
+            profileForm.get('nationalId')?.invalid &&
+            profileForm.get('nationalId')?.touched
+          "
+          aria-label="nationalId"
+        />
+
+        <small class="text-danger" *ngIf="hasError('nationalId', 'required')">
+          الرقم القومي مطلوب
+        </small>
+
+        <small class="text-danger" *ngIf="hasError('nationalId', 'pattern')">
+          يجب أن يتكون الرقم القومي من 14 رقم
+        </small>
+
+        <small class="text-danger" *ngIf="backendErrors['nationalId']">
+          {{ backendErrors["nationalId"] }}
+        </small>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>الجنسية</label>
+
+        <input
+          type="text"
+          class="form-control"
+          formControlName="nationality"
+          [class.is-invalid]="
+            profileForm.get('nationality')?.invalid &&
+            profileForm.get('nationality')?.touched
+          "
+          aria-label="nationality"
+        />
+
+        <small class="text-danger" *ngIf="hasError('nationality', 'required')">
+          الجنسية مطلوبة
+        </small>
+
+        <small class="text-danger" *ngIf="backendErrors['nationality']">
+          {{ backendErrors["nationality"] }}
+        </small>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>المحافظة</label>
+
+        <input
+          type="text"
+          class="form-control"
+          formControlName="governorate"
+          [class.is-invalid]="
+            profileForm.get('governorate')?.invalid &&
+            profileForm.get('governorate')?.touched
+          "
+          aria-label="governorate"
+        />
+
+        <small class="text-danger" *ngIf="hasError('governorate', 'required')">
+          المحافظة مطلوبة
+        </small>
+
+        <small class="text-danger" *ngIf="backendErrors['governorate']">
+          {{ backendErrors["governorate"] }}
+        </small>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>مكان الميلاد</label>
+
+        <input
+          type="text"
+          class="form-control"
+          formControlName="placeOfBirth"
+          [class.is-invalid]="
+            profileForm.get('placeOfBirth')?.invalid &&
+            profileForm.get('placeOfBirth')?.touched
+          "
+          aria-label="placeOfBirth"
+        />
+
+        <small class="text-danger" *ngIf="hasError('placeOfBirth', 'required')">
+          مكان الميلاد مطلوب
+        </small>
+
+        <small class="text-danger" *ngIf="backendErrors['placeOfBirth']">
+          {{ backendErrors["placeOfBirth"] }}
+        </small>
+      </div>
+
+      <div class="col-12 mb-3">
+        <label>العنوان</label>
+
+        <textarea
+          rows="3"
+          class="form-control"
+          formControlName="address"
+          [class.is-invalid]="
+            profileForm.get('address')?.invalid &&
+            profileForm.get('address')?.touched
+          "
+          aria-label="address"
+        ></textarea>
+
+        <small class="text-danger" *ngIf="hasError('address', 'required')">
+          العنوان مطلوب
+        </small>
+
+        <small class="text-danger" *ngIf="hasError('address', 'minlength')">
+          يجب ألا يقل العنوان عن 10 أحرف
+        </small>
+
+        <small class="text-danger" *ngIf="backendErrors['address']">
+          {{ backendErrors["address"] }}
+        </small>
+      </div>
+
+      <div class="col-12 mb-4">
+        <label>رابط الصورة الشخصية</label>
+
+        <input
+          type="text"
+          class="form-control"
+          formControlName="profilePhotoUrl"
+          aria-label="ProfilePhotoUrl"
+        />
+      </div>
+    </div>
+
+    <button type="submit" class="btn edit-btn w-100 mt-4" [disabled]="loading">
+      {{ loading ? "جاري الحفظ..." : "حفظ التعديلات" }}
+    </button>
+  </form>
+</div>

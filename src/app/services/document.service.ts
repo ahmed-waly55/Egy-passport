@@ -1,9 +1,12 @@
 
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { DocumentCard, DocStatus, Lang, NavItem, User } from '../shared/models/document';
+import { NotificationStoreService } from '../features/notifications/notification-store.service';
 
 @Injectable({ providedIn: 'root' })
 export class DocumentService { //Document
+
+  private readonly notifStore = inject(NotificationStoreService);
 
   // ── Language ─────────────────────────────────────────────────────
   readonly lang = signal<Lang>('ar');
@@ -18,13 +21,14 @@ export class DocumentService { //Document
   };
 
   // ── Navigation ────────────────────────────────────────────────────
-readonly navItems: NavItem[] = [
-  { key:'dashboard',     label:{ ar:'الرئيسية',       en:'Dashboard'      }, icon:'bi-house-door'       },
-  { key:'identity',      label:{ ar:'الهوية الرقمية', en:'Digital ID'      }, icon:'bi-person-vcard'     },
-  { key:'requests',      label:{ ar:'طلباتي',         en:'My Applications' }, icon:'bi-file-earmark-text'},
-  { key:'documents',     label:{ ar:'المستندات',      en:'Documents'       }, icon:'bi-folder2-open'     },
-  { key:'notifications', label:{ ar:'الإشعارات',      en:'Notifications'   }, icon:'bi-bell', badge:3    },
-];
+  readonly navItems = computed<NavItem[]>(() => [
+    { key:'dashboard',     label:{ ar:'الرئيسية',       en:'Dashboard'      }, icon:'bi-house-door'        },
+    { key:'identity',      label:{ ar:'الهوية الرقمية', en:'Digital ID'      }, icon:'bi-person-vcard'      },
+    { key:'requests',      label:{ ar:'طلباتي',         en:'My Applications' }, icon:'bi-file-earmark-text' },
+    { key:'documents',     label:{ ar:'المستندات',      en:'Documents'       }, icon:'bi-folder2-open'      },
+    { key:'notifications', label:{ ar:'الإشعارات',      en:'Notifications'   }, icon:'bi-bell',
+      badge: this.notifStore.unreadCount() || undefined },
+  ]);
 readonly accountItems: NavItem[] = [
   { key:'profile',  label:{ ar:'الملف الشخصي', en:'Profile'  }, icon:'bi-person-circle' },
   { key:'settings', label:{ ar:'الإعدادات',    en:'Settings' }, icon:'bi-gear'           },

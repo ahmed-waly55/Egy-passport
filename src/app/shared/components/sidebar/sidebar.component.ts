@@ -18,5 +18,5 @@ export class SidebarComponent {
   readonly svc = inject(DocumentService);
 
   get lang()         { return this.svc.lang(); }
-  get navItems()     { return this.svc.navItems; }
+  get navItems()     { return this.svc.navItems(); }
   get accountItems() { return this.svc.accountItems; }}

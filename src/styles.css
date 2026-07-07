@@ -1,3 +1,4 @@
+
 /* Global styles — loaded last, overrides Bootstrap & Angular Material */
 
 body { margin: 0; padding: 0; }
@@ -62,6 +63,18 @@ html, body { height: 100%; }
   --text-muted:   #6b7280;
   --border:       #e5e7eb;
   --bg:           #f4f6fb;
+  --egy-navy: #1a2340;
+  --egy-dark-card: #0f1729;
+  --egy-gold: #c9a84c;
+  --egy-red: #cc1f2d;
+  --egy-green: #28a745;
+  --egy-surface: #f4f6fb;
+  --egy-text: #1a2340;
+  --egy-muted: #6c757d;
+  --egy-radius: 12px;
+  --egy-shadow: 0 4px 24px rgba(26, 35, 64, 0.10);
+  --font-ar: 'Cairo', sans-serif;
+  --transition-duration: 0.5s;
 }
 
 * {
@@ -72,10 +85,13 @@ html, body { height: 100%; }
 
 body {
   font-family: 'Segoe UI', Tahoma, sans-serif;
-  background: var(--bg);
+  /* background: var(--bg); */
   color: var(--text-main);
 }
-
+a{
+  text-decoration: none;
+  color: black;
+}
 /* Shared badge styles (used across components) */
 .status-badge {
   display: inline-flex;

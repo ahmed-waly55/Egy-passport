@@ -1,0 +1,28 @@
+.is-invalid {
+  border-color: #dc3545;
+}
+
+.text-danger {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.875rem;
+}
+/* ─── Edit Button ─── */
+.edit-btn {
+  background: var(--egy-navy);
+    color: var(--egy-gold);
+    border-color: var(--egy-navy);
+  border-radius: var(--egy-radius);
+  font-family: var(--font-ar);
+  font-size: 0.875rem;
+  padding: 10px;
+  transition: background var(--transition-duration), color var(--transition-duration);
+}
+
+.edit-btn:hover {
+  background: #2a365d;
+}
+
+.edit-btn i {
+  color: var(--egy-gold);
+}
