@@ -1,6 +1,50 @@
 
+
+<!-- Loading spinner -->
+@if (isLoading) {
+  <div class="loading-wrap">
+    <div class="spinner-border text-danger" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p>{{ lang === 'ar' ? 'جاري تحميل المستندات...' : 'Loading documents...' }}</p>
+  </div>
+}
+
+<!-- Error state -->
+@if (loadError && !isLoading) {
+  <div class="alert alert-danger text-center" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    {{ loadError }}
+    <button class="btn btn-sm btn-outline-danger ms-3" (click)="ngOnInit()">
+      {{ lang === 'ar' ? 'إعادة المحاولة' : 'Retry' }}
+    </button>
+  </div>
+}
+
+<!-- Cards grid (only when not loading) -->
+<!-- @if (!isLoading) {
+  <div class="container-fluid px-0">
+    <div class="row g-3">
+      @for (doc of filtered; track doc.id) {
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <app-document-card
+            [doc]="doc"
+            (download)="onDownload($event)"
+            (delete)="onDelete($event)"
+            (uploaded)="onUploaded($event)">
+          </app-document-card>
+        </div>
+      }
+      @empty {
+        <div class="col-12 text-center text-muted py-5">
+          {{ lang === 'ar' ? 'لا توجد مستندات' : 'No documents found' }}
+        </div>
+      }
+    </div>
+  </div>
+} -->
 <div class="page-title">{{ lang === 'ar' ? 'المستندات' : 'Documents' }}</div>
-<p class="page-sub">{{ lang === 'ar' ? 'جميع المستندات التي قمت برفعها' : 'All your submitted documents' }}</p>
+<!-- <p class="page-sub">{{ lang === 'ar' ? 'جميع المستندات التي قمت برفعها' : 'All your submitted documents' }}</p> -->
 
 <div class="security-banner">
   <div>
@@ -39,7 +83,7 @@
   </div>
 </div>
 
-<div class="container-fluid px-0">
+<!-- <div class="container-fluid px-0">
   <div class="row g-3">
     @for (doc of filtered; track doc.id) {
       <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
@@ -58,8 +102,30 @@
       </div>
     }
   </div>
-</div>
-
+</div> -->
+<!-- Cards grid (only when not loading) -->
+@if (!isLoading) {
+  <div class="container-fluid px-0">
+    <div class="row g-3">
+      @for (doc of filtered; track doc.id) {
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <app-document-card
+            [doc]="doc"
+            (view)="onView($event)"
+            (download)="onDownload($event)" 
+            (delete)="onDelete($event)"
+            (uploaded)="onUploaded($event)">
+          </app-document-card>
+        </div>
+      }
+      @empty {
+        <div class="col-12 text-center text-muted py-5">
+          {{ lang === 'ar' ? 'لا توجد مستندات' : 'No documents found' }}
+        </div>
+      }
+    </div>
+  </div>
+}
 <div class="notes-box">
   <div>
   <div class="note-title">

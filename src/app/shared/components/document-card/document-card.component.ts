@@ -102,7 +102,14 @@ export class DocumentCardComponent implements OnChanges {
 toggleDd() { this.ddOpen.update(v => !v); }
   viewFile() {
     
+    // const f = this.uploadedFile();
+    // if (f) window.open(URL.createObjectURL(f), '_blank');
+
     const f = this.uploadedFile();
-    if (f) window.open(URL.createObjectURL(f), '_blank');
+  if (f) { window.open(URL.createObjectURL(f), '_blank'); return; }
+
+  // 2. URL from API
+  const url = this.doc.viewUrl ?? this.doc.img;
+  if (url) { this.view.emit(this.doc); } 
   }
 }
