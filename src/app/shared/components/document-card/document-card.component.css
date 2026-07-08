@@ -239,7 +239,11 @@
 }
 .btn-del-sm:hover { background: #dc2626; color: #fff; }
   .btn-a{display:inline-flex;align-items:center;gap:.3rem;font-size:.75rem;font-weight:600;border-radius:8px;padding:.32rem .75rem;border:1px solid;cursor:pointer;transition:.2s;background:#fff}
-  .btn-view{border-color:var(--red);color:var(--red)}.btn-view:hover{background:var(--red);color:#fff}
-  .btn-dl{border-color:#2563eb;color:#2563eb}.btn-dl:hover{background:#2563eb;color:#fff}
-  .btn-del{border-color:#dc2626;color:#dc2626;padding:.32rem .55rem}.btn-del:hover{background:#dc2626;color:#fff}
-  .btn-up{background:var(--red);border-color:var(--red);color:#fff}.btn-up:hover{background:var(--red-dark)}
+  .btn-view{border-color:var(--red);color:var(--red)}
+  .btn-view:hover{background:black;color:#fff}
+  .btn-dl{border-color:#2563eb;color:#2563eb}
+  .btn-dl:hover{background:#2563eb;color:#fff}
+  .btn-del{border-color:#dc2626;color:#dc2626;padding:.32rem .55rem}
+  .btn-del:hover{background:#dc2626;color:#fff}
+  .btn-up{background:var(--red);border-color:var(--red);color:#fff}
+  .btn-up:hover{background:var(--red-dark)}

@@ -2,6 +2,7 @@ import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { DocumentService } from '../../../services/document.service';
+import { NotificationStoreService } from '../../../features/notifications/notification-store.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,10 +14,12 @@ import { DocumentService } from '../../../services/document.service';
 export class SidebarComponent {
   @Input() isOpen   = false;
   @Input() isMobile = false;  //  NEW: needed for correct CSS class
-
+private readonly notifStore = inject(NotificationStoreService);
   readonly footerImage = '/images/egynav.png';
   readonly svc = inject(DocumentService);
 
   get lang()         { return this.svc.lang(); }
-  get navItems()     { return this.svc.navItems(); }
-  get accountItems() { return this.svc.accountItems; }}
+  get navItems()     { return this.svc.navItems; }
+  get accountItems() { return this.svc.accountItems; }
+  get notifCount() {return this.notifStore.unreadCount;}
+}
