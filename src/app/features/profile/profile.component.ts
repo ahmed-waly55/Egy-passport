@@ -42,8 +42,6 @@ export class ProfileComponent implements OnInit {
       profile: this.meService.getProfile(),
     }).subscribe({
       next: ({ me, profile }) => {
-        console.log('ME', me.data);
-        console.log('PROFILE', profile.data);
 
         this.me = me.data;
         this.profile = profile.data;
@@ -52,7 +50,6 @@ export class ProfileComponent implements OnInit {
       },
       error: (err) => {
         this.loading = false;
-        console.error('Profile API error:', err);
         this.toastr.error(
           'حدث خطأ أثناء تحميل البيانات، حاول مرة أخرى',
           'خطأ',

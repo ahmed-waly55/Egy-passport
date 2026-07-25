@@ -123,7 +123,6 @@ export class ForgetPasswordComponent {
             'Success'
           );
 
-          console.log(response);
           this.step = 2;
         },
         error: (err: any) => {
@@ -162,7 +161,6 @@ export class ForgetPasswordComponent {
           'تم تغيير كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول.',
           'نجاح'
         );
-        console.log(response);
         this.router.navigate(['/auth/login']);
       },
       error: (err: any) => {
@@ -173,7 +171,6 @@ export class ForgetPasswordComponent {
         );
       }
     });
-    console.log('Reset Password Data:', payload);
 
     // this.authService.resetPassword(payload).subscribe(...)
   }

@@ -1,35 +1,3 @@
-// import { Component, inject, computed } from '@angular/core';
-// import { CommonModule } from '@angular/common';
-// import { FormsModule } from '@angular/forms';
-// import { DocumentCardComponent } from '../../shared/components/document-card/document-card.component';
-// import { DocumentService } from '../../services/document.service';
-// import { DocumentCard, UploadEvent } from '../../shared/models/document';
-
-// @Component({
-//   selector: 'app-documents',
-//     standalone: true,
-//   imports: [CommonModule, FormsModule, DocumentCardComponent],
-//   templateUrl: './documents.component.html',
-//   styleUrl: './documents.component.css'
-// })
-// export class DocumentsComponent {
-//   readonly svc = inject(DocumentService);
-
-//   get lang()    { return this.svc.lang(); }
-//   get filtered(){ return this.svc.filteredDocs(); }
-
-//   get searchQuery()         { return this.svc.searchQuery(); }
-//   set searchQuery(v: string){ this.svc.searchQuery.set(v); }
-
-//   get statusFilter()        { return this.svc.statusFilter(); }
-//   set statusFilter(v: any)  { this.svc.statusFilter.set(v); }
-
-//   onView(doc: DocumentCard)     { console.log('View:', doc.title[this.lang]);  }
-//   onDownload(doc: DocumentCard) { console.log('Download:', doc.title[this.lang]); }
-//   onDelete(doc: DocumentCard)   { this.svc.deleteDoc(doc.id); }
-//   onUploaded(e: UploadEvent)    { console.log('Uploaded doc', e.docId, e.file.name); }}
-
-
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -64,18 +32,14 @@ export class DocumentsComponent implements OnInit {
     // ── Get token from localStorage (set during login) ──
     const token = localStorage.getItem('token') ?? '';
    if (token) {
-    console.log("tooken"+token)
     this.svc.loadDocuments(token)
    }
   }
 
-//   onDownload(doc: DocumentCard) {
-// if (doc.viewUrl) window.open(doc.viewUrl, '_blank');
 
-// }
  async onDownload(doc: DocumentCard) {
     const url = doc.viewUrl ?? doc.img;
-    if (!url) { console.warn('No download URL'); return; }
+    if (!url) { return; }
 
     try {
       // Fetch the file as blob so browser saves it instead of opening it
@@ -93,7 +57,6 @@ export class DocumentsComponent implements OnInit {
 
     } catch (err) {
       // Fallback: open in new tab if fetch fails (CORS etc.)
-      console.warn('Download failed, opening in new tab:', err);
       window.open(url, '_blank');
     }
   }
@@ -113,17 +76,13 @@ private getFileName(doc: DocumentCard): string {
   const title = doc.title.en.replace(/\s+/g, '_');
   return `${title}_${timestamp}.pdf`;
   }
-  onDelete(doc: DocumentCard)   { this.svc.deleteDoc(doc.id); }
-  onUploaded(e: UploadEvent)    { console.log('Uploaded doc', e.docId, e.file.name); }
-    onView(doc: DocumentCard)     { 
-      if (doc.viewUrl) {
-    window.open(doc.viewUrl, '_blank');
-  } else {
-    console.warn('No view URL available for this document');
+  onDelete(doc: DocumentCard) { this.svc.deleteDoc(doc.id); }
+
+  onUploaded(_e: UploadEvent) { }
+
+  onView(doc: DocumentCard) {
+    if (doc.viewUrl) {
+      window.open(doc.viewUrl, '_blank');
+    }
   }
-      console.log('View:', doc.title[this.lang]);  }
-
 }
-
-
-

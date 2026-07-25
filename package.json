@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:Egy-passport": "node dist/egy-passport/server/server.mjs"
+    "test:chrome": "ng test --browsers=Chrome --watch=false",
+    "test:coverage": "ng test --watch=false --code-coverage",
+    "test:ci": "ng test --browsers=ChromeHeadlessCI --watch=false --code-coverage"
   },
   "private": true,
   "dependencies": {

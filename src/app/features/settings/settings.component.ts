@@ -193,7 +193,6 @@ export class SettingsComponent {
   }
 
   private logoutAllDevices(): void {
-    console.log('Logging out from all devices...');
   }
 
   private toggleDarkMode(): void {
@@ -201,6 +200,5 @@ export class SettingsComponent {
   }
 
   private openAppRating(): void {
-    console.log('Opening app rating...');
   }
 }

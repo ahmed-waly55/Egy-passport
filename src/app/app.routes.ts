@@ -35,6 +35,30 @@ export const routes: Routes = [
       ),
     children: [
       {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./pages/dashboard/dashboard.component').then(
+            (m) => m.DashboardComponent,
+          ),
+        title: 'Dashboard | Egy E-Passport',
+      },
+      {
+        path: 'wallet',
+        loadComponent: () =>
+          import('./features/wallet/wallet.component').then(
+            (m) => m.WalletComponent,
+          ),
+        title: 'Digital ID | Egy E-Passport',
+      },
+      {
+        path: 'applications',
+        loadComponent: () =>
+          import('./features/applications/applications.component').then(
+            (m) => m.ApplicationsComponent,
+          ),
+        title: 'My Applications | Egy E-Passport',
+      },
+      {
         path: 'documents',
         loadComponent: () =>
           import('./pages/documents/documents.component').then(

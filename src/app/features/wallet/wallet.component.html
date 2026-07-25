@@ -1,0 +1,156 @@
+<!-- src/app/features/wallet/wallet.component.html -->
+<!-- REPLACES existing wallet.component.html -->
+<div class="wallet-page" dir="rtl">
+  <div class="page-title">🪪 الهوية الرقمية</div>
+  <p class="page-sub">جواز سفرك الرقمي وبيانات هويتك الرسمية</p>
+
+  @if (isLoading()) {
+    <div class="loading-wrap">
+      <div class="spinner-border text-danger" role="status"><span class="visually-hidden">Loading...</span></div>
+      <p>جاري تحميل بيانات الجواز...</p>
+    </div>
+  }
+
+  @if (loadError() && !isLoading()) {
+    <div class="alert alert-danger text-center" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      {{ loadError() }}
+      <button class="btn btn-sm btn-outline-danger ms-3" (click)="loadWalletData()">إعادة المحاولة</button>
+    </div>
+  }
+
+  @if (!isLoading() && !loadError()) {
+
+    <!-- PASSPORT HERO CARD -->
+    <div class="wallet-hero">
+      <div class="passport-card-full">
+        <!-- Header -->
+        <div class="pcf-header">
+          <div>
+            <div class="pcf-country">جمهورية مصر العربية</div>
+            <div class="pcf-type">ARAB REPUBLIC OF EGYPT</div>
+          </div>
+          <img src="/images/coat_of_arms.png" alt="Eagle" class="pcf-eagle"
+               onerror="this.style.display='none'"/>
+        </div>
+
+        <!-- Status -->
+        <div class="pcf-status" [class.valid]="isPassportValid()" [class.invalid]="!isPassportValid()">
+          {{ isPassportValid() ? '✅ معتمد — نشط' : '⏳ ' + getStatusLabel() }}
+        </div>
+
+        <div class="pcf-body">
+          <!-- Photo -->
+          <div class="pcf-photo">
+            @if (passport()?.profilePhoto) {
+              <img [src]="passport()?.profilePhoto" alt="Photo"/>
+            } @else {
+              <i class="bi bi-person-fill" style="font-size:48px;color:#64B5D9"></i>
+            }
+          </div>
+
+          <!-- Info -->
+          <div class="pcf-info">
+            <div class="pcf-label">الاسم الكامل / Full Name</div>
+            <div class="pcf-value-lg">{{ passport()?.name ?? userName() }}</div>
+
+            <div class="pcf-grid">
+              <div><div class="pcf-label">رقم الجواز / Passport No</div>
+                   <div class="pcf-value mono">{{ passport()?.number ?? '—' }}</div></div>
+              <div><div class="pcf-label">الجنسية / Nationality</div>
+                   <div class="pcf-value">مصري / Egyptian</div></div>
+              <div><div class="pcf-label">تاريخ الإصدار / Date of Issue</div>
+                   <div class="pcf-value">{{ passport()?.issuedDate | date:'dd/MM/yyyy' }}</div></div>
+              <div><div class="pcf-label">تاريخ الانتهاء / Date of Expiry</div>
+                   <div class="pcf-value">{{ passport()?.expiryDate | date:'dd/MM/yyyy' }}</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MRZ -->
+        <div class="pcf-mrz">{{ mrzLine() }}</div>
+      </div>
+
+      <!-- QR SECTION -->
+      <div class="qr-section">
+        <h3 class="qr-title">رمز QR الخاص بك</h3>
+        <p class="qr-desc">اعرض هذا الرمز عند نقاط التفتيش. يتجدد تلقائياً لضمان الأمان.</p>
+
+        @if (qrCode(); as qr) {
+          <div class="qr-display">
+            <img [src]="qr.qrCode ?? qr.image" alt="QR Code" class="qr-img"/>
+            <div class="qr-timer" [class.expiring]="qrIsExpiring()">
+              <i class="bi bi-clock"></i>
+              ينتهي خلال: <strong>{{ qrTimeLeft() }}</strong>
+              @if (qrIsExpiring()) { <span class="blink">⚠️</span> }
+            </div>
+            <button class="btn-refresh" [disabled]="isRefreshingQr()" (click)="refreshQrCode()">
+              @if (isRefreshingQr()) {
+                <span class="spinner-border spinner-border-sm me-1"></span>
+              }
+              🔄 تحديث رمز QR
+            </button>
+          </div>
+        }
+
+        <!-- Action buttons -->
+        <div class="wallet-actions">
+          <button class="wa-btn" (click)="downloadPdf()" [disabled]="isDownloadingPdf()">
+            @if (isDownloadingPdf()) {
+              <span class="spinner-border spinner-border-sm me-1"></span>
+            }
+            <i class="bi bi-file-pdf"></i> تحميل PDF
+          </button>
+          <a routerLink="/applications" class="wa-btn">
+            <i class="bi bi-list-check"></i> طلباتي
+          </a>
+          <a routerLink="/documents" class="wa-btn">
+            <i class="bi bi-folder2-open"></i> المستندات
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABS: Details -->
+    <div class="info-tabs">
+      <button class="info-tab" [class.active]="activeTab() === 'passport'" (click)="setTab('passport')">
+        🛂 بيانات الجواز
+      </button>
+      <button class="info-tab" [class.active]="activeTab() === 'qr'" (click)="setTab('qr')">
+        🔲 تفاصيل QR
+      </button>
+      <button class="info-tab" [class.active]="activeTab() === 'details'" (click)="setTab('details')">
+        🔐 حالة التحقق
+      </button>
+    </div>
+
+    <div class="info-panel">
+      @if (activeTab() === 'passport') {
+        <div class="info-row"><span class="info-key">رقم الجواز</span><span class="info-val mono">{{ passport()?.number ?? '—' }}</span></div>
+        <div class="info-row"><span class="info-key">تاريخ الإصدار</span><span class="info-val">{{ passport()?.issuedDate | date:'dd/MM/yyyy' }}</span></div>
+        <div class="info-row"><span class="info-key">تاريخ الانتهاء</span><span class="info-val">{{ passport()?.expiryDate | date:'dd/MM/yyyy' }}</span></div>
+        <div class="info-row"><span class="info-key">الحالة</span><span class="info-val" [style.color]="isPassportValid() ? '#16A34A' : '#D97706'">{{ isPassportValid() ? '✅ ساري' : '⏳ غير ساري' }}</span></div>
+        <div class="info-row"><span class="info-key">الرقم القومي</span><span class="info-val mono">{{ passport()?.nationalId ?? '***-****-****' }}</span></div>
+      }
+
+      @if (activeTab() === 'qr') {
+        @if (qrCode(); as qr) {
+          <div class="info-row"><span class="info-key">حالة QR</span><span class="info-val" style="color:#16A34A">✅ نشط</span></div>
+          <div class="info-row"><span class="info-key">صادر في</span><span class="info-val">{{ qr.issuedDate | date:'dd/MM/yyyy HH:mm' }}</span></div>
+          <div class="info-row"><span class="info-key">ينتهي في</span><span class="info-val">{{ qr.expiryDate | date:'dd/MM/yyyy HH:mm' }}</span></div>
+          <div class="info-row"><span class="info-key">آخر تحديث</span><span class="info-val">{{ qr.refreshedAt | date:'HH:mm:ss' }}</span></div>
+          <div class="info-row"><span class="info-key">ديناميكي</span><span class="info-val">✅ يتجدد تلقائياً كل 3 دقائق</span></div>
+        }
+      }
+
+      @if (activeTab() === 'details') {
+        <div class="info-row"><span class="info-key">حالة الطلب</span><span class="info-val">{{ getStatusLabel() }}</span></div>
+        <div class="info-row"><span class="info-key">التحقق من الهاتف</span><span class="info-val" style="color:#16A34A">✅ موثّق</span></div>
+        <div class="info-row"><span class="info-key">التحقق من البريد</span><span class="info-val" style="color:#16A34A">✅ موثّق</span></div>
+        <div class="info-row"><span class="info-key">التحقق من المستندات</span><span class="info-val" style="color:#16A34A">✅ موثّق</span></div>
+        <div class="info-row"><span class="info-key">التحقق البيومتري</span><span class="info-val" style="color:#D97706">⏳ قيد الإعداد</span></div>
+      }
+    </div>
+
+  }
+</div>

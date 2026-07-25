@@ -35,7 +35,7 @@ export class LoginComponent {
   loginForm = new FormGroup({
     emailOrPhone: new FormControl("", [
       Validators.required,
-      // 💡 Removed Validators.email to allow entering mobile phone numbers smoothly
+      // Removed Validators.email to allow entering mobile phone numbers smoothly
     ]),
     password: new FormControl("", [
       Validators.required,
@@ -68,19 +68,12 @@ export class LoginComponent {
 
     this._authService.login(emailOrMobile, password).subscribe({
       next: (response: any) => {
-        console.log("Login successful:", response);
         this._toastr.success("Welcome back! Login successful.", "Success");
         localStorage.setItem("userId", response.data.userId);
         localStorage.setItem("token", response.data.accessToken);
-        // console.log('Login response:', response.data.userId);
-        // 💡 Save the token here if provided by the backend:
-        // localStorage.setItem('token', response.token);
-
-        // Redirect to the dashboard/documents route
-        this._router.navigate(["/documents"]);
+        this._router.navigate(["/dashboard"]);
       },
       error: (err: any) => {
-        console.error("Login error occurred:", err.error?.messageAr);
         this._toastr.error(
           `${err.error.messageAr || "An error occurred during login."}`,
           "Authentication Failed",

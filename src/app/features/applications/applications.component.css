@@ -1,0 +1,64 @@
+.applications-page {
+  padding: 1rem;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.loading-wrap {
+  text-align: center;
+  padding: 2rem;
+}
+
+.status-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.35rem 0;
+}
+
+.status-notes {
+  margin-top: 0.75rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.applications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.application-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  color: inherit;
+}
+
+.app-status {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  background: #f0f0f0;
+}

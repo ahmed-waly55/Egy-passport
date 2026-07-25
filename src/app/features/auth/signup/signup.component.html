@@ -1,15 +1,16 @@
+<!-- src/app/features/auth/signup/signup.component.html -->
+<!-- FIXES: resend OTP with 2min cooldown, change phone→step 1, submit loading -->
 <div class="auth-page container-fluid p-0">
   <div class="row min-vh-100 g-0">
 
     <div class="col-lg-6 text-side"></div>
 
     <div class="col-lg-6 col-sm-12 col-md-12 form-side position-relative">
-
       <div class="login-card my-5 p-0" style="max-width: 850px;">
 
         <mat-stepper [ngStyle]="{backgroundColor: '#fefefe'}" [linear]="true" #stepper dir="rtl" class="custom-stepper">
 
-          <!-- Step 1: Create Account -->
+          <!-- ══ STEP 1: Account Details ══ -->
           <mat-step [stepControl]="signupForm">
             <ng-template matStepLabel>إنشاء الحساب</ng-template>
 
@@ -23,79 +24,40 @@
 
             <form dir="rtl" [formGroup]="signupForm" class="py-2">
               <div class="row g-3">
-
                 <div class="col-md-6">
-                  <app-field
-                    label="الاسم الكامل"
-                    placeholder="أدخل اسمك الكامل"
-                    [control]="signupForm.controls.fullName"
-                    [icon]="'fa-regular fa-user'"
-                  />
+                  <app-field label="الاسم الكامل" placeholder="أدخل اسمك الكامل" [control]="signupForm.controls.fullName" [icon]="'fa-regular fa-user'"/>
                 </div>
-
                 <div class="col-md-6">
-                  <app-field
-                    label="الرقم القومي"
-                    placeholder="14 رقم"
-                    [control]="signupForm.controls.nationalId"
-                    [icon]="'fa-regular fa-id-card'"
-                  />
+                  <app-field label="الرقم القومي" placeholder="14 رقم" [control]="signupForm.controls.nationalId" [icon]="'fa-regular fa-id-card'"/>
                 </div>
-
                 <div class="col-md-6">
-                  <app-field
-                    label="البريد الإلكتروني"
-                    placeholder="example@domain.com"
-                    [control]="signupForm.controls.email"
-                    [icon]="'fa-regular fa-envelope'"
-                  />
+                  <app-field label="البريد الإلكتروني" placeholder="example&#64;domain.com" [control]="signupForm.controls.email" [icon]="'fa-regular fa-envelope'"/>
                 </div>
-
                 <div class="col-md-6">
-                  <app-field
-                    label="رقم الهاتف المحمول"
-                    placeholder="10xxxxxxxx"
-                    [control]="signupForm.controls.mobileNumber"
-                    [icon]="'fa-solid fa-phone'"
-                  />
+                  <app-field label="رقم الهاتف المحمول" placeholder="01XXXXXXXXX" [control]="signupForm.controls.mobileNumber" [icon]="'fa-solid fa-phone'"/>
                 </div>
-
                 <div class="col-12">
-                  <app-field
-                    label="كلمة المرور"
-                    placeholder="أدخل كلمة المرور"
-                    [control]="signupForm.controls.password"
-                    [icon]="'fa-solid fa-lock'"
-                    type="password"
-                  />
+                  <app-field label="كلمة المرور" placeholder="أدخل كلمة المرور" [control]="signupForm.controls.password" [icon]="'fa-solid fa-lock'" type="password"/>
                 </div>
-
                 <div class="col-12">
-                  <app-field
-                    label="تأكيد كلمة المرور"
-                    placeholder="أعد إدخال كلمة المرور"
-                    [control]="signupForm.controls.confirmPassword"
-                    [icon]="'fa-solid fa-lock'"
-                    type="password"
-                  />
+                  <app-field label="تأكيد كلمة المرور" placeholder="أعد إدخال كلمة المرور" [control]="signupForm.controls.confirmPassword" [icon]="'fa-solid fa-lock'" type="password"/>
                 </div>
-
               </div>
 
               <div class="form-check d-flex align-items-center justify-content-start gap-2 my-4">
-                <input class="form-check-input m-0" type="checkbox" id="terms" formControlName="termsAccepted" />
+                <input class="form-check-input m-0" type="checkbox" id="terms" formControlName="termsAccepted"/>
                 <label class="form-check-label small user-select-none" for="terms">
-                  أوافق على <a class="text-danger text-decoration-none fw-semibold" style="cursor: pointer;">الشروط والأحكام وسياسة الخصوصية</a>
+                  أوافق على <a class="text-danger text-decoration-none fw-semibold" style="cursor:pointer">الشروط والأحكام وسياسة الخصوصية</a>
                 </label>
               </div>
 
               <button mat-raised-button class="w-100 py-3 custom-btn" [disabled]="signupForm.invalid" matStepperNext>
-                <i class="fa-solid fa-user-plus me-2"></i> التالي: البيانات الشخصية
+                <i class="fa-solid fa-user-plus me-2"></i> إنشاء حساب
               </button>
             </form>
           </mat-step>
 
-          <!-- Step 2: Personal Info -->
+          <!-- ══ STEP 2: Personal Info ══ -->
           <mat-step [stepControl]="personalForm">
             <ng-template matStepLabel>البيانات الشخصية</ng-template>
             <form [formGroup]="personalForm" class="py-3">
@@ -105,27 +67,16 @@
               </div>
 
               <div class="row g-3">
-
-                <!-- nationality -->
                 <div class="col-md-6">
-                  <app-field
-                    label="الجنسية"
-                    placeholder="مثال: مصري"
-                    [control]="personalForm.controls.nationality"
-                    [icon]="'fa-solid fa-flag'"
-                  />
+                  <app-field label="الجنسية" placeholder="مثال: مصري" [control]="personalForm.controls.nationality" [icon]="'fa-solid fa-flag'"/>
                 </div>
-
-                <!-- birth of date -->
                 <div class="col-md-6">
                   <span class="form-label fw-medium mx-2">تاريخ الميلاد</span>
                   <div class="input-group birhtdate-field">
                     <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
-                    <input type="date" class="form-control" formControlName="birthDate" />
+                    <input type="date" class="form-control" formControlName="birthDate"/>
                   </div>
                 </div>
-
-                <!-- gender -->
                 <div class="col-md-6">
                   <label class="form-label fw-medium">النوع</label>
                   <div class="input-group gender-field">
@@ -137,27 +88,12 @@
                     </select>
                   </div>
                 </div>
-
-                <!-- governorate -->
                 <div class="col-md-6">
-                  <app-field
-                    label="المحافظة"
-                    placeholder="اختر المحافظة"
-                    [control]="personalForm.controls.governorate"
-                    [icon]="'fa-solid fa-map-location-dot'"
-                  />
+                  <app-field label="المحافظة" placeholder="اختر المحافظة" [control]="personalForm.controls.governorate" [icon]="'fa-solid fa-map-location-dot'"/>
                 </div>
-
-                <!-- address -->
                 <div class="col-12">
-                  <app-field
-                    label="العنوان الحالي"
-                    placeholder="المحافظة، المركز، اسم الشارع"
-                    [control]="personalForm.controls.address"
-                    [icon]="'fa-solid fa-location-dot'"
-                  />
+                  <app-field label="العنوان الحالي" placeholder="المحافظة، المركز، اسم الشارع" [control]="personalForm.controls.address" [icon]="'fa-solid fa-location-dot'"/>
                 </div>
-
               </div>
 
               <div class="d-flex gap-2 mt-4">
@@ -169,54 +105,38 @@
             </form>
           </mat-step>
 
-          <!-- Step 3: Upload Documents -->
+          <!-- ══ STEP 3: Documents ══ -->
           <mat-step [stepControl]="documentsForm">
             <ng-template matStepLabel>رفع المستندات</ng-template>
-
             <form [formGroup]="documentsForm" class="py-3">
               <div class="text-center mb-4">
                 <h3 class="fw-bold text-dark">رفع المستندات الرسمية</h3>
                 <p class="text-muted small">يمكنك رفع أكثر من مستند</p>
               </div>
 
-              <!-- Upload Area -->
-              <div
-                class="border rounded text-center p-5 mb-4 bg-light"
-                style="border-style: dashed !important; cursor: pointer;"
-                (click)="fileInput.click()"
-              >
+              <div class="border rounded text-center p-5 mb-4 bg-light" style="border-style:dashed!important;cursor:pointer" (click)="fileInput.click()">
                 <i class="fa-solid fa-cloud-arrow-up fs-1 text-secondary mb-3"></i>
                 <h6>اضغط لرفع الملفات</h6>
                 <small class="text-muted">PNG, JPG, JPEG, PDF</small>
-                <input
-                  #fileInput
-                  type="file"
-                  multiple
-                  hidden
-                  accept=".png,.jpg,.jpeg,.pdf"
-                  (change)="onFilesSelected($event)"
-                />
+                <input #fileInput type="file" multiple hidden accept=".png,.jpg,.jpeg,.pdf" (change)="onFilesSelected($event)"/>
               </div>
 
-              <!-- Preview Files -->
               @if(selectedFiles.length > 0){
                 <div class="row g-3 mb-4">
                   @for(file of selectedFiles; track $index){
                     <div class="col-md-4">
                       <div class="card shadow-sm border-0 rounded-4 overflow-hidden h-100">
                         @if(file.preview){
-                          <img [src]="file.preview" class="card-img-top" style="height: 220px; object-fit: cover;" />
+                          <img [src]="file.preview" class="card-img-top" style="height:220px;object-fit:cover"/>
                         } @else {
-                          <div class="d-flex flex-column justify-content-center align-items-center p-5 bg-light" style="height: 220px;">
+                          <div class="d-flex flex-column justify-content-center align-items-center p-5 bg-light" style="height:220px">
                             <i class="fa-solid fa-file-pdf fs-1 text-danger"></i>
                             <small class="mt-2">PDF File</small>
                           </div>
                         }
                         <div class="card-body text-center">
                           <small class="text-muted d-block text-truncate">{{ file.file.name }}</small>
-                          <button type="button" class="btn btn-sm btn-outline-danger mt-2" (click)="removeFile($index)">
-                            حذف الملف
-                          </button>
+                          <button type="button" class="btn btn-sm btn-outline-danger mt-2" (click)="removeFile($index)">حذف الملف</button>
                         </div>
                       </div>
                     </div>
@@ -224,79 +144,119 @@
                 </div>
               }
 
-              <!-- Validation -->
               @if(documentsForm.controls.docUploaded.touched && documentsForm.controls.docUploaded.invalid){
                 <small class="text-danger d-block text-center mb-3">يجب رفع ملف واحد على الأقل</small>
               }
 
               <div class="d-flex gap-2">
                 <button type="button" mat-button matStepperPrevious>السابق</button>
-                <button
-                  type="button"
-                  mat-raised-button
-                  class="flex-grow-1 custom-btn"
-                  [disabled]="documentsForm.invalid"
-                  matStepperNext
-                >
-                  التالي: تأكيد البيانات
-                  <i class="fa-solid fa-arrow-left ms-2"></i>
+                <button type="button" mat-raised-button class="flex-grow-1 custom-btn" [disabled]="documentsForm.invalid" matStepperNext (click)="startTimer()">
+                  التالي: التحقق <i class="fa-solid fa-arrow-left ms-2"></i>
                 </button>
               </div>
             </form>
           </mat-step>
 
-          <!-- Step 4: Confirmation / Review -->
+          <!-- ══ STEP 4: OTP Verification ══ -->
           <mat-step>
-            <ng-template matStepLabel>تأكيد البيانات</ng-template>
-            <div class="verification-container py-4">
+            <ng-template matStepLabel>التحقق</ng-template>
+            <div class="verification-container text-center py-4">
 
-              <div class="text-center mb-4">
-                <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center border mb-3" style="width: 75px; height: 75px;">
-                  <i class="fa-solid fa-clipboard-check text-success fs-2"></i>
-                </div>
-                <h3 class="fw-bold text-dark mb-1">مراجعة وتأكيد البيانات</h3>
-                <p class="text-muted small">يرجى التأكد من صحة كافة البيانات المدخلة قبل إتمام التسجيل</p>
+              <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center border mb-3 position-relative" style="width:85px;height:85px">
+                <i class="fa-solid fa-mobile-screen-button text-dark fs-1"></i>
+                <i class="fa-solid fa-circle-check text-success position-absolute bottom-0 end-0 fs-4 m-1"></i>
               </div>
 
-              <!-- Summary Cards -->
-              <div class="card mb-3 border-0 bg-light rounded-3">
-                <div class="card-body">
-                  <h6 class="fw-bold text-primary mb-3"><i class="fa-regular fa-user me-2"></i>بيانات الحساب</h6>
-                  <div class="row g-2 small">
-                    <div class="col-md-6"><strong>الاسم:</strong> {{ signupForm.value.fullName }}</div>
-                    <div class="col-md-6"><strong>الرقم القومي:</strong> {{ signupForm.value.nationalId }}</div>
-                    <div class="col-md-6"><strong>البريد الإلكتروني:</strong> {{ signupForm.value.email }}</div>
-                    <div class="col-md-6"><strong>رقم الهاتف:</strong> {{ signupForm.value.mobileNumber }}</div>
-                  </div>
-                </div>
+              <h3 class="fw-bold text-dark mb-1">التحقق من رقم الهاتف</h3>
+              <p class="text-muted small px-4">تم إرسال رمز تحقق مكون من 6 أرقام إلى رقم الهاتف المسجل</p>
+
+              <div class="bg-light rounded border py-2 px-3 d-inline-flex align-items-center gap-2 my-3">
+                <i class="fa-solid fa-mobile-screen text-muted"></i>
+                <span class="text-secondary dir-ltr">{{ signupForm.value.mobileNumber }}</span>
+                <span class="text-muted small">تم إرسال الرمز إلى</span>
               </div>
 
-              <div class="card mb-3 border-0 bg-light rounded-3">
-                <div class="card-body">
-                  <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-address-card me-2"></i>البيانات الشخصية</h6>
-                  <div class="row g-2 small">
-                    <div class="col-md-6"><strong>الجنسية:</strong> {{ personalForm.value.nationality }}</div>
-                    <div class="col-md-6"><strong>تاريخ الميلاد:</strong> {{ personalForm.value.birthDate }}</div>
-                    <div class="col-md-6"><strong>النوع:</strong> {{ personalForm.value.gender === 'male' ? 'ذكر' : 'أنثى' }}</div>
-                    <div class="col-md-6"><strong>المحافظة:</strong> {{ personalForm.value.governorate }}</div>
-                    <div class="col-12"><strong>العنوان:</strong> {{ personalForm.value.address }}</div>
-                  </div>
-                </div>
+              <div class="d-flex justify-content-center flex-column gap-2 my-4 dir-ltr">
+                <p class="mb-0 fw-bold">أدخل رمز التحقق (OTP)</p>
+                <form [formGroup]="otpForm">
+                  <input type="text" class="form-control text-center fw-bold fs-4 mx-auto"
+                         placeholder="من فضلك أدخل الرمز" style="width:250px;height:55px"
+                         maxLength="6" formControlName="otp"/>
+                </form>
               </div>
 
-              <div class="card mb-4 border-0 bg-light rounded-3">
-                <div class="card-body">
-                  <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-file me-2"></i>المستندات المرفوعة</h6>
-                  <span class="badge bg-secondary">{{ selectedFiles.length }} مستند(ات) مرفوعة</span>
-                </div>
+              <!-- OTP Validity -->
+              <div class="badge bg-light text-success border py-2 px-3 rounded-pill mb-3">
+                <i class="fa-regular fa-circle-check me-1"></i> الرمز صالح لمدة 5 دقائق
               </div>
 
-              <div class="d-flex gap-2">
-                <button type="button" mat-button matStepperPrevious>السابق</button>
-                <button type="button" mat-raised-button class="flex-grow-1 custom-btn fs-5 py-3" (click)="onSubmitAll()">
-                  تأكيد وإتمام التسجيل <i class="fa-solid fa-check ms-2"></i>
+              <!-- Timer -->
+              <div class="text-muted small mb-2">
+                ينتهي الرمز خلال:
+                <span class="fw-bold ms-1" [class.text-danger]="timer < 60" [class.text-warning]="timer >= 60">
+                  <i class="fa-regular fa-clock me-1"></i> {{ timerText }}
+                </span>
+              </div>
+
+              <!-- ✅ Resend Cooldown Info -->
+              @if (resendCooldown > 0) {
+                <div class="text-muted small mb-3">
+                  <i class="fa-solid fa-hourglass-half me-1"></i>
+                  يمكنك إعادة الإرسال بعد: <span class="text-danger fw-bold">{{ resendCooldownText }}</span>
+                </div>
+              }
+
+              <!-- ✅ Max resend warning -->
+              @if (resendCount >= maxResend) {
+                <div class="alert alert-warning small py-2 mx-4">
+                  <i class="fa-solid fa-triangle-exclamation me-1"></i>
+                  تجاوزت الحد الأقصى لإعادة الإرسال ({{ maxResend }} مرات).
+                </div>
+              }
+
+              <div class="d-flex justify-content-center gap-3 mb-4 w-100 px-3">
+
+                <!-- ✅ FIX: Change phone → go to Step 1 (not previous step) -->
+                <button type="button" class="btn btn-outline-secondary flex-grow-1 py-2 btn-sm"
+                        (click)="goToPhoneStep()">
+                  <i class="fa-regular fa-pen-to-square me-1"></i> تعديل رقم الهاتف
                 </button>
+
+                <!-- ✅ FIX: Resend OTP with 2-min cooldown + API call -->
+                <button type="button" class="btn btn-outline-danger flex-grow-1 py-2 btn-sm"
+                        [disabled]="resendCooldown > 0 || resendCount >= maxResend || isResending"
+                        (click)="resendOtp()">
+                  @if (isResending) {
+                    <span class="spinner-border spinner-border-sm me-1"></span>
+                  } @else {
+                    <i class="fa-solid fa-rotate-right me-1"></i>
+                  }
+                  إعادة إرسال الرمز
+                  @if (resendCooldown > 0) {
+                    <span class="ms-1">({{ resendCooldownText }})</span>
+                  }
+                </button>
+
               </div>
+
+              <!-- ✅ Submit with loading state -->
+              <button type="button" mat-raised-button class="w-100 py-3 custom-btn fs-5"
+                      [disabled]="otpForm.invalid || isSubmitting || timer <= 0"
+                      (click)="onSubmitAll()">
+                @if (isSubmitting) {
+                  <span class="spinner-border spinner-border-sm me-2"></span> جارٍ التسجيل...
+                } @else {
+                  تحقق وتأكيد التسجيل <i class="fa-solid fa-arrow-left ms-2"></i>
+                }
+              </button>
+
+              <!-- ✅ Expired OTP warning -->
+              @if (timer <= 0) {
+                <div class="alert alert-danger small mt-3 py-2 mx-4">
+                  <i class="fa-solid fa-clock me-1"></i>
+                  انتهت صلاحية الرمز. يرجى طلب رمز جديد.
+                </div>
+              }
 
             </div>
           </mat-step>
@@ -310,6 +270,5 @@
 
       </div>
     </div>
-
   </div>
 </div>

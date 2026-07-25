@@ -66,4 +66,9 @@ export class AuthService {
       },
     );
   }
+
+  getToken(): string | null {
+    if (typeof localStorage === 'undefined') return null;
+    return localStorage.getItem('token');
+  }
 }

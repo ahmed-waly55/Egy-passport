@@ -1,0 +1,67 @@
+<div class="applications-page" dir="rtl">
+  <div class="page-header">
+    <div class="page-title">طلباتي</div>
+    @if (!applicationId()) {
+      <button class="btn btn-danger btn-sm" (click)="createNewApplication()">
+        <i class="bi bi-plus-lg me-1"></i> طلب جديد
+      </button>
+    }
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading-wrap">
+      <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>جاري التحميل...</p>
+    </div>
+  }
+
+  @if (loadError() && !isLoading()) {
+    <div class="alert alert-danger text-center" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      {{ loadError() }}
+    </div>
+  }
+
+  <!-- Detail view -->
+  @if (!isLoading() && applicationId() && applicationStatus(); as status) {
+    <div class="status-card">
+      <div class="status-row">
+        <span>رقم الطلب:</span>
+        <strong>{{ status.applicationId }}</strong>
+      </div>
+      <div class="status-row">
+        <span>الحالة:</span>
+        <strong>{{ status.status }}</strong>
+      </div>
+      <div class="status-row">
+        <span>المرحلة:</span>
+        <strong>{{ status.stage }}</strong>
+      </div>
+      <div class="progress" style="height: 8px">
+        <div class="progress-bar bg-danger" [style.width.%]="status.progress"></div>
+      </div>
+      @if (status.notes) {
+        <p class="status-notes">{{ status.notes }}</p>
+      }
+    </div>
+  }
+
+  <!-- List view -->
+  @if (!isLoading() && !applicationId()) {
+    <div class="applications-list">
+      @for (app of applications(); track app.id) {
+        <a class="application-row" [routerLink]="['/applications', app.id]">
+          <div class="app-ref">{{ app.referenceNumber ?? app.id }}</div>
+          <span class="app-status" [class]="'status-' + app.status">{{ app.status }}</span>
+        </a>
+      }
+      @empty {
+        @if (!loadError()) {
+          <div class="empty-state text-center text-muted py-5">لا توجد طلبات بعد</div>
+        }
+      }
+    </div>
+  }
+</div>

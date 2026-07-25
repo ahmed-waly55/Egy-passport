@@ -1,0 +1,210 @@
+<!-- src/app/pages/dashboard/dashboard.component.html -->
+<!-- REPLACES existing dashboard.component.html -->
+<div class="dashboard-page" dir="rtl">
+
+  <!-- LOADING -->
+  @if (isLoading()) {
+    <div class="loading-wrap">
+      <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>جاري تحميل بياناتك...</p>
+    </div>
+  }
+
+  @if (!isLoading()) {
+
+    <!-- WELCOME -->
+    <div class="welcome-section">
+      <h1 class="welcome-title">
+        مرحبا بك، {{ userName() }} 👋
+      </h1>
+      <p class="welcome-sub">إدارة هويتك الرقمية للسفر في مكان واحد</p>
+    </div>
+
+    <!-- MAIN GRID: Status Tracker + Digital Passport Card -->
+    <div class="dashboard-grid">
+
+      <!-- LEFT: STATUS TRACKER -->
+      @if (latestApp(); as app) {
+        <div class="status-card">
+          <div class="status-card__header">
+            <h3><i class="bi bi-clipboard-check"></i> حالة الطلب</h3>
+            <span class="ref-num">{{ app.referenceNumber ?? app.id }}</span>
+          </div>
+
+          <div class="status-steps">
+            @for (step of statusSteps(); track step.key; let i = $index) {
+              <div class="status-step"
+                   [class.done]="step.done"
+                   [class.current]="step.current"
+                   [class.failed]="step.failed">
+                <div class="step-icon">
+                  @if (step.done) { <i class="bi bi-check-circle-fill"></i> }
+                  @else if (step.current) { <i class="bi bi-arrow-repeat spinning"></i> }
+                  @else if (step.failed) { <i class="bi bi-x-circle-fill"></i> }
+                  @else { <i class="bi bi-lock"></i> }
+                </div>
+                <div class="step-info">
+                  <span class="step-label">{{ lang() === 'ar' ? step.labelAr : step.labelEn }}</span>
+                  @if (step.current) {
+                    <span class="step-sub current-sub">جارٍ التحقق من بياناتك ومستنداتك</span>
+                  }
+                  @if (step.date) {
+                    <span class="step-date">{{ step.date | date: 'dd MMMM yyyy' }}</span>
+                  }
+                  @if (!step.done && !step.current && !step.failed) {
+                    <span class="step-sub pending-sub">
+                      {{ step.key === 'approved' ? 'ستصلم إشعارك عند الموافقة' : 'جاهز للاستخدام' }}
+                    </span>
+                  }
+                </div>
+              </div>
+              @if (i < statusSteps().length - 1) {
+                <div class="step-connector" [class.done]="step.done"></div>
+              }
+            }
+          </div>
+
+          <a routerLink="/applications" class="btn-view-all">
+            <i class="bi bi-eye"></i> عرض جميع مراحل الطلب
+          </a>
+        </div>
+      }
+
+      <!-- CENTER: DIGITAL PASSPORT CARD -->
+      <div class="passport-section">
+        <div class="passport-card-hero">
+          <!-- Status Badge -->
+          <div class="passport-status-badge" [class]="getStatusBadgeClass()">
+            <span class="status-dot"></span> {{ getStatusLabel() }}
+          </div>
+
+          <div class="passport-card-header">
+            <i class="bi bi-patch-check-fill"></i>
+            <div>
+              <strong>جواز السفر الرقمي</strong>
+              <small>Digital Passport</small>
+            </div>
+          </div>
+
+          <div class="passport-card-body">
+            <!-- QR Code -->
+            <div class="qr-block">
+              @if (qrCodeData(); as qr) {
+                <img [src]="qr.qrCode ?? qr.image" alt="QR Code" class="qr-image"/>
+                <div class="qr-timer">
+                  <i class="bi bi-clock"></i> سينتهي خلال {{ qrTimeLeft() }}
+                </div>
+              } @else {
+                <div class="qr-placeholder">
+                  <i class="bi bi-qr-code" style="font-size:48px;opacity:.3"></i>
+                </div>
+              }
+            </div>
+
+            <!-- Passport Info -->
+            <div class="passport-info-block">
+              @if (passportData(); as p) {
+                <div class="passport-name">{{ p.name ?? userName() }}</div>
+                <div class="passport-role">المواطن المصري<br>Egyptian Citizen</div>
+                <div class="passport-detail">
+                  <span class="detail-label">رقم الطلب</span>
+                  <span class="detail-value ref">{{ latestApp()?.referenceNumber ?? latestApp()?.id ?? '—' }}</span>
+                </div>
+                <div class="passport-detail">
+                  <span class="detail-label">آخر تحديث</span>
+                  <span class="detail-value">{{ latestApp()?.updatedAt | date:'dd MMMM yyyy - hh:mm a' }}</span>
+                </div>
+              } @else {
+                <div class="passport-name">{{ userName() }}</div>
+                <div class="passport-role">المواطن المصري</div>
+              }
+
+              <!-- Passport thumbnail -->
+              @if (passportData(); as p) {
+                <img *ngIf="p.profilePhoto" [src]="p.profilePhoto" alt="Passport" class="passport-thumb"/>
+              }
+            </div>
+          </div>
+
+          <!-- QR Refresh Button -->
+          <button class="btn-refresh-qr" [disabled]="isRefreshingQr()" (click)="refreshQRCode()">
+            @if (isRefreshingQr()) {
+              <span class="spinner-border spinner-border-sm me-1"></span>
+            }
+            <i class="bi bi-arrow-clockwise"></i> تحديث رمز QR
+          </button>
+
+          <div class="qr-note">
+            <i class="bi bi-info-circle"></i>
+            رمز QR ديناميكي ويتجدد تلقائيا كل 3 دقائق لضمان الأمان
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /dashboard-grid -->
+
+    <!-- BOTTOM ROW: Quick Actions + Uploaded Documents -->
+    <div class="bottom-grid">
+
+      <!-- QUICK ACTIONS -->
+      <div class="quick-actions-section">
+        <h3 class="section-title">إجراءات سريعة</h3>
+        <div class="quick-actions-grid">
+          <a routerLink="/wallet" class="qa-card">
+            <i class="bi bi-qr-code"></i>
+            <span>عرض رمز QR</span>
+            <small>للاستخدام</small>
+          </a>
+          <a routerLink="/wallet" class="qa-card">
+            <i class="bi bi-file-earmark-text"></i>
+            <span>عرض تفاصيل</span>
+            <small>جواز السفر</small>
+          </a>
+          <button class="qa-card" (click)="downloadPdf()">
+            <i class="bi bi-download"></i>
+            <span>تحميل PDF</span>
+            <small>عند الموافقة</small>
+          </button>
+          <a routerLink="/settings" class="qa-card">
+            <i class="bi bi-headset"></i>
+            <span>مساعدة</span>
+            <small>الدعم الفني</small>
+          </a>
+        </div>
+      </div>
+
+      <!-- UPLOADED DOCUMENTS -->
+      <div class="documents-section">
+        <div class="section-header">
+          <h3 class="section-title">المستندات المرفوعة</h3>
+          <a routerLink="/documents" class="view-all-link">عرض الكل</a>
+        </div>
+        <div class="doc-thumbnails">
+          @for (doc of documents().slice(0, 4); track doc.id) {
+            <div class="doc-thumb" [class.verified]="doc.status === 'verified'">
+              @if (doc.img) {
+                <img [src]="doc.img" [alt]="doc.title[lang()]"/>
+              } @else {
+                <i class="bi bi-file-earmark-image" style="font-size:28px;color:#ccc"></i>
+              }
+              @if (doc.status === 'verified') {
+                <span class="doc-check"><i class="bi bi-check-circle-fill"></i></span>
+              }
+              <span class="doc-label">{{ doc.title[lang()] }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+    </div><!-- /bottom-grid -->
+
+    <!-- SECURITY BANNER -->
+    <div class="security-banner">
+      <i class="bi bi-shield-check"></i>
+      بياناتك محمية ومشفرة بالكامل طبقاً لأعلى معايير الأمان الحكومية
+    </div>
+
+  }
+</div>
