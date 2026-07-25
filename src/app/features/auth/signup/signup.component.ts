@@ -48,7 +48,7 @@ export class SignupComponent {
   selectedFiles: {
     file: File;
     preview: string | null;
-  }[] = [];
+  }[] = []; //d
 
   onFilesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
