@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl } from '@angular/forms';
 
 import { FieldComponent } from './field.component';
 
@@ -14,6 +15,7 @@ describe('FieldComponent', () => {
 
     fixture = TestBed.createComponent(FieldComponent);
     component = fixture.componentInstance;
+    component.control = new FormControl('test value');
     fixture.detectChanges();
   });
 

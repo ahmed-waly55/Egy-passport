@@ -30,6 +30,12 @@ describe('LoginComponent', () => {
         { provide: ToastrService, useValue: toastrSpy },
       ],
     }).compileComponents();
+    
+    TestBed.overrideProvider(AuthService, { useValue: authSpy });
+    TestBed.overrideProvider(ToastrService, { useValue: toastrSpy });
+    
+    TestBed.overrideProvider(AuthService, { useValue: authSpy });
+    TestBed.overrideProvider(ToastrService, { useValue: toastrSpy });
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
@@ -44,7 +50,7 @@ describe('LoginComponent', () => {
   // TC-002-01: successful login → /dashboard
   it('should redirect to /dashboard after successful login', () => {
     authSpy.login.and.returnValue(of({
-      user: { id: 'u-123' }, token: 'jwt-token'
+      data: { userId: 'u-123', accessToken: 'jwt-token' }
     } as any));
 
     component.loginForm.setValue({ emailOrPhone: 'test@mail.com', password: '123456' });

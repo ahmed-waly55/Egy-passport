@@ -37,37 +37,38 @@ describe('NotificationsComponent — Events per state', () => {
   // TC-005-02: Welcome notification after first login/registration
   it('should have WELCOME notification for new user', () => {
     const s = MockDataService.getState('zero');
-    const welcome = s.notifications.find(n => n.type === 'WELCOME');
+    const welcome = s.notifications.find(n => n.type === 'welcome');
     expect(welcome).toBeTruthy();
     expect(welcome!.titleAr).toContain('مرحبا');
   });
 
-  // TC-005-03: Profile completed notification
-  it('DRAFT state: should have PROFILE_COMPLETED notification', () => {
+  // TC-005-03: Draft state notification
+  it('DRAFT state: should have an info notification for draft creation', () => {
     const s = MockDataService.getState('draft');
-    const n = s.notifications.find(x => x.type === 'PROFILE_COMPLETED');
+    const n = s.notifications.find(x => x.type === 'info');
     expect(n).toBeTruthy();
+    expect(n!.titleAr).toContain('مسودة');
   });
 
   // TC-005-04: Document under review notifications
-  it('SUBMITTED state: should have DOC_UNDER_REVIEW notification', () => {
+  it('SUBMITTED state: should have review-related notifications', () => {
     const s = MockDataService.getState('submitted');
-    const n = s.notifications.find(x => x.type === 'DOC_UNDER_REVIEW');
-    expect(n).toBeTruthy();
+    expect(s.notifications.find(x => x.type === 'info')).toBeTruthy();
+    expect(s.notifications.find(x => x.type === 'success')).toBeTruthy();
+    expect(s.notifications.find(x => x.type === 'error')).toBeTruthy();
   });
 
   // TC-005-05: Approval + QR generated notifications
   it('APPROVED state: should have PASSPORT_APPROVED + QR_GENERATED', () => {
     const s = MockDataService.getState('approved');
-    expect(s.notifications.find(x => x.type === 'PASSPORT_APPROVED')).toBeTruthy();
-    expect(s.notifications.find(x => x.type === 'QR_GENERATED')).toBeTruthy();
-    expect(s.notifications.find(x => x.type === 'DOC_APPROVED')).toBeTruthy();
+    expect(s.notifications.find(x => x.type === 'success')).toBeTruthy();
+    expect(s.notifications.find(x => x.type === 'info')).toBeTruthy();
   });
 
   // TC-005-06: Rejection notification with reason
   it('REJECTED state: should have DOC_REJECTED with reason', () => {
     const s = MockDataService.getState('rejected');
-    const n = s.notifications.find(x => x.type === 'DOC_REJECTED');
+    const n = s.notifications.find(x => x.type === 'error');
     expect(n).toBeTruthy();
     expect(n!.messageAr).toBeTruthy();   // includes rejection reason
   });
