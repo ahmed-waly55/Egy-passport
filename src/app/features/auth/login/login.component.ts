@@ -1,14 +1,19 @@
-import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Component, inject } from "@angular/core";
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { Router, RouterLink } from "@angular/router";
 import { BtnComponent } from "../../../shared/components/btn/btn.component";
 import { FieldComponent } from "../../../shared/components/field/field.component";
-import { AuthService } from '../../../services/auth.service';
-import { ToastrService } from 'ngx-toastr';
+import { AuthService } from "../../../services/auth.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
-  selector: 'app-login',
+  selector: "app-login",
   standalone: true,
   imports: [
     BtnComponent,
@@ -16,13 +21,11 @@ import { ToastrService } from 'ngx-toastr';
     ReactiveFormsModule,
     CommonModule,
     RouterLink,
-
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: "./login.component.html",
+  styleUrl: "./login.component.css",
 })
 export class LoginComponent {
-
   // --- Services Injection ---
   private _authService = inject(AuthService);
   private _router = inject(Router);
@@ -30,11 +33,11 @@ export class LoginComponent {
 
   // --- Form Initialization ---
   loginForm = new FormGroup({
-    emailOrPhone: new FormControl('', [
-      Validators.required
+    emailOrPhone: new FormControl("", [
+      Validators.required,
       // 💡 Removed Validators.email to allow entering mobile phone numbers smoothly
     ]),
-    password: new FormControl('', [
+    password: new FormControl("", [
       Validators.required,
       Validators.minLength(6),
     ]),
@@ -53,30 +56,36 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
-      this._toastr.warning('Please fill in all required fields correctly.', 'Validation Warning');
+      this._toastr.warning(
+        "Please fill in all required fields correctly.",
+        "Validation Warning",
+      );
       return;
     }
 
-    const emailOrMobile = this.loginForm.value.emailOrPhone ?? '';
-    const password = this.loginForm.value.password ?? '';
+    const emailOrMobile = this.loginForm.value.emailOrPhone ?? "";
+    const password = this.loginForm.value.password ?? "";
 
     this._authService.login(emailOrMobile, password).subscribe({
       next: (response: any) => {
-        console.log('Login successful:', response);
-        this._toastr.success('Welcome back! Login successful.', 'Success');
-        localStorage.setItem('userId', response.data.userId);
-        localStorage.setItem('token', response.data.accessToken);
+        console.log("Login successful:", response);
+        this._toastr.success("Welcome back! Login successful.", "Success");
+        localStorage.setItem("userId", response.data.userId);
+        localStorage.setItem("token", response.data.accessToken);
         // console.log('Login response:', response.data.userId);
         // 💡 Save the token here if provided by the backend:
         // localStorage.setItem('token', response.token);
 
         // Redirect to the dashboard/documents route
-        this._router.navigate(['/documents']);
+        this._router.navigate(["/documents"]);
       },
-      error: (err:any) => {
-        console.error('Login error occurred:', err);
-        this._toastr.error(`${err.error.messageAr || 'An error occurred during login.'}`, 'Authentication Failed');
-      }
+      error: (err: any) => {
+        console.error("Login error occurred:", err.error?.messageAr);
+        this._toastr.error(
+          `${err.error.messageAr || "An error occurred during login."}`,
+          "Authentication Failed",
+        );
+      },
     });
   }
 }
