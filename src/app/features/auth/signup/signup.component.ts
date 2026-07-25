@@ -9,7 +9,7 @@ import {
   FormsModule,
 } from "@angular/forms";
 import { FieldComponent } from "../../../shared/components/field/field.component";
-import { RouterLink } from "@angular/router";
+import { RouterLink, Router } from "@angular/router";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatStepperModule } from "@angular/material/stepper";
@@ -37,6 +37,7 @@ import { ToastrService } from "ngx-toastr";
 })
 export class SignupComponent {
   private _formBuilder = inject(FormBuilder);
+  private _router = inject(Router);
   constructor(
     private _authService: AuthService,
     private _toastr: ToastrService,
