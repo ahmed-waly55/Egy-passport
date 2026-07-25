@@ -153,6 +153,7 @@ export class SignupComponent {
     this._authService.register(finalPayload.accountAndDetails).subscribe({
       next: (response: ISignup) => {
         this._toastr.success("تم التسجيل بنجاح.", "نجاح");
+        this._router.navigate(["/login"]);
       },
       error: (err) => {
         this._toastr.error("حدث خطأ أثناء التسجيل.", err.error?.messageAr);
